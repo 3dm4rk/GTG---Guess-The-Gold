@@ -1816,7 +1816,7 @@
     </div>
     
     <div class="turtle-effect-display" id="turtle-effect-display" style="display: none;">
-        <i class="fas fa-turtle"></i>
+        <i class="fa-solid fa-clock"></i>
     </div>
     
     <!-- Welcome Modal -->
@@ -2796,7 +2796,7 @@
                     id: 'time_travel_turtle', 
                     name: 'Time Travel Turtle', 
                     price: 25, // 25 diamonds
-                    icon: 'fas fa-turtle', 
+                    icon: 'fa-solid fa-clock', 
                     color: '#00ffcc', 
                     effect: 'Time rewind (undo wrong guess) + 30% gold bonus', 
                     rarity: 'godtier',
@@ -3919,7 +3919,7 @@
                     instruction += ` <span style="color:#ff0000"><i class="fas fa-fire"></i> 50% resurrection chance</span>`;
                 }
                 if (pet.id === 'time_travel_turtle' && gameState.petAbilities.time_travel_turtle.rewindAvailable) {
-                    instruction += ` <span style="color:#00ffcc"><i class="fas fa-turtle"></i> Time rewind available</span>`;
+                    instruction += ` <span style="color:#00ffcc"><i class="fa-solid fa-clock"></i> Time rewind available</span>`;
                 }
             }
             document.getElementById('instruction').innerHTML = instruction;
@@ -4169,7 +4169,7 @@
             if (gameState.equippedPet === 'time_travel_turtle' && 
                 gameState.petAbilities.time_travel_turtle.rewindAvailable &&
                 shouldLoseLife) {
-                message += ` <span style="color:#00ffcc"><i class="fas fa-turtle"></i> Use Time Rewind to undo!</span>`;
+                message += ` <span style="color:#00ffcc"><i class="fa-solid fa-clock"></i> Use Time Rewind to undo!</span>`;
                 document.getElementById('time-rewind-btn').style.display = 'inline-flex';
             }
             
