@@ -27,17 +27,67 @@
             --text-light: #fff;
             --text-muted: #ccc;
             --mystery: #9c88ff;
+            
+            /* Theme colors - default (gold theme) */
+            --theme-primary: #FFD700;
+            --theme-secondary: #FFA500;
+            --theme-accent: #4dabf7;
+            --theme-bg-primary: #0a0a0a;
+            --theme-bg-secondary: #1a1a2e;
+            --theme-card-bg: rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Earth Theme */
+        .theme-earth {
+            --theme-primary: #228B22;
+            --theme-secondary: #32CD32;
+            --theme-accent: #8B4513;
+            --theme-bg-primary: #0d1f0d;
+            --theme-bg-secondary: #1a331a;
+            --theme-card-bg: rgba(13, 31, 13, 0.7);
+        }
+        
+        /* Sea Theme */
+        .theme-sea {
+            --theme-primary: #1E90FF;
+            --theme-secondary: #00BFFF;
+            --theme-accent: #20B2AA;
+            --theme-bg-primary: #000033;
+            --theme-bg-secondary: #001a33;
+            --theme-card-bg: rgba(0, 26, 51, 0.7);
+        }
+        
+        /* Sky Theme */
+        .theme-sky {
+            --theme-primary: #87CEEB;
+            --theme-secondary: #E0FFFF;
+            --theme-accent: #4682B4;
+            --theme-bg-primary: #87CEEB;
+            --theme-bg-secondary: #B0E0E6;
+            --theme-card-bg: rgba(176, 224, 230, 0.3);
+            --text-light: #000;
+            --text-muted: #333;
+        }
+        
+        /* Space Theme */
+        .theme-space {
+            --theme-primary: #9c88ff;
+            --theme-secondary: #8c7ae6;
+            --theme-accent: #f368e0;
+            --theme-bg-primary: #000;
+            --theme-bg-secondary: linear-gradient(135deg, #000428 0%, #004e92 100%);
+            --theme-card-bg: rgba(0, 0, 0, 0.5);
         }
         
         body {
-            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
+            background: var(--theme-bg-secondary);
             color: var(--text-light);
             min-height: 100vh;
             padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            transition: background 0.5s ease;
+            transition: all 0.5s ease;
             overflow-x: hidden;
         }
         
@@ -80,7 +130,7 @@
         
         .welcome-title {
             font-size: 2.5rem;
-            color: var(--primary-gold);
+            color: var(--theme-primary);
             margin-bottom: 20px;
             text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
         }
@@ -90,7 +140,7 @@
             padding: 15px;
             font-size: 1.2rem;
             background: rgba(255, 255, 255, 0.1);
-            border: 2px solid var(--primary-gold);
+            border: 2px solid var(--theme-primary);
             border-radius: 10px;
             color: white;
             margin: 20px 0;
@@ -104,7 +154,7 @@
         
         .welcome-btn {
             padding: 15px 40px;
-            background: linear-gradient(to right, var(--primary-gold), var(--secondary-gold));
+            background: linear-gradient(to right, var(--theme-primary), var(--theme-secondary));
             border: none;
             border-radius: 50px;
             font-size: 1.2rem;
@@ -119,7 +169,7 @@
         
         .welcome-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+            box-shadow: 0 0 20px var(--theme-primary);
         }
         
         /* ====== HEADER & TITLE ====== */
@@ -133,10 +183,10 @@
         h1 {
             font-size: 3.5rem;
             margin-bottom: 10px;
-            color: var(--primary-gold);
-            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            color: var(--theme-primary);
+            text-shadow: 0 0 15px var(--theme-primary);
             letter-spacing: 3px;
-            background: linear-gradient(45deg, var(--primary-gold), var(--secondary-gold));
+            background: linear-gradient(45deg, var(--theme-primary), var(--theme-secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -144,8 +194,8 @@
         }
         
         @keyframes titleGlow {
-            from { text-shadow: 0 0 15px rgba(255, 215, 0, 0.5); }
-            to { text-shadow: 0 0 25px rgba(255, 215, 0, 0.8), 0 0 35px rgba(255, 215, 0, 0.4); }
+            from { text-shadow: 0 0 15px var(--theme-primary); }
+            to { text-shadow: 0 0 25px var(--theme-primary), 0 0 35px var(--theme-secondary); }
         }
         
         .subtitle {
@@ -160,7 +210,7 @@
             display: flex;
             justify-content: space-between;
             width: 100%;
-            background: var(--card-bg);
+            background: var(--theme-card-bg);
             padding: 15px 25px;
             border-radius: 15px;
             margin-bottom: 30px;
@@ -220,7 +270,7 @@
         /* ====== GAME AREA ====== */
         .game-area {
             width: 100%;
-            background: var(--card-bg);
+            background: var(--theme-card-bg);
             border-radius: 15px;
             padding: 30px;
             margin-bottom: 30px;
@@ -238,7 +288,7 @@
             padding: 15px;
             background: rgba(0, 0, 0, 0.2);
             border-radius: 10px;
-            border-left: 4px solid var(--primary-gold);
+            border-left: 4px solid var(--theme-primary);
         }
         
         .difficulty-info {
@@ -289,7 +339,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-            color: var(--primary-gold);
+            color: var(--theme-primary);
             position: relative;
             overflow: hidden;
             border: 2px solid transparent;
@@ -298,7 +348,7 @@
         .option:hover {
             transform: translateY(-5px) scale(1.05);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-            border-color: var(--primary-gold);
+            border-color: var(--theme-primary);
             background: linear-gradient(145deg, #3a4759, #2a3444);
         }
         
@@ -318,15 +368,15 @@
         }
         
         .option.gold {
-            background: linear-gradient(145deg, var(--primary-gold), var(--secondary-gold)) !important;
+            background: linear-gradient(145deg, var(--theme-primary), var(--theme-secondary)) !important;
             color: #8b6914 !important;
             animation: goldGlow 1.5s infinite alternate, goldPulse 2s infinite;
             transform: scale(1.1) !important;
         }
         
         @keyframes goldGlow {
-            from { box-shadow: 0 0 15px rgba(255, 215, 0, 0.7); }
-            to { box-shadow: 0 0 25px rgba(255, 215, 0, 0.9), 0 0 35px rgba(255, 215, 0, 0.5); }
+            from { box-shadow: 0 0 15px var(--theme-primary); }
+            to { box-shadow: 0 0 25px var(--theme-primary), 0 0 35px var(--theme-secondary); }
         }
         
         @keyframes goldPulse {
@@ -349,7 +399,7 @@
         
         /* ====== POWER-UPS SECTION ====== */
         .power-ups-section {
-            background: var(--card-bg);
+            background: var(--theme-card-bg);
             border-radius: 15px;
             padding: 20px;
             margin-bottom: 20px;
@@ -360,7 +410,7 @@
         
         .power-ups-title {
             font-size: 1.3rem;
-            color: var(--primary-gold);
+            color: var(--theme-primary);
             margin-bottom: 15px;
             text-align: center;
             display: flex;
@@ -399,7 +449,7 @@
         
         .power-up-item:hover {
             transform: translateY(-5px);
-            border-color: var(--primary-gold);
+            border-color: var(--theme-primary);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
         
@@ -421,7 +471,7 @@
         
         .power-up-cost {
             font-size: 0.8rem;
-            color: var(--primary-gold);
+            color: var(--theme-primary);
             display: flex;
             align-items: center;
             gap: 5px;
@@ -507,12 +557,12 @@
         }
         
         .btn-start {
-            background: linear-gradient(to right, var(--primary-gold), var(--secondary-gold));
+            background: linear-gradient(to right, var(--theme-primary), var(--theme-secondary));
             color: #000;
         }
         
         .btn-next {
-            background: linear-gradient(to right, var(--primary-blue), #339af0);
+            background: linear-gradient(to right, var(--theme-accent), #339af0);
             color: white;
             display: none;
         }
@@ -537,7 +587,7 @@
         
         /* ====== SHOP STYLES ====== */
         .shop-container {
-            background: var(--card-bg);
+            background: var(--theme-card-bg);
             border-radius: 15px;
             padding: 20px;
             margin-bottom: 20px;
@@ -555,12 +605,12 @@
             align-items: center;
             margin-bottom: 20px;
             padding-bottom: 15px;
-            border-bottom: 2px solid rgba(255, 215, 0, 0.2);
+            border-bottom: 2px solid var(--theme-primary);
         }
         
         .shop-title {
             font-size: 1.5rem;
-            color: var(--primary-gold);
+            color: var(--theme-primary);
             text-align: center;
             display: flex;
             align-items: center;
@@ -577,11 +627,11 @@
             padding: 10px 15px;
             border-radius: 20px;
             font-weight: bold;
-            border: 1px solid rgba(255, 215, 0, 0.3);
+            border: 1px solid var(--theme-primary);
         }
         
         .shop-balance i {
-            color: var(--primary-gold);
+            color: var(--theme-primary);
         }
         
         .shop-tabs {
@@ -611,9 +661,9 @@
         }
         
         .shop-tab.active {
-            background: linear-gradient(to right, var(--primary-gold), var(--secondary-gold));
+            background: linear-gradient(to right, var(--theme-primary), var(--theme-secondary));
             color: #000;
-            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+            box-shadow: 0 4px 10px var(--theme-primary);
         }
         
         .shop-content {
@@ -632,7 +682,7 @@
         }
         
         .shop-content::-webkit-scrollbar-thumb {
-            background: linear-gradient(to bottom, var(--primary-gold), var(--secondary-gold));
+            background: linear-gradient(to bottom, var(--theme-primary), var(--theme-secondary));
             border-radius: 10px;
         }
         
@@ -642,10 +692,10 @@
         
         .category-title {
             font-size: 1.2rem;
-            color: var(--primary-blue);
+            color: var(--theme-accent);
             margin-bottom: 15px;
             padding-bottom: 5px;
-            border-bottom: 2px solid rgba(77, 171, 247, 0.3);
+            border-bottom: 2px solid var(--theme-accent);
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         }
         
@@ -677,7 +727,7 @@
             left: 0;
             right: 0;
             height: 3px;
-            background: linear-gradient(to right, transparent, var(--primary-gold), transparent);
+            background: linear-gradient(to right, transparent, var(--theme-primary), transparent);
             transform: translateX(-100%);
             transition: transform 0.5s ease;
         }
@@ -689,7 +739,7 @@
         .shop-item:hover {
             transform: translateY(-5px);
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
-            border-color: var(--primary-gold);
+            border-color: var(--theme-primary);
         }
         
         .shop-item.purchased {
@@ -698,13 +748,13 @@
         }
         
         .shop-item.equipped {
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 15px rgba(77, 171, 247, 0.5);
+            border-color: var(--theme-accent);
+            box-shadow: 0 0 15px var(--theme-accent);
         }
         
         .shop-item.legendary {
-            border-color: #FFD700;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            border-color: var(--theme-primary);
+            box-shadow: 0 0 20px var(--theme-primary);
             background: linear-gradient(145deg, #4a3c1d, #2a2618);
         }
         
@@ -723,7 +773,7 @@
         .shop-item-icon {
             font-size: 2.5rem;
             margin-bottom: 10px;
-            color: var(--primary-gold);
+            color: var(--theme-primary);
             transition: transform 0.3s ease;
         }
         
@@ -741,7 +791,7 @@
         
         .shop-item-price {
             font-size: 0.8rem;
-            color: var(--primary-gold);
+            color: var(--theme-primary);
             margin-bottom: 10px;
             display: flex;
             align-items: center;
@@ -776,7 +826,7 @@
         }
         
         .shop-item-action.equip {
-            background: linear-gradient(to right, var(--primary-blue), #339af0);
+            background: linear-gradient(to right, var(--theme-accent), #339af0);
         }
         
         .shop-item-action.equipped {
@@ -796,7 +846,7 @@
         
         .level-progress-bar {
             height: 100%;
-            background: linear-gradient(to right, var(--primary-gold), var(--secondary-gold));
+            background: linear-gradient(to right, var(--theme-primary), var(--theme-secondary));
             width: 0%;
             border-radius: 5px;
             transition: width 0.5s ease;
@@ -852,9 +902,9 @@
             border-radius: 15px;
             max-width: 500px;
             width: 90%;
-            box-shadow: 0 0 50px rgba(255, 215, 0, 0.5);
+            box-shadow: 0 0 50px var(--theme-primary);
             animation: modalSlideIn 0.4s ease;
-            border: 2px solid rgba(255, 215, 0, 0.3);
+            border: 2px solid var(--theme-primary);
             position: relative;
             overflow: hidden;
         }
@@ -950,7 +1000,7 @@
             width: 15px;
             height: 15px;
             border-radius: 50%;
-            background: var(--primary-gold);
+            background: var(--theme-primary);
             cursor: pointer;
         }
         
@@ -962,7 +1012,7 @@
             font-size: 0.9rem;
             padding: 20px;
             width: 100%;
-            background: var(--card-bg);
+            background: var(--theme-card-bg);
             border-radius: 10px;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
@@ -971,7 +1021,7 @@
         .gold-collect {
             position: absolute;
             font-size: 1.5rem;
-            color: var(--primary-gold);
+            color: var(--theme-primary);
             opacity: 0;
             animation: goldFloat 1.5s forwards;
             pointer-events: none;
@@ -1006,7 +1056,7 @@
             position: absolute;
             width: 10px;
             height: 20px;
-            background: var(--primary-gold);
+            background: var(--theme-primary);
             top: -20px;
         }
         
@@ -1018,7 +1068,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            background: var(--card-bg);
+            background: var(--theme-card-bg);
             padding: 10px 15px;
             border-radius: 50px;
             z-index: 100;
@@ -1110,7 +1160,7 @@
         }
         
         .rarity-legendary {
-            background: linear-gradient(45deg, #FFD700, #FFA500);
+            background: linear-gradient(45deg, var(--theme-primary), var(--theme-secondary));
             color: #000;
         }
         
@@ -1120,10 +1170,10 @@
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: var(--card-bg);
+            background: var(--theme-card-bg);
             padding: 15px 25px;
             border-radius: 10px;
-            border-left: 4px solid var(--primary-gold);
+            border-left: 4px solid var(--theme-primary);
             z-index: 2000;
             animation: slideDown 0.3s ease;
             backdrop-filter: blur(10px);
@@ -1157,7 +1207,7 @@
             height: 50px;
             border: 5px solid rgba(255, 255, 255, 0.1);
             border-radius: 50%;
-            border-top-color: var(--primary-gold);
+            border-top-color: var(--theme-primary);
             animation: spin 1s linear infinite;
         }
         
@@ -1174,9 +1224,88 @@
             from { transform: scale(1); }
             to { transform: scale(1.1); }
         }
+        
+        /* ====== THEME EFFECTS ====== */
+        .theme-effect {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .earth-effect {
+            background: radial-gradient(circle at 50% 50%, rgba(34, 139, 34, 0.1) 0%, transparent 50%);
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            animation: rotateSlow 60s infinite linear;
+        }
+        
+        .sea-effect {
+            background: radial-gradient(circle at 50% 50%, rgba(30, 144, 255, 0.1) 0%, transparent 50%);
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            animation: wave 10s infinite ease-in-out;
+        }
+        
+        .sky-effect {
+            background: radial-gradient(circle at 50% 50%, rgba(135, 206, 235, 0.1) 0%, transparent 50%);
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            animation: float 20s infinite ease-in-out;
+        }
+        
+        .space-effect {
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(156, 136, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(243, 104, 224, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(140, 122, 230, 0.1) 0%, transparent 50%);
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            animation: spaceMove 30s infinite linear;
+        }
+        
+        @keyframes rotateSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes wave {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-20px) scale(1.05); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(20px, -20px); }
+            50% { transform: translate(0, -40px); }
+            75% { transform: translate(-20px, -20px); }
+        }
+        
+        @keyframes spaceMove {
+            from { transform: rotate(0deg) scale(1); }
+            to { transform: rotate(360deg) scale(1.1); }
+        }
+        
+        /* Theme particles */
+        .theme-particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+        }
     </style>
 </head>
 <body>
+    <!-- Theme Effects -->
+    <div id="theme-effects"></div>
+    
     <!-- Welcome Modal -->
     <div class="welcome-modal" id="welcome-modal">
         <div class="welcome-content">
@@ -1369,6 +1498,7 @@
                         <button class="shop-tab" data-tab="powerups">Power-ups</button>
                         <button class="shop-tab" data-tab="mystery">Mystery Boxes</button>
                         <button class="shop-tab" data-tab="extensions">Extensions</button>
+                        <button class="shop-tab" data-tab="themes">Themes</button>
                     </div>
                     
                     <div class="shop-content">
@@ -1509,6 +1639,78 @@
                                 </div>
                             </div>
                         </div>
+                        
+                        <!-- Themes Tab -->
+                        <div class="shop-tab-content" id="themes-tab">
+                            <div class="shop-category">
+                                <div class="category-title">Premium Themes</div>
+                                <div class="shop-items">
+                                    <div class="shop-item rare">
+                                        <div class="shop-item-icon" style="color:#228B22;">
+                                            <i class="fas fa-leaf"></i>
+                                        </div>
+                                        <div class="shop-item-title">Earth Theme</div>
+                                        <div class="shop-item-price">
+                                            <i class="fas fa-coins"></i> 3500 Gold
+                                        </div>
+                                        <div class="shop-item-description" style="font-size:0.7rem; color:#aaa; margin-bottom:10px; text-align:center;">
+                                            Natural green theme +5% gold bonus
+                                        </div>
+                                        <button class="shop-item-action" onclick="buyTheme('earth')" id="earth-theme-btn">
+                                            Purchase
+                                        </button>
+                                    </div>
+                                    
+                                    <div class="shop-item epic">
+                                        <div class="shop-item-icon" style="color:#1E90FF;">
+                                            <i class="fas fa-water"></i>
+                                        </div>
+                                        <div class="shop-item-title">Sea Theme</div>
+                                        <div class="shop-item-price">
+                                            <i class="fas fa-coins"></i> 4500 Gold
+                                        </div>
+                                        <div class="shop-item-description" style="font-size:0.7rem; color:#aaa; margin-bottom:10px; text-align:center;">
+                                            Ocean blue theme +10% gold bonus
+                                        </div>
+                                        <button class="shop-item-action" onclick="buyTheme('sea')" id="sea-theme-btn">
+                                            Purchase
+                                        </button>
+                                    </div>
+                                    
+                                    <div class="shop-item epic">
+                                        <div class="shop-item-icon" style="color:#87CEEB;">
+                                            <i class="fas fa-cloud"></i>
+                                        </div>
+                                        <div class="shop-item-title">Sky Theme</div>
+                                        <div class="shop-item-price">
+                                            <i class="fas fa-coins"></i> 7500 Gold
+                                        </div>
+                                        <div class="shop-item-description" style="font-size:0.7rem; color:#aaa; margin-bottom:10px; text-align:center;">
+                                            Sky blue theme +15% gold bonus
+                                        </div>
+                                        <button class="shop-item-action" onclick="buyTheme('sky')" id="sky-theme-btn">
+                                            Purchase
+                                        </button>
+                                    </div>
+                                    
+                                    <div class="shop-item legendary">
+                                        <div class="shop-item-icon" style="color:#9c88ff;">
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <div class="shop-item-title">Space Theme</div>
+                                        <div class="shop-item-price">
+                                            <i class="fas fa-coins"></i> 10000 Gold
+                                        </div>
+                                        <div class="shop-item-description" style="font-size:0.7rem; color:#aaa; margin-bottom:10px; text-align:center;">
+                                            Cosmic space theme +20% gold bonus
+                                        </div>
+                                        <button class="shop-item-action" onclick="buyTheme('space')" id="space-theme-btn">
+                                            Purchase
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1606,6 +1808,20 @@
         <source src="https://assets.mixkit.co/sfx/preview/mixkit-cash-register-purchase-875.mp3" type="audio/mpeg">
     </audio>
 
+    <!-- Theme-specific sounds -->
+    <audio id="earth-sound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-forest-ambience-573.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="sea-sound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-ocean-waves-loop-1244.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="sky-sound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-wind-in-the-leaves-1243.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="space-sound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-scifi-swoosh-802.mp3" type="audio/mpeg">
+    </audio>
+
     <script>
         // ====== GAME STATE ======
         const gameState = {
@@ -1650,6 +1866,16 @@
             equippedAvatar: 'default',
             equippedFrame: 'default',
             equippedPet: 'none',
+            
+            // Themes
+            purchasedThemes: [],
+            activeTheme: 'default',
+            themeBonuses: {
+                earth: 1.05,
+                sea: 1.10,
+                sky: 1.15,
+                space: 1.20
+            },
             
             // Statistics
             totalCorrect: 0,
@@ -1764,6 +1990,45 @@
                     bonusAmount: 100,
                     bonusCondition: 3
                 }
+            ],
+            
+            themes: [
+                {
+                    id: 'earth',
+                    name: 'Earth Theme',
+                    price: 3500,
+                    icon: 'fas fa-leaf',
+                    color: '#228B22',
+                    effect: '+5% Gold bonus',
+                    rarity: 'rare'
+                },
+                {
+                    id: 'sea',
+                    name: 'Sea Theme',
+                    price: 4500,
+                    icon: 'fas fa-water',
+                    color: '#1E90FF',
+                    effect: '+10% Gold bonus',
+                    rarity: 'epic'
+                },
+                {
+                    id: 'sky',
+                    name: 'Sky Theme',
+                    price: 7500,
+                    icon: 'fas fa-cloud',
+                    color: '#87CEEB',
+                    effect: '+15% Gold bonus',
+                    rarity: 'epic'
+                },
+                {
+                    id: 'space',
+                    name: 'Space Theme',
+                    price: 10000,
+                    icon: 'fas fa-star',
+                    color: '#9c88ff',
+                    effect: '+20% Gold bonus',
+                    rarity: 'legendary'
+                }
             ]
         };
 
@@ -1804,29 +2069,38 @@
             
             // Initialize audio context on first user interaction
             initializeAudio();
+            
+            // Apply saved theme
+            applyTheme(gameState.activeTheme);
         });
 
         function initializeAudio() {
             // Create audio context on first user interaction
             const initAudio = () => {
-                // Try to play a silent sound to unlock audio
-                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                const oscillator = audioContext.createOscillator();
-                const gainNode = audioContext.createGain();
-                
-                oscillator.connect(gainNode);
-                gainNode.connect(audioContext.destination);
-                
-                oscillator.frequency.setValueAtTime(1, audioContext.currentTime);
-                gainNode.gain.setValueAtTime(0.001, audioContext.currentTime);
-                
-                oscillator.start();
-                oscillator.stop(audioContext.currentTime + 0.1);
-                
-                // Remove event listeners
-                document.removeEventListener('click', initAudio);
-                document.removeEventListener('keydown', initAudio);
-                document.removeEventListener('touchstart', initAudio);
+                try {
+                    // Try to play a silent sound to unlock audio
+                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator.frequency.setValueAtTime(1, audioContext.currentTime);
+                    gainNode.gain.setValueAtTime(0.001, audioContext.currentTime);
+                    
+                    oscillator.start();
+                    oscillator.stop(audioContext.currentTime + 0.1);
+                    
+                    console.log("Audio context initialized");
+                    
+                    // Remove event listeners
+                    document.removeEventListener('click', initAudio);
+                    document.removeEventListener('keydown', initAudio);
+                    document.removeEventListener('touchstart', initAudio);
+                } catch (e) {
+                    console.log("Audio context initialization failed:", e);
+                }
             };
             
             // Add event listeners for user interaction
@@ -1884,6 +2158,12 @@
             const savedMysteryBoxes = localStorage.getItem('gtgMysteryBoxesOpened');
             if (savedMysteryBoxes) gameState.mysteryBoxesOpened = parseInt(savedMysteryBoxes);
             
+            const savedThemes = localStorage.getItem('gtgPurchasedThemes');
+            if (savedThemes) gameState.purchasedThemes = JSON.parse(savedThemes);
+            
+            const savedActiveTheme = localStorage.getItem('gtgActiveTheme');
+            if (savedActiveTheme) gameState.activeTheme = savedActiveTheme;
+            
             // Calculate total pets
             gameState.totalPets = gameState.purchasedItems.filter(item => 
                 shopItems.pets.some(pet => pet.id === item && pet.id !== 'none')
@@ -1907,6 +2187,8 @@
             localStorage.setItem('gtgMusicEnabled', gameState.musicEnabled);
             localStorage.setItem('gtgMusicVolume', gameState.musicVolume);
             localStorage.setItem('gtgMysteryBoxesOpened', gameState.mysteryBoxesOpened);
+            localStorage.setItem('gtgPurchasedThemes', JSON.stringify(gameState.purchasedThemes));
+            localStorage.setItem('gtgActiveTheme', gameState.activeTheme);
         }
 
         // ====== WELCOME SYSTEM ======
@@ -1929,7 +2211,7 @@
                     playerNameInput.placeholder = "Please enter your name!";
                     playerNameInput.style.borderColor = "var(--danger)";
                     setTimeout(() => {
-                        playerNameInput.style.borderColor = "var(--primary-gold)";
+                        playerNameInput.style.borderColor = "var(--theme-primary)";
                         playerNameInput.placeholder = "Enter your name...";
                     }, 1000);
                 }
@@ -1989,6 +2271,9 @@
             
             // Update pet effects
             updatePetEffects();
+            
+            // Apply theme effects
+            applyTheme(gameState.activeTheme);
         }
 
         function generateEmptyOptions() {
@@ -2220,6 +2505,11 @@
                 gameState.activePowerUps.goldrush = false;
             }
             
+            // Apply theme bonus
+            if (gameState.activeTheme !== 'default') {
+                goldEarned = Math.round(goldEarned * gameState.themeBonuses[gameState.activeTheme]);
+            }
+            
             // Apply pet bonuses
             const pet = shopItems.pets.find(p => p.id === gameState.equippedPet);
             let petBonus = 0;
@@ -2424,6 +2714,7 @@
             loadShopCategory('avatars', shopItems.avatars, 'avatar-items');
             loadShopCategory('frames', shopItems.frames, 'frame-items');
             loadShopCategory('pets', shopItems.pets, 'pet-items');
+            loadShopCategory('themes', shopItems.themes, 'themes-items');
         }
 
         function loadShopCategory(category, items, containerId) {
@@ -2433,11 +2724,15 @@
             container.innerHTML = '';
             
             items.forEach(item => {
-                const isPurchased = gameState.purchasedItems.includes(item.id);
+                const isPurchased = category === 'themes' ? 
+                    gameState.purchasedThemes.includes(item.id) : 
+                    gameState.purchasedItems.includes(item.id);
+                    
                 const isEquipped = 
                     (category === 'avatars' && gameState.equippedAvatar === item.id) ||
                     (category === 'frames' && gameState.equippedFrame === item.id) ||
-                    (category === 'pets' && gameState.equippedPet === item.id);
+                    (category === 'pets' && gameState.equippedPet === item.id) ||
+                    (category === 'themes' && gameState.activeTheme === item.id);
                 
                 const itemElement = document.createElement('div');
                 itemElement.className = `shop-item ${isPurchased ? 'purchased' : ''} ${isEquipped ? 'equipped' : ''} ${item.rarity ? 'rarity-' + item.rarity : ''}`;
@@ -2445,6 +2740,30 @@
                 // Add rarity class for styling
                 if (item.rarity) {
                     itemElement.classList.add(item.rarity);
+                }
+                
+                let actionButton = '';
+                
+                if (!isPurchased) {
+                    actionButton = `<button class="shop-item-action" onclick="buyItem('${item.id}', '${category}', ${item.price})" ${gameState.gold < item.price ? 'disabled' : ''}>
+                            ${item.price === 0 ? 'Free' : 'Buy'}
+                        </button>`;
+                } else {
+                    if (isEquipped) {
+                        actionButton = `<button class="shop-item-action equipped" disabled>
+                                Equipped
+                            </button>`;
+                    } else {
+                        if (category === 'themes') {
+                            actionButton = `<button class="shop-item-action equip" onclick="applyTheme('${item.id}')">
+                                Apply
+                            </button>`;
+                        } else {
+                            actionButton = `<button class="shop-item-action equip" onclick="equipItem('${item.id}', '${category}')">
+                                Equip
+                            </button>`;
+                        }
+                    }
                 }
                 
                 itemElement.innerHTML = `
@@ -2459,19 +2778,7 @@
                     <div class="shop-item-price">
                         <i class="fas fa-coins"></i> ${item.price} Gold
                     </div>
-                    ${!isPurchased ? 
-                        `<button class="shop-item-action" onclick="buyItem('${item.id}', '${category}', ${item.price})" ${gameState.gold < item.price ? 'disabled' : ''}>
-                            ${item.price === 0 ? 'Free' : 'Buy'}
-                        </button>` :
-                        (isEquipped ?
-                            `<button class="shop-item-action equipped" disabled>
-                                Equipped
-                            </button>` :
-                            `<button class="shop-item-action equip" onclick="equipItem('${item.id}', '${category}')">
-                                Equip
-                            </button>`
-                        )
-                    }
+                    ${actionButton}
                 `;
                 container.appendChild(itemElement);
             });
@@ -2480,15 +2787,23 @@
         function buyItem(itemId, category, price) {
             if (gameState.gold >= price) {
                 gameState.gold -= price;
-                gameState.purchasedItems.push(itemId);
+                
+                if (category === 'themes') {
+                    gameState.purchasedThemes.push(itemId);
+                    // Auto-apply the theme
+                    applyTheme(itemId);
+                    showNotification(`Theme purchased and applied!`, 'success');
+                } else {
+                    gameState.purchasedItems.push(itemId);
+                    // Auto-equip the item
+                    equipItem(itemId, category);
+                }
                 
                 // Update pet count
                 if (category === 'pets' && itemId !== 'none') {
                     gameState.totalPets++;
                 }
                 
-                // Auto-equip the item
-                equipItem(itemId, category);
                 updateDisplays();
                 loadShopItems();
                 saveGameState();
@@ -2519,7 +2834,9 @@
                     }
                 }
                 
-                showNotification(`Purchased ${itemId}!`, 'success');
+                if (category !== 'themes') {
+                    showNotification(`Purchased ${itemId}!`, 'success');
+                }
             } else {
                 showNotification(`Not enough gold! Need ${price}`, 'error');
             }
@@ -2557,6 +2874,8 @@
             updateAvatarDisplay();
             loadShopItems();
             saveGameState();
+            
+            showNotification(`${itemId} equipped!`, 'success');
         }
 
         function updateAvatarDisplay() {
@@ -2583,6 +2902,120 @@
             }
             
             document.getElementById('player-name-display').textContent = gameState.playerName || 'Player';
+        }
+
+        // ====== THEME SYSTEM ======
+        function buyTheme(themeId) {
+            const theme = shopItems.themes.find(t => t.id === themeId);
+            if (!theme) return;
+            
+            if (gameState.gold >= theme.price) {
+                gameState.gold -= theme.price;
+                gameState.purchasedThemes.push(themeId);
+                applyTheme(themeId);
+                
+                updateDisplays();
+                saveGameState();
+                
+                showGoldEffect(-theme.price, "Theme Purchased!");
+                playSound('purchase');
+                showNotification(`${theme.name} purchased and applied!`, 'success');
+                
+                // Play theme sound
+                if (gameState.soundEnabled) {
+                    const themeSound = document.getElementById(`${themeId}-sound`);
+                    if (themeSound) {
+                        themeSound.currentTime = 0;
+                        themeSound.volume = 0.3;
+                        themeSound.play().catch(e => console.log("Theme sound play failed:", e));
+                    }
+                }
+            } else {
+                showNotification(`Not enough gold! Need ${theme.price}`, 'error');
+            }
+        }
+
+        function applyTheme(themeId) {
+            // Remove all theme classes
+            document.body.classList.remove('theme-earth', 'theme-sea', 'theme-sky', 'theme-space');
+            
+            // Add new theme class
+            if (themeId !== 'default') {
+                document.body.classList.add(`theme-${themeId}`);
+                gameState.activeTheme = themeId;
+                
+                // Create theme effects
+                createThemeEffects(themeId);
+            } else {
+                gameState.activeTheme = 'default';
+                clearThemeEffects();
+            }
+            
+            saveGameState();
+            loadShopItems();
+            
+            // Update theme sound
+            updateThemeSound(themeId);
+        }
+
+        function createThemeEffects(themeId) {
+            const effectsContainer = document.getElementById('theme-effects');
+            effectsContainer.innerHTML = '';
+            
+            // Create main effect
+            const effect = document.createElement('div');
+            effect.className = `theme-effect ${themeId}-effect`;
+            effectsContainer.appendChild(effect);
+            
+            // Create particles for space theme
+            if (themeId === 'space') {
+                createSpaceParticles();
+            }
+        }
+
+        function clearThemeEffects() {
+            const effectsContainer = document.getElementById('theme-effects');
+            effectsContainer.innerHTML = '';
+        }
+
+        function createSpaceParticles() {
+            const effectsContainer = document.getElementById('theme-effects');
+            
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'theme-particle';
+                particle.style.width = `${Math.random() * 4 + 1}px`;
+                particle.style.height = particle.style.width;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.background = `hsl(${Math.random() * 360}, 100%, 70%)`;
+                particle.style.boxShadow = `0 0 ${Math.random() * 10 + 5}px currentColor`;
+                particle.style.animation = `float ${Math.random() * 20 + 10}s infinite linear`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                effectsContainer.appendChild(particle);
+            }
+        }
+
+        function updateThemeSound(themeId) {
+            // Stop all theme sounds
+            const themeSounds = ['earth-sound', 'sea-sound', 'sky-sound', 'space-sound'];
+            themeSounds.forEach(soundId => {
+                const sound = document.getElementById(soundId);
+                if (sound) {
+                    sound.pause();
+                    sound.currentTime = 0;
+                }
+            });
+            
+            // Play theme sound if enabled
+            if (gameState.soundEnabled && themeId !== 'default') {
+                const themeSound = document.getElementById(`${themeId}-sound`);
+                if (themeSound) {
+                    themeSound.volume = 0.1;
+                    themeSound.loop = true;
+                    themeSound.play().catch(e => console.log("Theme sound play failed:", e));
+                }
+            }
         }
 
         // ====== MYSTERY BOX SYSTEM ======
@@ -2769,9 +3202,9 @@
             
             if (!hintBtn || !lifeBtn || !tagnaBtn || !goldrushBtn) return;
             
-            // Update hint button
+            // Update hint button - FIXED: Don't deduct gold if unlimited hints
             if (gameState.permanentPowerUps.unlimitedHints) {
-                hintBtn.disabled = false;
+                hintBtn.disabled = !gameState.gameActive;
             } else {
                 hintBtn.disabled = gameState.gold < 2 || gameState.activePowerUps.hintUsed || !gameState.gameActive;
             }
@@ -2792,6 +3225,13 @@
             
             const cost = costs[type];
             
+            // FIXED: Don't deduct gold for hint if unlimited hints is purchased
+            if (type === 'hint' && gameState.permanentPowerUps.unlimitedHints) {
+                // Use hint without deducting gold
+                useHintPowerUp();
+                return;
+            }
+            
             if (gameState.gold >= cost) {
                 gameState.gold -= cost;
                 
@@ -2800,16 +3240,7 @@
                         if (!gameState.permanentPowerUps.unlimitedHints) {
                             gameState.activePowerUps.hintUsed = true;
                         }
-                        // Reveal one wrong option
-                        const wrongOptions = Array.from({length: gameState.optionsCount}, (_, i) => i)
-                            .filter(i => i !== gameState.goldPosition && !gameState.revealedOptions.includes(i));
-                        
-                        if (wrongOptions.length > 0) {
-                            const randomWrong = wrongOptions[Math.floor(Math.random() * wrongOptions.length)];
-                            gameState.revealedOptions.push(randomWrong);
-                            generateOptions();
-                            showNotification('Hint used! One wrong option revealed.', 'info');
-                        }
+                        useHintPowerUp();
                         break;
                         
                     case 'extralife':
@@ -2834,6 +3265,21 @@
                 saveGameState();
             } else {
                 showNotification(`Not enough gold! Need ${cost}`, 'error');
+            }
+        }
+
+        function useHintPowerUp() {
+            // Reveal one wrong option
+            const wrongOptions = Array.from({length: gameState.optionsCount}, (_, i) => i)
+                .filter(i => i !== gameState.goldPosition && !gameState.revealedOptions.includes(i));
+            
+            if (wrongOptions.length > 0) {
+                const randomWrong = wrongOptions[Math.floor(Math.random() * wrongOptions.length)];
+                gameState.revealedOptions.push(randomWrong);
+                generateOptions();
+                showNotification('Hint used! One wrong option revealed.', 'info');
+            } else {
+                showNotification('No wrong options left to reveal!', 'info');
             }
         }
 
@@ -3054,6 +3500,9 @@
                 updateSoundButton();
                 saveGameState();
                 showNotification(`Sound ${gameState.soundEnabled ? 'enabled' : 'disabled'}`, 'info');
+                
+                // Update theme sound
+                updateThemeSound(gameState.activeTheme);
             });
             
             // Music controls
