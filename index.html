@@ -395,6 +395,13 @@
             cursor: not-allowed !important;
             transform: scale(0.9) !important;
             filter: grayscale(1);
+            animation: eliminatedEffect 0.5s ease;
+        }
+        
+        @keyframes eliminatedEffect {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(0.9); }
         }
         
         /* ====== POWER-UPS SECTION ====== */
@@ -1300,6 +1307,17 @@
             pointer-events: none;
             z-index: -1;
         }
+        
+        /* Tagna Animation */
+        @keyframes tagnaEffect {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+            100% { transform: scale(0); opacity: 0; }
+        }
+        
+        .tagna-eliminating {
+            animation: tagnaEffect 0.5s forwards;
+        }
     </style>
 </head>
 <body>
@@ -1442,6 +1460,9 @@
                                 <div class="power-up-name">Tagna</div>
                                 <div class="power-up-cost">
                                     <i class="fas fa-coins"></i> 15 Gold
+                                </div>
+                                <div class="power-up-description" style="font-size:0.7rem; color:#aaa; text-align:center;">
+                                    Keep 2 options including gold
                                 </div>
                                 <button class="power-up-action" id="tagna-btn" onclick="usePowerUp('tagna')">
                                     Use Tagna
@@ -1807,6 +1828,9 @@
     <audio id="purchase-sound" preload="auto">
         <source src="https://assets.mixkit.co/sfx/preview/mixkit-cash-register-purchase-875.mp3" type="audio/mpeg">
     </audio>
+    <audio id="tagna-sound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-magic-sparkle-sweep-283.mp3" type="audio/mpeg">
+    </audio>
 
     <!-- Theme-specific sounds -->
     <audio id="earth-sound" preload="auto">
@@ -1846,7 +1870,8 @@
             // Power-ups
             activePowerUps: {
                 goldrush: false,
-                hintUsed: false
+                hintUsed: false,
+                tagnaUsed: false
             },
             
             // Permanent Power-ups
@@ -2237,7 +2262,8 @@
             gameState.selectedOption = null;
             gameState.activePowerUps = {
                 goldrush: false,
-                hintUsed: false
+                hintUsed: false,
+                tagnaUsed: false
             };
             gameState.petStreakCounter = 0;
             gameState.isSelecting = false;
@@ -2381,6 +2407,7 @@
             gameState.revealedOptions = [];
             gameState.selectedOption = null;
             gameState.isSelecting = false;
+            gameState.activePowerUps.tagnaUsed = false;
             
             // Calculate difficulty
             gameState.optionsCount = Math.min(2 + Math.floor(gameState.level / 5), 10);
@@ -3211,7 +3238,7 @@
             
             // Update other buttons
             lifeBtn.disabled = gameState.gold < 50 || gameState.lives >= gameState.maxLives || !gameState.gameActive;
-            tagnaBtn.disabled = gameState.gold < 15 || !gameState.gameActive;
+            tagnaBtn.disabled = gameState.gold < 15 || gameState.activePowerUps.tagnaUsed || !gameState.gameActive;
             goldrushBtn.disabled = gameState.gold < 100 || gameState.activePowerUps.goldrush || !gameState.gameActive;
         }
 
@@ -3251,6 +3278,11 @@
                         }
                         break;
                         
+                    case 'tagna':
+                        gameState.activePowerUps.tagnaUsed = true;
+                        useTagnaPowerUp();
+                        break;
+                        
                     case 'goldrush':
                         gameState.activePowerUps.goldrush = true;
                         showNotification('Gold Rush activated! Next gold x2!', 'success');
@@ -3281,6 +3313,104 @@
             } else {
                 showNotification('No wrong options left to reveal!', 'info');
             }
+        }
+
+        function useTagnaPowerUp() {
+            // NEW IMPROVED Tagna: Remove all but 2 options (including the gold)
+            // This gives you a 50/50 chance to find the gold!
+            
+            // First, find all unrevealed options
+            const allOptions = Array.from({length: gameState.optionsCount}, (_, i) => i);
+            const unrevealedOptions = allOptions.filter(i => !gameState.revealedOptions.includes(i));
+            
+            // We need to keep exactly 2 options: the gold and one wrong option
+            const optionsToKeep = [gameState.goldPosition];
+            
+            // Add one random wrong option to keep
+            const wrongOptions = unrevealedOptions.filter(i => i !== gameState.goldPosition);
+            if (wrongOptions.length > 0) {
+                const randomWrong = wrongOptions[Math.floor(Math.random() * wrongOptions.length)];
+                optionsToKeep.push(randomWrong);
+            } else {
+                // If no wrong options, just keep the gold
+                // Add any other option
+                const otherOptions = allOptions.filter(i => i !== gameState.goldPosition);
+                if (otherOptions.length > 0) {
+                    optionsToKeep.push(otherOptions[0]);
+                }
+            }
+            
+            // Mark all other options as eliminated
+            const optionsToEliminate = allOptions.filter(i => !optionsToKeep.includes(i));
+            
+            // Play Tagna sound
+            if (gameState.soundEnabled) {
+                const tagnaSound = document.getElementById('tagna-sound');
+                if (tagnaSound) {
+                    tagnaSound.currentTime = 0;
+                    tagnaSound.volume = 0.7;
+                    tagnaSound.play().catch(e => console.log("Tagna sound play failed:", e));
+                }
+            }
+            
+            // Animate elimination of options
+            animateTagnaElimination(optionsToEliminate, optionsToKeep);
+            
+            showNotification('Tagna activated! Eliminating options...', 'info');
+        }
+
+        function animateTagnaElimination(optionsToEliminate, optionsToKeep) {
+            // Get all option elements
+            const optionElements = document.querySelectorAll('.option');
+            
+            // Add eliminating animation to options to eliminate
+            optionsToEliminate.forEach(index => {
+                const optionElement = optionElements[index];
+                if (optionElement) {
+                    // Add animation class
+                    optionElement.classList.add('tagna-eliminating');
+                    
+                    // After animation completes, mark as eliminated
+                    setTimeout(() => {
+                        optionElement.classList.remove('tagna-eliminating');
+                        optionElement.classList.add('eliminated');
+                        optionElement.innerHTML = '<i class="fas fa-times"></i>';
+                        optionElement.style.pointerEvents = 'none';
+                        optionElement.style.cursor = 'not-allowed';
+                        
+                        // Add to revealed options
+                        if (!gameState.revealedOptions.includes(index)) {
+                            gameState.revealedOptions.push(index);
+                        }
+                    }, 500);
+                }
+            });
+            
+            // Highlight the remaining options
+            setTimeout(() => {
+                optionsToKeep.forEach(index => {
+                    const optionElement = optionElements[index];
+                    if (optionElement) {
+                        // Add pulse animation to remaining options
+                        optionElement.classList.add('pulse');
+                        
+                        // If it's the gold, show special effect
+                        if (index === gameState.goldPosition) {
+                            optionElement.style.boxShadow = '0 0 20px #51cf66';
+                        } else {
+                            optionElement.style.boxShadow = '0 0 20px #ff6b6b';
+                        }
+                    }
+                });
+                
+                // Show message
+                const instruction = document.getElementById('instruction');
+                instruction.innerHTML = `<span style="color:#cc5de8">Tagna activated! Only 2 options remain. 50/50 chance to find the gold!</span>`;
+                
+                // Update power-up button
+                updatePowerUpButtons();
+                
+            }, 600);
         }
 
         // ====== STATS SYSTEM ======
