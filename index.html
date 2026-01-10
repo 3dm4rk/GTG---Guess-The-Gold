@@ -21,6 +21,7 @@
             --success: #51cf66;
             --danger: #ff6b6b;
             --purple: #cc5de8;
+            --diamond-color: #1E90FF;
             --dark-bg: #0a0a0a;
             --darker-bg: #1a1a2e;
             --card-bg: rgba(0, 0, 0, 0.3);
@@ -89,6 +90,36 @@
             --theme-card-bg: rgba(45, 10, 31, 0.7);
         }
         
+        /* Meowl Theme (God Tier) */
+        .theme-meowl {
+            --theme-primary: #00ff00;
+            --theme-secondary: #00ff88;
+            --theme-accent: #00ffcc;
+            --theme-bg-primary: #000a00;
+            --theme-bg-secondary: linear-gradient(135deg, #000a00 0%, #001100 100%);
+            --theme-card-bg: rgba(0, 20, 0, 0.7);
+        }
+        
+        /* Rainbow Phoenix Theme */
+        .theme-phoenix {
+            --theme-primary: #ff0000;
+            --theme-secondary: #ffa500;
+            --theme-accent: #ffff00;
+            --theme-bg-primary: #1a0000;
+            --theme-bg-secondary: linear-gradient(135deg, #1a0000 0%, #4a1d00 100%);
+            --theme-card-bg: rgba(74, 29, 0, 0.7);
+        }
+        
+        /* Time Travel Turtle Theme */
+        .theme-turtle {
+            --theme-primary: #00ff00;
+            --theme-secondary: #00ff88;
+            --theme-accent: #00ffcc;
+            --theme-bg-primary: #000a0a;
+            --theme-bg-secondary: linear-gradient(135deg, #000a0a 0%, #001111 100%);
+            --theme-card-bg: rgba(0, 20, 20, 0.7);
+        }
+        
         body {
             background: var(--theme-bg-secondary);
             color: var(--text-light);
@@ -107,6 +138,211 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+        }
+        
+        /* ====== DIAMONDS CURRENCY STYLES ====== */
+        .diamond-currency {
+            color: var(--diamond-color);
+            text-shadow: 0 0 10px var(--diamond-color);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .diamond-effect {
+            position: fixed;
+            pointer-events: none;
+            z-index: 999;
+            font-size: 1.2rem;
+            animation: diamondFloat 2s forwards;
+        }
+        
+        @keyframes diamondFloat {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) scale(0.5);
+                opacity: 0;
+            }
+        }
+        
+        /* ====== GOD TIER BADGE STYLES ====== */
+        .rarity-godtier {
+            background: linear-gradient(45deg, #00ff00, #00ff88, #00ffcc);
+            color: #000;
+            animation: godTierGlow 2s infinite alternate;
+        }
+        
+        @keyframes godTierGlow {
+            from { box-shadow: 0 0 10px #00ff00; }
+            to { box-shadow: 0 0 20px #00ff00, 0 0 30px #00ff88; }
+        }
+        
+        /* ====== NEW PET STYLES ====== */
+        .shop-item.godtier {
+            border-color: #00ff00;
+            box-shadow: 0 0 25px rgba(0, 255, 0, 0.5);
+            background: linear-gradient(145deg, #002200, #001100);
+            animation: godTierPulse 3s infinite alternate;
+        }
+        
+        @keyframes godTierPulse {
+            0%, 100% { box-shadow: 0 0 25px rgba(0, 255, 0, 0.5); }
+            50% { box-shadow: 0 0 35px rgba(0, 255, 0, 0.8); }
+        }
+        
+        .shop-item.rainbow {
+            border-color: #ff0000;
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.5);
+            background: linear-gradient(145deg, #4a1d1d, #2a0a0a);
+            animation: rainbowPulse 3s infinite alternate;
+        }
+        
+        @keyframes rainbowPulse {
+            0% { box-shadow: 0 0 25px rgba(255, 0, 0, 0.5); }
+            33% { box-shadow: 0 0 25px rgba(255, 165, 0, 0.5); }
+            66% { box-shadow: 0 0 25px rgba(255, 255, 0, 0.5); }
+            100% { box-shadow: 0 0 25px rgba(255, 0, 0, 0.5); }
+        }
+        
+        /* ====== TIME REWIND EFFECT ====== */
+        .time-rewind-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(0, 255, 0, 0.1), rgba(0, 255, 136, 0.1), rgba(0, 255, 204, 0.1));
+            z-index: 9998;
+            pointer-events: none;
+            opacity: 0;
+            animation: rewindEffect 1s ease-out;
+        }
+        
+        @keyframes rewindEffect {
+            0% {
+                opacity: 1;
+                transform: scale(0.5);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1.5);
+            }
+        }
+        
+        /* ====== PHOENIX RESURRECTION EFFECT ====== */
+        .phoenix-resurrect-effect {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            color: #ff0000;
+            z-index: 9999;
+            animation: phoenixRise 1.5s ease-out;
+            pointer-events: none;
+            text-shadow: 0 0 20px #ff0000, 0 0 40px #ffa500;
+        }
+        
+        @keyframes phoenixRise {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.5);
+            }
+            50% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -100%) scale(0.8);
+            }
+        }
+        
+        /* ====== MEOWL PREDICTION EFFECT ====== */
+        .meowl-prediction-effect {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            color: #00ff00;
+            z-index: 9999;
+            animation: meowlProtect 1s ease-out;
+            pointer-events: none;
+            text-shadow: 0 0 20px #00ff00;
+        }
+        
+        @keyframes meowlProtect {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.5);
+            }
+            50% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+        
+        /* ====== RAINBOW PARTICLE EFFECT ====== */
+        .rainbow-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            animation: rainbowFloat 3s infinite linear;
+        }
+        
+        @keyframes rainbowFloat {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* ====== TIME TRAVEL PARTICLE EFFECT ====== */
+        .time-particle {
+            position: absolute;
+            font-size: 0.8rem;
+            pointer-events: none;
+            z-index: -1;
+            animation: timeTravel 4s infinite linear;
+            color: #00ffcc;
+        }
+        
+        @keyframes timeTravel {
+            0% {
+                transform: translateX(0) translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100px) translateY(-100px) rotate(720deg);
+                opacity: 0;
+            }
         }
         
         /* ====== WELCOME MODAL ====== */
@@ -1342,6 +1578,42 @@
             animation: luckyCatFloat 20s infinite ease-in-out;
         }
         
+        .meowl-effect {
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(0, 255, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(0, 255, 204, 0.1) 0%, transparent 50%);
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            animation: meowlGlow 15s infinite ease-in-out;
+        }
+        
+        .phoenix-effect {
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(255, 0, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 165, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 0, 0.1) 0%, transparent 50%);
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            animation: phoenixFlame 10s infinite ease-in-out;
+        }
+        
+        .turtle-effect {
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(0, 255, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(0, 255, 204, 0.1) 0%, transparent 50%);
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            animation: turtleTime 20s infinite linear;
+        }
+        
         @keyframes rotateSlow {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
@@ -1369,6 +1641,21 @@
             25% { transform: translateY(-20px) rotate(5deg); }
             50% { transform: translateY(0) rotate(0deg); }
             75% { transform: translateY(20px) rotate(-5deg); }
+        }
+        
+        @keyframes meowlGlow {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        @keyframes phoenixFlame {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.3; }
+            50% { transform: scale(1.2) rotate(180deg); opacity: 0.6; }
+        }
+        
+        @keyframes turtleTime {
+            from { transform: rotate(0deg) scale(1); }
+            to { transform: rotate(360deg) scale(1.05); }
         }
         
         /* Theme particles */
@@ -1404,6 +1691,58 @@
         @keyframes catPulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.2); }
+        }
+        
+        /* ====== MEOWL EFFECTS ====== */
+        .meowl-effect-display {
+            position: fixed;
+            top: 10px;
+            left: 50px;
+            z-index: 99;
+            font-size: 1.5rem;
+            color: #00ff00;
+            animation: meowlPulse 2s infinite;
+        }
+        
+        @keyframes meowlPulse {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.1) rotate(5deg); }
+            75% { transform: scale(0.9) rotate(-5deg); }
+        }
+        
+        /* ====== RAINBOW PHOENIX EFFECTS ====== */
+        .phoenix-effect-display {
+            position: fixed;
+            top: 10px;
+            left: 90px;
+            z-index: 99;
+            font-size: 1.5rem;
+            animation: rainbowPulseText 3s infinite;
+        }
+        
+        @keyframes rainbowPulseText {
+            0% { color: #ff0000; transform: scale(1); }
+            33% { color: #ffa500; transform: scale(1.1); }
+            66% { color: #ffff00; transform: scale(1); }
+            100% { color: #ff0000; transform: scale(1); }
+        }
+        
+        /* ====== TIME TRAVEL TURTLE EFFECTS ====== */
+        .turtle-effect-display {
+            position: fixed;
+            top: 10px;
+            left: 130px;
+            z-index: 99;
+            font-size: 1.5rem;
+            color: #00ffcc;
+            animation: turtleTimePulse 4s infinite;
+        }
+        
+        @keyframes turtleTimePulse {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.1) rotate(90deg); }
+            50% { transform: scale(1) rotate(180deg); }
+            75% { transform: scale(0.9) rotate(270deg); }
         }
         
         /* Redeem input styles */
@@ -1444,15 +1783,40 @@
             transform: scale(1.05);
             box-shadow: 0 0 20px rgba(255, 107, 157, 0.5);
         }
+        
+        /* Time Rewind Button */
+        .btn-time-rewind {
+            background: linear-gradient(to right, #00ff00, #00ff88);
+            color: #000;
+            display: none;
+        }
+        
+        /* Diamond currency in game info */
+        .diamond-info {
+            color: var(--diamond-color);
+            text-shadow: 0 0 10px var(--diamond-color);
+        }
     </style>
 </head>
 <body>
     <!-- Theme Effects -->
     <div id="theme-effects"></div>
     
-    <!-- Lucky Cat Effect -->
+    <!-- Pet Effect Displays -->
     <div class="lucky-cat-effect" id="lucky-cat-effect" style="display: none;">
         <i class="fas fa-cat"></i>
+    </div>
+    
+    <div class="meowl-effect-display" id="meowl-effect-display" style="display: none;">
+        <i class="fas fa-paw"></i>
+    </div>
+    
+    <div class="phoenix-effect-display" id="phoenix-effect-display" style="display: none;">
+        <i class="fas fa-fire"></i>
+    </div>
+    
+    <div class="turtle-effect-display" id="turtle-effect-display" style="display: none;">
+        <i class="fas fa-turtle"></i>
     </div>
     
     <!-- Welcome Modal -->
@@ -1479,6 +1843,25 @@
             </p>
             <button class="welcome-btn" id="close-redeem-btn" style="margin-top: 10px; background: #555;">
                 <i class="fas fa-times"></i> Close
+            </button>
+        </div>
+    </div>
+    
+    <!-- God Tier Unlock Modal -->
+    <div class="reward-modal" id="god-tier-modal" style="display: none;">
+        <div class="reward-content" style="border-color: #00ff00; box-shadow: 0 0 50px #00ff00;">
+            <h2 style="color: #00ff00;">GOD TIER PET UNLOCKED!</h2>
+            <div style="font-size: 5rem; color: #00ff00; margin: 20px 0;">
+                <i class="fas fa-crown"></i>
+            </div>
+            <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 1.2rem;">
+                Congratulations! You have unlocked a GOD TIER PET!
+            </p>
+            <p style="color: #00ff88; margin-bottom: 20px;">
+                Check the Pets tab to claim your new powerful companion!
+            </p>
+            <button class="welcome-btn" id="close-god-tier-btn" style="background: linear-gradient(to right, #00ff00, #00ff88); color: #000;">
+                <i class="fas fa-check"></i> Awesome!
             </button>
         </div>
     </div>
@@ -1532,6 +1915,10 @@
             <div class="info-item">
                 <div class="info-label">GOLD</div>
                 <div class="info-value" id="gold-display">50</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">DIAMONDS</div>
+                <div class="info-value diamond-info" id="diamonds-display">0</div>
             </div>
             <div class="info-item">
                 <div class="info-label">STREAK</div>
@@ -1640,6 +2027,9 @@
                         <button class="btn btn-next" id="next-btn">
                             <i class="fas fa-forward"></i> Next Level
                         </button>
+                        <button class="btn btn-time-rewind" id="time-rewind-btn" onclick="useTimeRewind()">
+                            <i class="fas fa-undo"></i> Time Rewind
+                        </button>
                         <button class="btn btn-redeem" id="redeem-btn">
                             <i class="fas fa-gift"></i> Redeem Code
                         </button>
@@ -1662,6 +2052,9 @@
                         <div class="shop-balance">
                             <i class="fas fa-coins"></i>
                             <span id="shop-gold-display">50</span>
+                            <span style="margin: 0 10px;">|</span>
+                            <i class="fas fa-gem diamond-currency"></i>
+                            <span id="shop-diamonds-display" class="diamond-currency">0</span>
                         </div>
                     </div>
                     
@@ -1964,6 +2357,12 @@
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
+    
+    <!-- Meowl Special Music -->
+    <audio id="meowl-music" loop preload="auto">
+        <source src="https://assets.mixkit.co/music/preview/mixkit-game-show-suspense-waiting-667.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 
     <script>
         // ====== SOUND SYSTEM ======
@@ -2075,6 +2474,41 @@
                 setTimeout(() => createSound(1567.98, 0.1), 100); // G6
                 setTimeout(() => createSound(2093.00, 0.1), 150); // C7
                 setTimeout(() => createSound(2637.02, 0.2), 200); // E7
+            },
+            
+            phoenix: () => {
+                // Phoenix resurrection sound
+                createSound(261.63, 0.2); // C4
+                setTimeout(() => createSound(329.63, 0.2), 100); // E4
+                setTimeout(() => createSound(392.00, 0.2), 200); // G4
+                setTimeout(() => createSound(523.25, 0.3), 300); // C5
+                setTimeout(() => createSound(659.25, 0.4), 400); // E5
+            },
+            
+            timeTravel: () => {
+                // Time travel sound
+                createSound(2093.00, 0.1, 'sawtooth'); // C7
+                setTimeout(() => createSound(1567.98, 0.1, 'sawtooth'), 50); // G6
+                setTimeout(() => createSound(1318.51, 0.1, 'sawtooth'), 100); // E6
+                setTimeout(() => createSound(1046.50, 0.2, 'sawtooth'), 150); // C6
+                setTimeout(() => createSound(783.99, 0.3, 'sawtooth'), 200); // G5
+            },
+            
+            meowl: () => {
+                // Meowl special sound
+                createSound(392.00, 0.1, 'triangle'); // G4
+                setTimeout(() => createSound(493.88, 0.1, 'triangle'), 50); // B4
+                setTimeout(() => createSound(587.33, 0.1, 'triangle'), 100); // D5
+                setTimeout(() => createSound(698.46, 0.1, 'triangle'), 150); // F5
+                setTimeout(() => createSound(783.99, 0.2, 'triangle'), 200); // G5
+                setTimeout(() => createSound(932.33, 0.3, 'triangle'), 250); // A#5
+            },
+            
+            diamond: () => {
+                // Diamond collect sound
+                createSound(2093.00, 0.1, 'sine'); // C7
+                setTimeout(() => createSound(2637.02, 0.1, 'sine'), 50); // E7
+                setTimeout(() => createSound(3135.96, 0.2, 'sine'), 100); // G7
             }
         };
 
@@ -2100,6 +2534,7 @@
             level: 0,
             score: 0,
             gold: 50,
+            diamonds: 0,
             lives: 3,
             maxLives: 3,
             streak: 0,
@@ -2157,6 +2592,29 @@
                     reward: 'lucky_cat_pet',
                     name: 'Lucky Cat Pet',
                     description: 'Unlocks the limited edition Lucky Cat pet'
+                },
+                'ilovemeowl': {
+                    reward: 'meowl_pet',
+                    name: 'Meowl Pet',
+                    description: 'Unlocks the GOD TIER Meowl pet',
+                    godTier: true
+                }
+            },
+            
+            // New Pets Special Properties
+            petAbilities: {
+                meowl: {
+                    extraAttempts: 5,
+                    extraAttemptsUsed: 0,
+                    healthRestored: false
+                },
+                rainbow_phoenix: {
+                    resurrectionUsed: false,
+                    resurrectionChance: 0.5 // 50%
+                },
+                time_travel_turtle: {
+                    rewindUsed: false,
+                    rewindAvailable: true
                 }
             },
             
@@ -2185,7 +2643,11 @@
             isSelecting: false,
             
             // Music state
-            musicInitialized: false
+            musicInitialized: false,
+            
+            // Diamond generation tracking
+            lastDiamondCheckGold: 50,
+            diamondCheckInterval: null
         };
 
         // Update the global soundEnabled flag when game state changes
@@ -2300,6 +2762,49 @@
                     bonusAmount: 200,
                     bonusCondition: 5,
                     isRedeemOnly: true
+                },
+                // NEW: Meowl - God Tier Pet
+                { 
+                    id: 'meowl', 
+                    name: 'Meowl', 
+                    price: 300000, 
+                    icon: 'fas fa-paw', 
+                    color: '#00ff00', 
+                    effect: 'Prediction Safeguard (5 extra attempts) + Auto health restore', 
+                    rarity: 'godtier',
+                    bonusType: 'protection',
+                    bonusAmount: 0,
+                    bonusCondition: 0,
+                    godTier: true
+                },
+                // NEW: Rainbow Phoenix - Limited Edition
+                { 
+                    id: 'rainbow_phoenix', 
+                    name: 'Rainbow Phoenix', 
+                    price: 2, // 2 diamonds
+                    icon: 'fas fa-fire', 
+                    color: '#ff0000', 
+                    effect: '50% resurrection chance + 25% gold bonus', 
+                    rarity: 'limited',
+                    bonusType: 'resurrection',
+                    bonusAmount: 0.25, // 25% gold bonus
+                    bonusCondition: 0,
+                    priceInDiamonds: true
+                },
+                // NEW: Time Travel Turtle - God Tier
+                { 
+                    id: 'time_travel_turtle', 
+                    name: 'Time Travel Turtle', 
+                    price: 25, // 25 diamonds
+                    icon: 'fas fa-turtle', 
+                    color: '#00ffcc', 
+                    effect: 'Time rewind (undo wrong guess) + 30% gold bonus', 
+                    rarity: 'godtier',
+                    bonusType: 'rewind',
+                    bonusAmount: 0.30, // 30% gold bonus
+                    bonusCondition: 0,
+                    priceInDiamonds: true,
+                    godTier: true
                 }
             ],
             
@@ -2389,6 +2894,9 @@
             
             // Check if Lucky Cat should be shown
             checkLuckyCatDisplay();
+            
+            // Start diamond generation check
+            startDiamondGenerationCheck();
         });
 
         function initializeAudio() {
@@ -2423,6 +2931,9 @@
             
             const savedGold = localStorage.getItem('gtgGold');
             if (savedGold) gameState.gold = parseInt(savedGold);
+            
+            const savedDiamonds = localStorage.getItem('gtgDiamonds');
+            if (savedDiamonds) gameState.diamonds = parseFloat(savedDiamonds);
             
             const savedHighScore = localStorage.getItem('gtgHighScore');
             if (savedHighScore) gameState.highScore = parseInt(savedHighScore);
@@ -2479,11 +2990,29 @@
             gameState.totalPets = gameState.purchasedItems.filter(item => 
                 shopItems.pets.some(pet => pet.id === item && pet.id !== 'none')
             ).length;
+            
+            // Load pet abilities state
+            const savedPetAbilities = localStorage.getItem('gtgPetAbilities');
+            if (savedPetAbilities) {
+                const loadedAbilities = JSON.parse(savedPetAbilities);
+                // Merge with existing structure
+                Object.keys(loadedAbilities).forEach(petId => {
+                    if (gameState.petAbilities[petId]) {
+                        gameState.petAbilities[petId] = {...gameState.petAbilities[petId], ...loadedAbilities[petId]};
+                    } else {
+                        gameState.petAbilities[petId] = loadedAbilities[petId];
+                    }
+                });
+            }
+            
+            // Update last diamond check gold
+            gameState.lastDiamondCheckGold = gameState.gold;
         }
 
         function saveGameState() {
             localStorage.setItem('gtgPlayerName', gameState.playerName);
             localStorage.setItem('gtgGold', gameState.gold);
+            localStorage.setItem('gtgDiamonds', gameState.diamonds);
             localStorage.setItem('gtgHighScore', gameState.highScore);
             localStorage.setItem('gtgTotalGames', gameState.totalGames);
             localStorage.setItem('gtgTotalCorrect', gameState.totalCorrect);
@@ -2501,6 +3030,73 @@
             localStorage.setItem('gtgPurchasedThemes', JSON.stringify(gameState.purchasedThemes));
             localStorage.setItem('gtgActiveTheme', gameState.activeTheme);
             localStorage.setItem('gtgRedeemedCodes', JSON.stringify(gameState.redeemedCodes));
+            localStorage.setItem('gtgPetAbilities', JSON.stringify(gameState.petAbilities));
+        }
+
+        // ====== DIAMONDS CURRENCY SYSTEM ======
+        function startDiamondGenerationCheck() {
+            // Clear existing interval
+            if (gameState.diamondCheckInterval) {
+                clearInterval(gameState.diamondCheckInterval);
+            }
+            
+            // Check for diamond generation every 5 seconds
+            gameState.diamondCheckInterval = setInterval(() => {
+                generateDiamondsFromGold();
+            }, 5000);
+        }
+
+        function generateDiamondsFromGold() {
+            const goldIncrease = gameState.gold - gameState.lastDiamondCheckGold;
+            
+            if (goldIncrease > 0) {
+                // Calculate diamonds based on gold: 0.5 diamonds per 100,000 gold
+                const diamondsToAdd = (goldIncrease / 100000) * 0.5;
+                
+                if (diamondsToAdd >= 0.01) { // Minimum 0.01 diamonds to add
+                    gameState.diamonds += diamondsToAdd;
+                    gameState.lastDiamondCheckGold = gameState.gold;
+                    
+                    // Update display
+                    updateDisplays();
+                    
+                    // Show diamond effect for significant gains
+                    if (diamondsToAdd >= 0.1) {
+                        showDiamondEffect(diamondsToAdd);
+                    }
+                    
+                    saveGameState();
+                }
+            }
+            
+            // Also check total gold for diamonds
+            const totalDiamondsFromGold = Math.floor(gameState.gold / 200000); // 1 diamond per 200,000 gold
+            const bonusDiamonds = totalDiamondsFromGold * 0.1; // 10% bonus
+            
+            if (bonusDiamonds > 0 && !gameState.diamondBonusGiven) {
+                gameState.diamonds += bonusDiamonds;
+                gameState.diamondBonusGiven = true;
+                showNotification(`Gold milestone reached! +${bonusDiamonds.toFixed(2)} diamonds bonus!`, 'success');
+                updateDisplays();
+                saveGameState();
+            }
+        }
+
+        function showDiamondEffect(amount) {
+            const effect = document.createElement('div');
+            effect.className = 'diamond-effect';
+            effect.innerHTML = `<i class="fas fa-gem"></i> +${amount.toFixed(2)}`;
+            effect.style.left = `${Math.random() * 80 + 10}%`;
+            effect.style.top = `${Math.random() * 50 + 25}%`;
+            
+            document.body.appendChild(effect);
+            
+            // Play diamond sound
+            playSound('diamond');
+            
+            setTimeout(() => {
+                effect.remove();
+            }, 2000);
         }
 
         // ====== WELCOME SYSTEM ======
@@ -2543,6 +3139,8 @@
             const redeemInput = document.getElementById('redeem-code-input');
             const closeRedeemBtn = document.getElementById('close-redeem-btn');
             const redeemModal = document.getElementById('redeem-modal');
+            const closeGodTierBtn = document.getElementById('close-god-tier-btn');
+            const godTierModal = document.getElementById('god-tier-modal');
             
             if (!redeemBtn) return;
             
@@ -2576,6 +3174,14 @@
                 redeemInput.value = '';
             });
             
+            // Close god tier modal
+            if (closeGodTierBtn) {
+                closeGodTierBtn.addEventListener('click', function() {
+                    godTierModal.style.display = 'none';
+                    loadShopItems(); // Refresh shop to show new pet
+                });
+            }
+            
             // Close on background click
             redeemModal.addEventListener('click', function(e) {
                 if (e.target === this) {
@@ -2583,6 +3189,15 @@
                     redeemInput.value = '';
                 }
             });
+            
+            if (godTierModal) {
+                godTierModal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        godTierModal.style.display = 'none';
+                        loadShopItems(); // Refresh shop
+                    }
+                });
+            }
         }
 
         function processRedeemCode(code) {
@@ -2618,13 +3233,26 @@
                         showNotification('You already have the Lucky Cat pet!', 'info');
                     }
                     break;
+                    
+                case 'meowl_pet':
+                    if (!gameState.purchasedItems.includes('meowl')) {
+                        // Show god tier unlock modal
+                        document.getElementById('god-tier-modal').style.display = 'flex';
+                        showNotification('GOD TIER PET UNLOCKED! Check Pets tab!', 'success');
+                        
+                        // Add to redeemed codes but not purchased yet (player needs to claim)
+                        // The pet will be available in shop for claiming
+                    } else {
+                        showNotification('You already have the Meowl pet!', 'info');
+                    }
+                    break;
             }
             
             // Close modal and update shop
             document.getElementById('redeem-modal').style.display = 'none';
             document.getElementById('redeem-code-input').value = '';
             
-            // Update shop to show Lucky Cat
+            // Update shop to show unlocked pets
             loadShopItems();
             
             // Save game state
@@ -2698,55 +3326,284 @@
             }
         }
 
-        function updateLuckyCatDisplay() {
+        function updatePetEffectDisplays() {
             const luckyCatEffect = document.getElementById('lucky-cat-effect');
-            if (gameState.equippedPet === 'lucky_cat') {
-                luckyCatEffect.style.display = 'block';
-                
-                // Apply Lucky Cat theme
-                if (gameState.activeTheme !== 'luckycat') {
-                    document.body.classList.add('theme-luckycat');
-                    createLuckyCatEffects();
-                }
-            } else {
-                luckyCatEffect.style.display = 'none';
-                
-                // Remove Lucky Cat theme if it's active
-                if (gameState.activeTheme === 'luckycat') {
-                    document.body.classList.remove('theme-luckycat');
-                    clearThemeEffects();
-                }
+            const meowlEffect = document.getElementById('meowl-effect-display');
+            const phoenixEffect = document.getElementById('phoenix-effect-display');
+            const turtleEffect = document.getElementById('turtle-effect-display');
+            
+            // Reset all
+            luckyCatEffect.style.display = 'none';
+            meowlEffect.style.display = 'none';
+            phoenixEffect.style.display = 'none';
+            turtleEffect.style.display = 'none';
+            
+            // Show based on equipped pet
+            switch(gameState.equippedPet) {
+                case 'lucky_cat':
+                    luckyCatEffect.style.display = 'block';
+                    break;
+                case 'meowl':
+                    meowlEffect.style.display = 'block';
+                    break;
+                case 'rainbow_phoenix':
+                    phoenixEffect.style.display = 'block';
+                    break;
+                case 'time_travel_turtle':
+                    turtleEffect.style.display = 'block';
+                    break;
             }
         }
 
-        function createLuckyCatEffects() {
+        function createPetThemeEffects() {
             const effectsContainer = document.getElementById('theme-effects');
             effectsContainer.innerHTML = '';
             
-            // Create main effect
-            const effect = document.createElement('div');
-            effect.className = 'theme-effect luckycat-effect';
-            effectsContainer.appendChild(effect);
+            // Remove all theme classes first
+            document.body.classList.remove('theme-meowl', 'theme-phoenix', 'theme-turtle');
             
-            // Create cat paw particles
-            createCatParticles();
+            // Add theme based on equipped pet
+            switch(gameState.equippedPet) {
+                case 'meowl':
+                    document.body.classList.add('theme-meowl');
+                    createMeowlEffects();
+                    break;
+                case 'rainbow_phoenix':
+                    document.body.classList.add('theme-phoenix');
+                    createRainbowPhoenixEffects();
+                    break;
+                case 'time_travel_turtle':
+                    document.body.classList.add('theme-turtle');
+                    createTimeTravelTurtleEffects();
+                    break;
+            }
         }
 
-        function createCatParticles() {
+        function createMeowlEffects() {
             const effectsContainer = document.getElementById('theme-effects');
             
-            for (let i = 0; i < 20; i++) {
+            // Create main effect
+            const effect = document.createElement('div');
+            effect.className = 'theme-effect meowl-effect';
+            effectsContainer.appendChild(effect);
+            
+            // Create green glow particles
+            for (let i = 0; i < 30; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'theme-particle';
-                particle.innerHTML = '<i class="fas fa-paw" style="font-size: 0.8rem;"></i>';
+                particle.style.width = `${Math.random() * 3 + 2}px`;
+                particle.style.height = particle.style.width;
                 particle.style.left = `${Math.random() * 100}%`;
                 particle.style.top = `${Math.random() * 100}%`;
-                particle.style.color = '#ff6b9d';
-                particle.style.opacity = '0.7';
-                particle.style.animation = `float ${Math.random() * 10 + 10}s infinite linear`;
+                particle.style.background = `hsl(${120 + Math.random() * 40}, 100%, 50%)`;
+                particle.style.boxShadow = `0 0 ${Math.random() * 10 + 5}px #00ff00`;
+                particle.style.animation = `float ${Math.random() * 15 + 10}s infinite linear`;
                 particle.style.animationDelay = `${Math.random() * 5}s`;
                 effectsContainer.appendChild(particle);
             }
+        }
+
+        function createRainbowPhoenixEffects() {
+            const effectsContainer = document.getElementById('theme-effects');
+            
+            // Create main effect
+            const effect = document.createElement('div');
+            effect.className = 'theme-effect phoenix-effect';
+            effectsContainer.appendChild(effect);
+            
+            // Create rainbow particles
+            for (let i = 0; i < 40; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'rainbow-particle';
+                particle.style.width = `${Math.random() * 4 + 2}px`;
+                particle.style.height = particle.style.width;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100 + 100}%`;
+                
+                // Rainbow colors
+                const hue = Math.random() * 60; // Red to yellow spectrum
+                particle.style.background = `hsl(${hue}, 100%, 50%)`;
+                particle.style.boxShadow = `0 0 ${Math.random() * 10 + 5}px currentColor`;
+                particle.style.animationDelay = `${Math.random() * 3}s`;
+                
+                effectsContainer.appendChild(particle);
+            }
+        }
+
+        function createTimeTravelTurtleEffects() {
+            const effectsContainer = document.getElementById('theme-effects');
+            
+            // Create main effect
+            const effect = document.createElement('div');
+            effect.className = 'theme-effect turtle-effect';
+            effectsContainer.appendChild(effect);
+            
+            // Create time travel particles
+            for (let i = 0; i < 25; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'time-particle';
+                particle.innerHTML = '<i class="fas fa-clock"></i>';
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100 + 100}%`;
+                particle.style.color = `hsl(${160 + Math.random() * 40}, 100%, 60%)`;
+                particle.style.animationDelay = `${Math.random() * 4}s`;
+                
+                effectsContainer.appendChild(particle);
+            }
+        }
+
+        // ====== NEW PET ABILITIES ======
+        function applyMeowlAbilities() {
+            if (gameState.equippedPet === 'meowl') {
+                // Start Meowl's special music
+                const meowlMusic = document.getElementById('meowl-music');
+                if (meowlMusic && gameState.gameActive) {
+                    meowlMusic.volume = gameState.musicVolume * 0.5; // 50% volume
+                    meowlMusic.play().catch(e => console.log("Meowl music play failed:", e));
+                }
+                
+                // Reset abilities for new game
+                gameState.petAbilities.meowl.extraAttemptsUsed = 0;
+                gameState.petAbilities.meowl.healthRestored = false;
+                
+                // Show Meowl protection in instruction
+                const instruction = document.getElementById('instruction');
+                instruction.innerHTML += ` <span style="color:#00ff00"><i class="fas fa-paw"></i> Meowl Protection Active (${gameState.petAbilities.meowl.extraAttempts} extra attempts)</span>`;
+            }
+        }
+
+        function checkMeowlHealthRestore() {
+            if (gameState.equippedPet === 'meowl' && 
+                gameState.lives === 1 && 
+                !gameState.petAbilities.meowl.healthRestored) {
+                
+                // Restore health to 3
+                gameState.lives = 3;
+                gameState.petAbilities.meowl.healthRestored = true;
+                
+                // Update display
+                updateLivesDisplay();
+                updateDisplays();
+                
+                // Show effect
+                const effect = document.createElement('div');
+                effect.className = 'meowl-prediction-effect';
+                effect.innerHTML = '<i class="fas fa-heart"></i> Meowl Health Restore!';
+                document.body.appendChild(effect);
+                
+                setTimeout(() => effect.remove(), 1000);
+                
+                // Show notification
+                showNotification('Meowl restored your health to 3!', 'success');
+                
+                // Play Meowl sound
+                playSound('meowl');
+                
+                saveGameState();
+            }
+        }
+
+        function useMeowlExtraAttempt() {
+            if (gameState.equippedPet === 'meowl' && 
+                gameState.petAbilities.meowl.extraAttemptsUsed < gameState.petAbilities.meowl.extraAttempts) {
+                
+                gameState.petAbilities.meowl.extraAttemptsUsed++;
+                
+                // Show effect
+                const effect = document.createElement('div');
+                effect.className = 'meowl-prediction-effect';
+                effect.innerHTML = `<i class="fas fa-paw"></i> Meowl Protection! (${gameState.petAbilities.meowl.extraAttempts - gameState.petAbilities.meowl.extraAttemptsUsed} left)`;
+                document.body.appendChild(effect);
+                
+                setTimeout(() => effect.remove(), 1000);
+                
+                // Show notification
+                showNotification(`Meowl protected you! ${gameState.petAbilities.meowl.extraAttempts - gameState.petAbilities.meowl.extraAttemptsUsed} extra attempts remaining.`, 'success');
+                
+                // Play Meowl sound
+                playSound('meowl');
+                
+                return true;
+            }
+            return false;
+        }
+
+        function checkRainbowPhoenixResurrection() {
+            if (gameState.equippedPet === 'rainbow_phoenix' && 
+                !gameState.petAbilities.rainbow_phoenix.resurrectionUsed) {
+                
+                // 50% chance for resurrection
+                if (Math.random() < gameState.petAbilities.rainbow_phoenix.resurrectionChance) {
+                    gameState.petAbilities.rainbow_phoenix.resurrectionUsed = true;
+                    
+                    // Show resurrection effect
+                    const effect = document.createElement('div');
+                    effect.className = 'phoenix-resurrect-effect';
+                    effect.innerHTML = '<i class="fas fa-fire"></i> Phoenix Resurrection!';
+                    document.body.appendChild(effect);
+                    
+                    setTimeout(() => effect.remove(), 1500);
+                    
+                    // Play phoenix sound
+                    playSound('phoenix');
+                    
+                    // Show notification
+                    showNotification('Rainbow Phoenix resurrected you!', 'success');
+                    
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function useTimeRewind() {
+            if (gameState.equippedPet === 'time_travel_turtle' && 
+                gameState.petAbilities.time_travel_turtle.rewindAvailable &&
+                gameState.gameActive &&
+                gameState.selectedOption !== null &&
+                gameState.selectedOption !== gameState.goldPosition) {
+                
+                // Use the rewind ability
+                gameState.petAbilities.time_travel_turtle.rewindAvailable = false;
+                gameState.petAbilities.time_travel_turtle.rewindUsed = true;
+                
+                // Remove the wrong selection from revealed options
+                const wrongIndex = gameState.revealedOptions.indexOf(gameState.selectedOption);
+                if (wrongIndex !== -1) {
+                    gameState.revealedOptions.splice(wrongIndex, 1);
+                }
+                
+                // Reset selection state
+                gameState.selectedOption = null;
+                gameState.isSelecting = false;
+                
+                // Show time rewind effect
+                const effect = document.createElement('div');
+                effect.className = 'time-rewind-effect';
+                document.body.appendChild(effect);
+                
+                setTimeout(() => effect.remove(), 1000);
+                
+                // Play time travel sound
+                playSound('timeTravel');
+                
+                // Regenerate options (undoing the wrong selection)
+                generateOptions();
+                
+                // Update instruction
+                document.getElementById('instruction').innerHTML = `<span style="color:#00ffcc">Time Travel Turtle rewound time! Try again!</span>`;
+                
+                // Hide time rewind button
+                document.getElementById('time-rewind-btn').style.display = 'none';
+                
+                // Show notification
+                showNotification('Time rewound! Try your guess again.', 'success');
+                
+                saveGameState();
+                
+                return true;
+            }
+            return false;
         }
 
         // ====== GAME FUNCTIONS ======
@@ -2768,8 +3625,24 @@
             gameState.petStreakCounter = 0;
             gameState.isSelecting = false;
             
+            // Reset pet abilities for new game
+            if (gameState.petAbilities.rainbow_phoenix) {
+                gameState.petAbilities.rainbow_phoenix.resurrectionUsed = false;
+            }
+            if (gameState.petAbilities.time_travel_turtle) {
+                gameState.petAbilities.time_travel_turtle.rewindAvailable = true;
+                gameState.petAbilities.time_travel_turtle.rewindUsed = false;
+            }
+            
             // Stop any playing music
             stopBackgroundMusic();
+            
+            // Stop Meowl music
+            const meowlMusic = document.getElementById('meowl-music');
+            if (meowlMusic) {
+                meowlMusic.pause();
+                meowlMusic.currentTime = 0;
+            }
             
             // Stop Lucky Cat interval
             if (gameState.luckyCatInterval) {
@@ -2785,13 +3658,14 @@
             updateAvatarDisplay();
             updateSoundButton();
             updateMusicControls();
-            updateLuckyCatDisplay();
+            updatePetEffectDisplays();
             
             // Reset UI
             document.getElementById('instruction').textContent = "Click 'Start Game' to begin your treasure hunt!";
             document.getElementById('difficulty-info').textContent = "Difficulty: Easy (2 options)";
             document.getElementById('options-container').innerHTML = '';
             document.getElementById('next-btn').style.display = 'none';
+            document.getElementById('time-rewind-btn').style.display = 'none';
             document.getElementById('game-over').style.display = 'none';
             document.getElementById('level-progress-bar').style.width = '0%';
             document.getElementById('start-btn').disabled = false;
@@ -2807,6 +3681,9 @@
             
             // Apply theme effects
             applyTheme(gameState.activeTheme);
+            createPetThemeEffects();
+            
+            saveGameState();
         }
 
         function generateEmptyOptions() {
@@ -2837,6 +3714,9 @@
             
             // Apply pet effects
             updatePetEffects();
+            
+            // Apply Meowl abilities
+            applyMeowlAbilities();
             
             // Start Lucky Cat passive gold if equipped
             if (gameState.equippedPet === 'lucky_cat') {
@@ -2926,6 +3806,13 @@
                 gameState.backgroundOscillator = null;
             }
             
+            // Stop Meowl music
+            const meowlMusic = document.getElementById('meowl-music');
+            if (meowlMusic) {
+                meowlMusic.pause();
+                meowlMusic.currentTime = 0;
+            }
+            
             updateMusicButton(false);
         }
 
@@ -2953,6 +3840,11 @@
             gameState.isSelecting = false;
             gameState.activePowerUps.tagnaUsed = false;
             
+            // Reset time rewind ability for new level
+            if (gameState.petAbilities.time_travel_turtle) {
+                gameState.petAbilities.time_travel_turtle.rewindAvailable = true;
+            }
+            
             // Calculate difficulty
             gameState.optionsCount = Math.min(2 + Math.floor(gameState.level / 5), 10);
             
@@ -2971,6 +3863,14 @@
             
             // Hide next button
             document.getElementById('next-btn').style.display = 'none';
+            
+            // Show time rewind button if turtle is equipped and ability is available
+            if (gameState.equippedPet === 'time_travel_turtle' && 
+                gameState.petAbilities.time_travel_turtle.rewindAvailable) {
+                document.getElementById('time-rewind-btn').style.display = 'inline-flex';
+            } else {
+                document.getElementById('time-rewind-btn').style.display = 'none';
+            }
             
             // Reset hint usage
             gameState.activePowerUps.hintUsed = false;
@@ -3004,13 +3904,22 @@
             const pet = shopItems.pets.find(p => p.id === gameState.equippedPet);
             if (pet && pet.id !== 'none') {
                 instruction += ` <span style="color:${pet.color};font-size:0.9em">(Pet: ${pet.name} - ${pet.effect})</span>`;
-                // Special message for Music Dragon
+                
+                // Special messages for pets
                 if (pet.id === 'music_dragon' && gameState.musicEnabled) {
                     instruction += ` <span style="color:#9c88ff"><i class="fas fa-music"></i></span>`;
                 }
-                // Special message for Lucky Cat
                 if (pet.id === 'lucky_cat') {
                     instruction += ` <span style="color:#ff6b9d"><i class="fas fa-cat"></i></span>`;
+                }
+                if (pet.id === 'meowl') {
+                    instruction += ` <span style="color:#00ff00"><i class="fas fa-paw"></i> ${gameState.petAbilities.meowl.extraAttempts} extra attempts</span>`;
+                }
+                if (pet.id === 'rainbow_phoenix' && !gameState.petAbilities.rainbow_phoenix.resurrectionUsed) {
+                    instruction += ` <span style="color:#ff0000"><i class="fas fa-fire"></i> 50% resurrection chance</span>`;
+                }
+                if (pet.id === 'time_travel_turtle' && gameState.petAbilities.time_travel_turtle.rewindAvailable) {
+                    instruction += ` <span style="color:#00ffcc"><i class="fas fa-turtle"></i> Time rewind available</span>`;
                 }
             }
             document.getElementById('instruction').innerHTML = instruction;
@@ -3094,6 +4003,7 @@
             let petMessage = '';
             
             if (pet && pet.id !== 'none') {
+                // Apply pet-specific gold bonuses
                 switch(pet.bonusType) {
                     case 'correct':
                         // Golden Eagle: +10 gold on every correct guess
@@ -3125,6 +4035,24 @@
                             petBonus = 50; // Extra bonus for correct guess
                             goldEarned += petBonus;
                             petMessage = ` +${petBonus} from Lucky Cat bonus`;
+                        }
+                        break;
+                        
+                    case 'resurrection':
+                        // Rainbow Phoenix: 25% gold bonus
+                        if (pet.id === 'rainbow_phoenix') {
+                            petBonus = Math.round(goldEarned * pet.bonusAmount);
+                            goldEarned += petBonus;
+                            petMessage = ` +${petBonus} from Rainbow Phoenix bonus`;
+                        }
+                        break;
+                        
+                    case 'rewind':
+                        // Time Travel Turtle: 30% gold bonus
+                        if (pet.id === 'time_travel_turtle') {
+                            petBonus = Math.round(goldEarned * pet.bonusAmount);
+                            goldEarned += petBonus;
+                            petMessage = ` +${petBonus} from Time Travel Turtle bonus`;
                         }
                         break;
                 }
@@ -3171,6 +4099,38 @@
         }
 
         function handleWrongGuess() {
+            let shouldLoseLife = true;
+            
+            // Check for Meowl protection first
+            if (gameState.equippedPet === 'meowl') {
+                const meowlProtected = useMeowlExtraAttempt();
+                if (meowlProtected) {
+                    shouldLoseLife = false;
+                    gameState.isSelecting = false;
+                    gameState.selectedOption = null;
+                    
+                    // Regenerate options to re-enable clicking
+                    setTimeout(() => {
+                        generateOptions();
+                    }, 1000);
+                    
+                    return; // Exit early, no life lost
+                }
+            }
+            
+            // Check for Rainbow Phoenix resurrection
+            if (shouldLoseLife && gameState.equippedPet === 'rainbow_phoenix') {
+                const phoenixResurrected = checkRainbowPhoenixResurrection();
+                if (phoenixResurrected) {
+                    shouldLoseLife = false;
+                }
+            }
+            
+            // Check for Meowl health restore
+            if (shouldLoseLife) {
+                checkMeowlHealthRestore();
+            }
+            
             // Stop background music if streak is broken and Music Dragon is equipped
             if (gameState.equippedPet === 'music_dragon' && !gameState.permanentPowerUps.streakShield) {
                 const bgMusic = document.getElementById('background-music');
@@ -3181,13 +4141,15 @@
             }
             
             // Reset streak and pet streak counter
-            if (!gameState.permanentPowerUps.streakShield) {
+            if (!gameState.permanentPowerUps.streakShield && shouldLoseLife) {
                 gameState.streak = 0;
                 gameState.petStreakCounter = 0;
             }
             
-            gameState.lives--;
-            gameState.totalWrong++;
+            if (shouldLoseLife) {
+                gameState.lives--;
+                gameState.totalWrong++;
+            }
             
             // Update the display
             generateOptions();
@@ -3202,16 +4164,27 @@
             if (gameState.equippedPet === 'music_dragon' && !gameState.permanentPowerUps.streakShield) {
                 message = `<span style="color:#ff6b6b">✗ Wrong! Music stopped!</span>`;
             }
+            
+            // Show time rewind button if turtle is equipped and ability is available
+            if (gameState.equippedPet === 'time_travel_turtle' && 
+                gameState.petAbilities.time_travel_turtle.rewindAvailable &&
+                shouldLoseLife) {
+                message += ` <span style="color:#00ffcc"><i class="fas fa-turtle"></i> Use Time Rewind to undo!</span>`;
+                document.getElementById('time-rewind-btn').style.display = 'inline-flex';
+            }
+            
             document.getElementById('instruction').innerHTML = message;
             
             // Play wrong sound
             playSound('wrong');
             
             // Show notification
-            showNotification('Wrong guess!', 'error');
+            if (shouldLoseLife) {
+                showNotification('Wrong guess!', 'error');
+            }
             
             // Check if game over
-            if (gameState.lives <= 0) {
+            if (gameState.lives <= 0 && shouldLoseLife) {
                 setTimeout(() => {
                     gameOver();
                     gameState.isSelecting = false;
@@ -3219,10 +4192,13 @@
             } else {
                 // Allow selecting again after delay
                 setTimeout(() => {
-                    gameState.isSelecting = false;
-                    gameState.selectedOption = null;
-                    // Regenerate options to re-enable clicking
-                    generateOptions();
+                    if (!gameState.petAbilities.time_travel_turtle?.rewindAvailable || 
+                        gameState.equippedPet !== 'time_travel_turtle') {
+                        gameState.isSelecting = false;
+                        gameState.selectedOption = null;
+                        // Regenerate options to re-enable clicking
+                        generateOptions();
+                    }
                 }, 1000);
             }
             
@@ -3270,6 +4246,8 @@
             document.getElementById('score-display').textContent = gameState.score;
             document.getElementById('gold-display').textContent = gameState.gold;
             document.getElementById('shop-gold-display').textContent = gameState.gold;
+            document.getElementById('diamonds-display').textContent = gameState.diamonds.toFixed(2);
+            document.getElementById('shop-diamonds-display').textContent = gameState.diamonds.toFixed(2);
             document.getElementById('streak-display').textContent = gameState.streak;
             document.getElementById('lives-display').textContent = gameState.lives;
             document.getElementById('high-score-display').textContent = gameState.highScore;
@@ -3312,17 +4290,32 @@
                     return;
                 }
                 
+                // For Meowl, check if it's been redeemed
+                if (item.id === 'meowl' && !gameState.redeemedCodes.includes('ILOVEMEOWL')) {
+                    // Don't show Meowl if code hasn't been redeemed
+                    return;
+                }
+                
                 const isPurchased = gameState.purchasedItems.includes(item.id);
                 const isEquipped = 
                     (category === 'avatars' && gameState.equippedAvatar === item.id) ||
                     (category === 'frames' && gameState.equippedFrame === item.id) ||
                     (category === 'pets' && gameState.equippedPet === item.id);
                 
-                // Special handling for Lucky Cat (redeem-only item)
+                // Special handling for redeem-only items
                 let canPurchase = true;
-                let purchaseText = item.price === 0 ? 'Free' : 'Buy';
+                let purchaseText = 'Buy';
+                let priceDisplay = `<i class="fas fa-coins"></i> ${item.price} Gold`;
                 
-                if (item.id === 'lucky_cat') {
+                // Check if price is in diamonds
+                if (item.priceInDiamonds) {
+                    priceDisplay = `<i class="fas fa-gem diamond-currency"></i> ${item.price} Diamonds`;
+                    canPurchase = gameState.diamonds >= item.price;
+                } else if (item.price === 0) {
+                    purchaseText = 'Free';
+                }
+                
+                if (item.id === 'lucky_cat' || item.id === 'meowl') {
                     if (isPurchased) {
                         purchaseText = isEquipped ? 'Equipped' : 'Equip';
                     } else {
@@ -3334,9 +4327,14 @@
                 const itemElement = document.createElement('div');
                 itemElement.className = `shop-item ${isPurchased ? 'purchased' : ''} ${isEquipped ? 'equipped' : ''} ${item.rarity ? 'rarity-' + item.rarity : ''}`;
                 
-                // Add special class for limited edition items
-                if (item.rarity === 'limited') {
+                // Add special classes for premium pets
+                if (item.godTier) {
+                    itemElement.classList.add('godtier');
+                } else if (item.rarity === 'limited') {
                     itemElement.classList.add('limited');
+                    if (item.id === 'rainbow_phoenix') {
+                        itemElement.classList.add('rainbow');
+                    }
                 }
                 
                 // Add rarity class for styling
@@ -3347,13 +4345,14 @@
                 let actionButton = '';
                 
                 if (!isPurchased) {
-                    if (item.id === 'lucky_cat') {
-                        // Lucky Cat claim button
-                        actionButton = `<button class="shop-item-action claim" onclick="claimLuckyCat()">
+                    if (item.id === 'lucky_cat' || item.id === 'meowl') {
+                        // Redeem-only pets claim button
+                        actionButton = `<button class="shop-item-action claim" onclick="claimRedeemPet('${item.id}')">
                                 ${purchaseText}
                             </button>`;
                     } else {
-                        actionButton = `<button class="shop-item-action" onclick="buyItem('${item.id}', '${category}', ${item.price})" ${gameState.gold < item.price ? 'disabled' : ''}>
+                        // Regular purchase button
+                        actionButton = `<button class="shop-item-action" onclick="buyItem('${item.id}', '${category}', ${item.price}, ${item.priceInDiamonds || false})" ${canPurchase ? '' : 'disabled'}>
                                 ${purchaseText}
                             </button>`;
                     }
@@ -3371,15 +4370,15 @@
                 
                 itemElement.innerHTML = `
                     ${item.rarity && item.rarity !== 'common' ? 
-                        `<div class="rarity-badge rarity-${item.rarity}">${item.rarity}${item.rarity === 'limited' ? ' Edition' : ''}</div>` : ''
+                        `<div class="rarity-badge rarity-${item.rarity}">${item.rarity.toUpperCase()}${item.rarity === 'limited' ? ' EDITION' : ''}</div>` : ''
                     }
                     <div class="shop-item-icon" style="color:${item.color || '#FFD700'}">
                         <i class="${item.icon || 'fas fa-question'}"></i>
                     </div>
                     <div class="shop-item-title">${item.name}</div>
                     ${item.effect ? `<div class="shop-item-description" style="font-size:0.7rem; color:#aaa; margin-bottom:5px; text-align:center;">${item.effect}</div>` : ''}
-                    ${item.id !== 'lucky_cat' ? `<div class="shop-item-price">
-                        <i class="fas fa-coins"></i> ${item.price} Gold
+                    ${item.id !== 'lucky_cat' && item.id !== 'meowl' ? `<div class="shop-item-price">
+                        ${priceDisplay}
                     </div>` : '<div class="shop-item-price" style="color:#ff6b9d"><i class="fas fa-gift"></i> Redeem Code Only</div>'}
                     ${actionButton}
                 `;
@@ -3387,40 +4386,65 @@
             });
         }
 
-        function claimLuckyCat() {
+        function claimRedeemPet(petId) {
             // Check if code has been redeemed
-            if (!gameState.redeemedCodes.includes('EDMARKISADMIN')) {
-                showNotification('Redeem code EDMARKISADMIN first!', 'error');
+            let codeRedeemed = false;
+            if (petId === 'lucky_cat') {
+                codeRedeemed = gameState.redeemedCodes.includes('EDMARKISADMIN');
+            } else if (petId === 'meowl') {
+                codeRedeemed = gameState.redeemedCodes.includes('ILOVEMEOWL');
+            }
+            
+            if (!codeRedeemed) {
+                showNotification(`Redeem code required first!`, 'error');
                 return;
             }
             
             // Check if already purchased
-            if (gameState.purchasedItems.includes('lucky_cat')) {
-                showNotification('You already have the Lucky Cat!', 'info');
+            if (gameState.purchasedItems.includes(petId)) {
+                showNotification(`You already have this pet!`, 'info');
                 return;
             }
             
-            // Add Lucky Cat to purchased items
-            gameState.purchasedItems.push('lucky_cat');
+            // Add pet to purchased items
+            gameState.purchasedItems.push(petId);
             gameState.totalPets++;
             
-            // Auto-equip the Lucky Cat
-            equipItem('lucky_cat', 'pets');
+            // Auto-equip the pet
+            equipItem(petId, 'pets');
             
             updateDisplays();
             loadShopItems();
             saveGameState();
             
-            showGoldEffect(0, "Lucky Cat Claimed!");
+            showGoldEffect(0, `${petId === 'meowl' ? 'GOD TIER ' : ''}Pet Claimed!`);
             playSound('purchase');
-            playSound('cat');
             
-            showNotification('Lucky Cat claimed and equipped!', 'success');
+            if (petId === 'meowl') {
+                playSound('meowl');
+                showNotification('GOD TIER Meowl claimed and equipped!', 'success');
+            } else {
+                playSound('cat');
+                showNotification('Lucky Cat claimed and equipped!', 'success');
+            }
         }
 
-        function buyItem(itemId, category, price) {
-            if (gameState.gold >= price) {
-                gameState.gold -= price;
+        function buyItem(itemId, category, price, priceInDiamonds = false) {
+            let canAfford = false;
+            
+            if (priceInDiamonds) {
+                canAfford = gameState.diamonds >= price;
+            } else {
+                canAfford = gameState.gold >= price;
+            }
+            
+            if (canAfford) {
+                if (priceInDiamonds) {
+                    gameState.diamonds -= price;
+                } else {
+                    gameState.gold -= price;
+                }
+                
                 gameState.purchasedItems.push(itemId);
                 
                 // Auto-equip the item
@@ -3435,7 +4459,12 @@
                 loadShopItems();
                 saveGameState();
                 
-                showGoldEffect(-price, "Purchased!");
+                if (priceInDiamonds) {
+                    showDiamondEffect(-price);
+                } else {
+                    showGoldEffect(-price, "Purchased!");
+                }
+                
                 playSound('purchase');
                 
                 // Show special message for pets
@@ -3446,10 +4475,9 @@
                             showGoldEffect(0, `${pet.name} equipped!`);
                         }, 500);
                         
-                        // If it's Music Dragon, show music controls and enable music
+                        // Special handling for different pets
                         if (pet.id === 'music_dragon') {
                             document.getElementById('music-controls').style.display = 'flex';
-                            // Enable music by default when buying Music Dragon
                             if (!gameState.musicEnabled) {
                                 gameState.musicEnabled = true;
                                 updateMusicControls();
@@ -3457,21 +4485,34 @@
                                     startBackgroundMusic();
                                 }
                             }
-                        }
-                        
-                        // If it's Lucky Cat, start passive gold
-                        if (pet.id === 'lucky_cat') {
-                            updateLuckyCatDisplay();
+                        } else if (pet.id === 'lucky_cat') {
+                            updatePetEffectDisplays();
                             if (gameState.gameActive) {
                                 startLuckyCatPassiveGold();
                             }
+                        } else if (pet.id === 'rainbow_phoenix') {
+                            updatePetEffectDisplays();
+                            createPetThemeEffects();
+                            showNotification('Rainbow Phoenix equipped! 50% resurrection chance activated!', 'success');
+                        } else if (pet.id === 'time_travel_turtle') {
+                            updatePetEffectDisplays();
+                            createPetThemeEffects();
+                            showNotification('Time Travel Turtle equipped! Time rewind ability available!', 'success');
+                        } else if (pet.id === 'meowl') {
+                            updatePetEffectDisplays();
+                            createPetThemeEffects();
+                            showNotification('GOD TIER Meowl equipped! Prediction safeguard activated!', 'success');
                         }
                     }
                 }
                 
                 showNotification(`Purchased ${itemId}!`, 'success');
             } else {
-                showNotification(`Not enough gold! Need ${price}`, 'error');
+                if (priceInDiamonds) {
+                    showNotification(`Not enough diamonds! Need ${price}`, 'error');
+                } else {
+                    showNotification(`Not enough gold! Need ${price}`, 'error');
+                }
             }
         }
 
@@ -3488,33 +4529,51 @@
                     // Reset pet streak counter when changing pets
                     gameState.petStreakCounter = 0;
                     
-                    // Handle Music Dragon specific actions
-                    if (itemId === 'music_dragon') {
-                        document.getElementById('music-controls').style.display = 'flex';
-                        if (gameState.musicEnabled && gameState.gameActive) {
-                            startBackgroundMusic();
-                        }
-                        // Stop Lucky Cat effects if switching from Lucky Cat
-                        if (gameState.luckyCatInterval) {
-                            clearInterval(gameState.luckyCatInterval);
-                            gameState.luckyCatInterval = null;
-                        }
-                    } else if (itemId === 'lucky_cat') {
-                        // Handle Lucky Cat specific actions
-                        updateLuckyCatDisplay();
-                        if (gameState.gameActive) {
-                            startLuckyCatPassiveGold();
-                        }
-                        // Stop music if switching from Music Dragon
-                        stopBackgroundMusic();
-                    } else {
-                        // Stop music if switching from Music Dragon
-                        stopBackgroundMusic();
-                        // Stop Lucky Cat effects if switching from Lucky Cat
-                        if (gameState.luckyCatInterval) {
-                            clearInterval(gameState.luckyCatInterval);
-                            gameState.luckyCatInterval = null;
-                        }
+                    // Handle pet-specific actions
+                    switch(itemId) {
+                        case 'music_dragon':
+                            document.getElementById('music-controls').style.display = 'flex';
+                            if (gameState.musicEnabled && gameState.gameActive) {
+                                startBackgroundMusic();
+                            }
+                            // Stop other pet effects
+                            stopOtherPetEffects('music_dragon');
+                            break;
+                            
+                        case 'lucky_cat':
+                            updatePetEffectDisplays();
+                            if (gameState.gameActive) {
+                                startLuckyCatPassiveGold();
+                            }
+                            // Stop other pet effects
+                            stopOtherPetEffects('lucky_cat');
+                            break;
+                            
+                        case 'meowl':
+                            updatePetEffectDisplays();
+                            createPetThemeEffects();
+                            // Stop other pet effects
+                            stopOtherPetEffects('meowl');
+                            break;
+                            
+                        case 'rainbow_phoenix':
+                            updatePetEffectDisplays();
+                            createPetThemeEffects();
+                            // Stop other pet effects
+                            stopOtherPetEffects('rainbow_phoenix');
+                            break;
+                            
+                        case 'time_travel_turtle':
+                            updatePetEffectDisplays();
+                            createPetThemeEffects();
+                            // Stop other pet effects
+                            stopOtherPetEffects('time_travel_turtle');
+                            break;
+                            
+                        default:
+                            // Stop all other pet effects
+                            stopOtherPetEffects('none');
+                            break;
                     }
                     
                     // Update pet effects
@@ -3527,6 +4586,41 @@
             saveGameState();
             
             showNotification(`${itemId} equipped!`, 'success');
+        }
+
+        function stopOtherPetEffects(currentPetId) {
+            // Stop Lucky Cat interval
+            if (currentPetId !== 'lucky_cat' && gameState.luckyCatInterval) {
+                clearInterval(gameState.luckyCatInterval);
+                gameState.luckyCatInterval = null;
+            }
+            
+            // Stop background music if not music dragon
+            if (currentPetId !== 'music_dragon') {
+                stopBackgroundMusic();
+            }
+            
+            // Stop Meowl music
+            if (currentPetId !== 'meowl') {
+                const meowlMusic = document.getElementById('meowl-music');
+                if (meowlMusic) {
+                    meowlMusic.pause();
+                    meowlMusic.currentTime = 0;
+                }
+            }
+            
+            // Reset pet abilities for unequipped pets
+            Object.keys(gameState.petAbilities).forEach(petId => {
+                if (petId !== currentPetId) {
+                    if (gameState.petAbilities[petId]) {
+                        gameState.petAbilities[petId].extraAttemptsUsed = 0;
+                        gameState.petAbilities[petId].healthRestored = false;
+                        gameState.petAbilities[petId].resurrectionUsed = false;
+                        gameState.petAbilities[petId].rewindUsed = false;
+                        gameState.petAbilities[petId].rewindAvailable = true;
+                    }
+                }
+            });
         }
 
         function updateAvatarDisplay() {
@@ -3577,7 +4671,7 @@
         }
 
         function applyTheme(themeId) {
-            // Remove all theme classes
+            // Remove all theme classes except pet themes
             document.body.classList.remove('theme-earth', 'theme-sea', 'theme-sky', 'theme-space', 'theme-luckycat');
             
             // Add new theme class
@@ -3585,11 +4679,17 @@
                 document.body.classList.add(`theme-${themeId}`);
                 gameState.activeTheme = themeId;
                 
-                // Create theme effects
-                createThemeEffects(themeId);
+                // Create theme effects (but don't override pet effects)
+                if (!gameState.equippedPet || 
+                    !['meowl', 'rainbow_phoenix', 'time_travel_turtle'].includes(gameState.equippedPet)) {
+                    createThemeEffects(themeId);
+                }
             } else {
                 gameState.activeTheme = 'default';
-                clearThemeEffects();
+                if (!gameState.equippedPet || 
+                    !['meowl', 'rainbow_phoenix', 'time_travel_turtle'].includes(gameState.equippedPet)) {
+                    clearThemeEffects();
+                }
             }
             
             // If Lucky Cat is equipped, ensure its theme is also applied
@@ -3638,6 +4738,23 @@
                 particle.style.background = `hsl(${Math.random() * 360}, 100%, 70%)`;
                 particle.style.boxShadow = `0 0 ${Math.random() * 10 + 5}px currentColor`;
                 particle.style.animation = `float ${Math.random() * 20 + 10}s infinite linear`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                effectsContainer.appendChild(particle);
+            }
+        }
+
+        function createCatParticles() {
+            const effectsContainer = document.getElementById('theme-effects');
+            
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'theme-particle';
+                particle.innerHTML = '<i class="fas fa-paw" style="font-size: 0.8rem;"></i>';
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.color = '#ff6b9d';
+                particle.style.opacity = '0.7';
+                particle.style.animation = `float ${Math.random() * 10 + 10}s infinite linear`;
                 particle.style.animationDelay = `${Math.random() * 5}s`;
                 effectsContainer.appendChild(particle);
             }
@@ -4110,6 +5227,12 @@
                 bgMusic.volume = gameState.musicVolume;
             }
             
+            // Apply volume to Meowl music
+            const meowlMusic = document.getElementById('meowl-music');
+            if (meowlMusic) {
+                meowlMusic.volume = gameState.musicVolume * 0.5;
+            }
+            
             // Show/hide music controls based on pet
             if (gameState.equippedPet === 'music_dragon') {
                 musicControls.style.display = 'flex';
@@ -4192,8 +5315,14 @@
                         if (gameState.gameActive) {
                             startBackgroundMusic();
                         }
+                    } else if (gameState.equippedPet === 'meowl') {
+                        // Meowl has its own music
+                        const meowlMusic = document.getElementById('meowl-music');
+                        if (meowlMusic && gameState.gameActive) {
+                            meowlMusic.play().catch(e => console.log("Meowl music play failed:", e));
+                        }
                     } else {
-                        showNotification('Music Dragon pet required for background music!', 'error');
+                        showNotification('Music Dragon or Meowl pet required for background music!', 'error');
                         gameState.musicEnabled = false;
                     }
                 } else {
@@ -4213,11 +5342,16 @@
                     bgMusic.volume = gameState.musicVolume;
                 }
                 
+                const meowlMusic = document.getElementById('meowl-music');
+                if (meowlMusic) {
+                    meowlMusic.volume = gameState.musicVolume * 0.5;
+                }
+                
                 saveGameState();
             });
             
             // Close modals when clicking outside
-            const modals = ['reward-modal', 'game-over', 'mystery-modal', 'stats-modal', 'welcome-modal', 'redeem-modal'];
+            const modals = ['reward-modal', 'game-over', 'mystery-modal', 'stats-modal', 'welcome-modal', 'redeem-modal', 'god-tier-modal'];
             modals.forEach(modalId => {
                 const modal = document.getElementById(modalId);
                 if (modal) {
@@ -4227,6 +5361,10 @@
                             // Clear redeem input if closing redeem modal
                             if (modalId === 'redeem-modal') {
                                 document.getElementById('redeem-code-input').value = '';
+                            }
+                            // Refresh shop if closing god tier modal
+                            if (modalId === 'god-tier-modal') {
+                                loadShopItems();
                             }
                         }
                     });
@@ -4245,7 +5383,8 @@
         // ====== PET EFFECTS ======
         function updatePetEffects() {
             applyMusicDragonEffects();
-            updateLuckyCatDisplay();
+            updatePetEffectDisplays();
+            createPetThemeEffects();
         }
 
         function applyMusicDragonEffects() {
