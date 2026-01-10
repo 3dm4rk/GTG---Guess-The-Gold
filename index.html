@@ -48,6 +48,79 @@
             align-items: center;
         }
         
+        /* ====== WELCOME MODAL ====== */
+        .welcome-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 5000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .welcome-content {
+            background: linear-gradient(145deg, var(--darker-bg), #16213e);
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 95%;
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.5);
+            animation: modalSlideIn 0.4s ease;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            position: relative;
+            text-align: center;
+        }
+        
+        .welcome-title {
+            font-size: 2.5rem;
+            color: var(--primary-gold);
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+        
+        .welcome-input {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid var(--primary-gold);
+            border-radius: 10px;
+            color: white;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .welcome-input:focus {
+            outline: none;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+        
+        .welcome-btn {
+            padding: 15px 40px;
+            background: linear-gradient(to right, var(--primary-gold), var(--secondary-gold));
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            color: #000;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 20px;
+        }
+        
+        .welcome-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+        }
+        
         /* ====== HEADER & TITLE ====== */
         header {
             text-align: center;
@@ -1645,6 +1718,16 @@
     </style>
 </head>
 <body>
+    <!-- Welcome Modal -->
+    <div class="welcome-modal" id="welcome-modal">
+        <div class="welcome-content">
+            <h2 class="welcome-title">Welcome to GTG!</h2>
+            <p style="color: var(--text-muted); margin-bottom: 20px;">Enter your name to personalize your gaming experience:</p>
+            <input type="text" class="welcome-input" id="player-name-input" placeholder="Enter your name..." maxlength="20">
+            <button class="welcome-btn" id="save-name-btn">Start Playing!</button>
+        </div>
+    </div>
+    
     <!-- Avatar Display -->
     <div class="avatar-display" id="avatar-display">
         <div class="avatar-display-frame" id="avatar-frame-display">
@@ -2414,6 +2497,42 @@
             optionsCount: 2,
             revealedOptions: [],
             
+            // Player Name
+            playerName: localStorage.getItem('gtgPlayerName') || '',
+            
+            // Pet System
+            activePet: localStorage.getItem('gtgEquippedPet') || 'none',
+            petBonuses: {
+                none: { name: "No Pet", description: "No bonuses" },
+                golden_cat: { 
+                    name: "Golden Cat",
+                    description: "+5 gold every 3 streaks",
+                    bonus: { type: 'streak', threshold: 3, amount: 5 }
+                },
+                lucky_dragon: {
+                    name: "Lucky Dragon", 
+                    description: "+5 gold every 2 streaks",
+                    bonus: { type: 'streak', threshold: 2, amount: 5 }
+                },
+                phoenix: {
+                    name: "Phoenix",
+                    description: "+10 gold on every correct guess",
+                    bonus: { type: 'correct', amount: 10 }
+                },
+                music_fairy: {
+                    name: "Music Fairy",
+                    description: "50% better luck, plays music during streaks",
+                    bonus: { type: 'luck', multiplier: 0.5, music: true }
+                },
+                cosmic_whale: {
+                    name: "Cosmic Whale",
+                    description: "x100 gold every 3 streaks!",
+                    bonus: { type: 'streak', threshold: 3, amount: 100, multiplier: 100 }
+                }
+            },
+            backgroundMusic: null,
+            isMusicPlaying: false,
+            
             // Dynamic Level System
             currentLevelType: 'normal',
             levelData: {
@@ -2476,6 +2595,174 @@
             totalGoldEarned: parseInt(localStorage.getItem('gtgTotalGoldEarned')) || 0,
             totalGames: parseInt(localStorage.getItem('gtgTotalGames')) || 0,
             levelsCompleted: JSON.parse(localStorage.getItem('gtgLevelsCompleted')) || []
+        };
+
+        // ====== INITIALIZATION ======
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if player name is set
+            if (!gameState.playerName) {
+                document.getElementById('welcome-modal').style.display = 'flex';
+            } else {
+                document.getElementById('player-name-display').textContent = gameState.playerName;
+                initGame();
+            }
+            
+            // Initialize background music
+            gameState.backgroundMusic = new Audio('https://assets.mixkit.co/music/preview/mixkit-tech-house-vibes-130.mp3');
+            gameState.backgroundMusic.loop = true;
+            gameState.backgroundMusic.volume = 0.3;
+            
+            // Setup event listeners
+            setupEventListeners();
+        });
+
+        // ====== WELCOME SYSTEM ======
+        function setupWelcomeSystem() {
+            const saveNameBtn = document.getElementById('save-name-btn');
+            const playerNameInput = document.getElementById('player-name-input');
+            const welcomeModal = document.getElementById('welcome-modal');
+            
+            saveNameBtn.addEventListener('click', function() {
+                const name = playerNameInput.value.trim();
+                if (name) {
+                    gameState.playerName = name;
+                    localStorage.setItem('gtgPlayerName', name);
+                    document.getElementById('player-name-display').textContent = name;
+                    welcomeModal.style.display = 'none';
+                    initGame();
+                } else {
+                    playerNameInput.placeholder = "Please enter your name!";
+                    playerNameInput.style.borderColor = "var(--danger)";
+                    setTimeout(() => {
+                        playerNameInput.style.borderColor = "var(--primary-gold)";
+                        playerNameInput.placeholder = "Enter your name...";
+                    }, 1000);
+                }
+            });
+            
+            playerNameInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    saveNameBtn.click();
+                }
+            });
+        }
+
+        // ====== PET SYSTEM ======
+        function applyPetBonus(isCorrect) {
+            const pet = gameState.activePet;
+            const bonus = gameState.petBonuses[pet];
+            
+            if (!bonus || !isCorrect) return;
+            
+            let extraGold = 0;
+            
+            switch(bonus.bonus.type) {
+                case 'streak':
+                    if (gameState.streak > 0 && gameState.streak % bonus.bonus.threshold === 0) {
+                        extraGold = bonus.bonus.multiplier ? 
+                                   bonus.bonus.amount * bonus.bonus.multiplier : 
+                                   bonus.bonus.amount;
+                        showGoldEffect(extraGold, "Pet Bonus!");
+                    }
+                    break;
+                    
+                case 'correct':
+                    extraGold = bonus.bonus.amount;
+                    showGoldEffect(extraGold, "Pet Bonus!");
+                    break;
+                    
+                case 'luck':
+                    // 50% better luck - handled in gold generation
+                    if (bonus.bonus.music && gameState.streak > 0 && !gameState.isMusicPlaying) {
+                        playPetMusic();
+                    } else if (gameState.streak === 0 && gameState.isMusicPlaying) {
+                        stopPetMusic();
+                    }
+                    break;
+            }
+            
+            if (extraGold > 0) {
+                gameState.gold += extraGold;
+                gameState.totalGoldEarned += extraGold;
+                updateDisplays();
+                saveGameState();
+            }
+        }
+
+        function playPetMusic() {
+            if (gameState.soundEnabled && gameState.backgroundMusic) {
+                gameState.backgroundMusic.play();
+                gameState.isMusicPlaying = true;
+            }
+        }
+
+        function stopPetMusic() {
+            if (gameState.backgroundMusic) {
+                gameState.backgroundMusic.pause();
+                gameState.backgroundMusic.currentTime = 0;
+                gameState.isMusicPlaying = false;
+            }
+        }
+
+        // ====== SHOP ITEMS DATABASE ======
+        const shopItems = {
+            avatars: [
+                { id: 'default', name: 'Basic', price: 0, icon: 'fas fa-user', color: '#fff' },
+                { id: 'knight', name: 'Golden Knight', price: 500, icon: 'fas fa-chess-knight', color: '#FFD700' },
+                { id: 'wizard', name: 'Mystic Wizard', price: 1000, icon: 'fas fa-hat-wizard', color: '#9c88ff' },
+                { id: 'robot', name: 'Gold Bot', price: 1500, icon: 'fas fa-robot', color: '#4dabf7' },
+                { id: 'dragon', name: 'Dragon Lord', price: 2500, icon: 'fas fa-dragon', color: '#ff6b6b' },
+                { id: 'phoenix', name: 'Phoenix', price: 5000, icon: 'fas fa-fire', color: '#f76707' }
+            ],
+            
+            frames: [
+                { id: 'default', name: 'Simple Frame', price: 0, border: '2px solid #aaa', background: null },
+                { id: 'gold', name: 'Gold Frame', price: 300, border: '3px solid #FFD700', background: null },
+                { id: 'diamond', name: 'Diamond Frame', price: 800, border: '4px solid #4dabf7', background: 'linear-gradient(45deg, #4dabf7, #339af0)' },
+                { id: 'royal', name: 'Royal Frame', price: 1500, border: '5px solid #cc5de8', background: 'linear-gradient(45deg, #cc5de8, #be4bdb)' },
+                { id: 'legendary', name: 'Legendary Frame', price: 3000, border: '6px solid #ffd700', background: 'linear-gradient(45deg, #ffd700, #ffa500)' }
+            ],
+            
+            pets: [
+                { id: 'none', name: 'No Pet', price: 0, icon: null, color: null, description: 'No bonuses' },
+                { id: 'golden_cat', name: 'Golden Cat', price: 100, icon: 'fas fa-cat', color: '#FFD700', description: '+5 gold every 3 streaks', type: 'common' },
+                { id: 'lucky_dragon', name: 'Lucky Dragon', price: 200, icon: 'fas fa-dragon', color: '#51cf66', description: '+5 gold every 2 streaks', type: 'rare' },
+                { id: 'phoenix', name: 'Phoenix', price: 300, icon: 'fas fa-fire', color: '#f76707', description: '+10 gold on every correct guess', type: 'epic' },
+                { id: 'music_fairy', name: 'Music Fairy', price: 450, icon: 'fas fa-music', color: '#cc5de8', description: '50% better luck, plays music during streaks', type: 'legendary' },
+                { id: 'cosmic_whale', name: 'Cosmic Whale', price: 850, icon: 'fas fa-fish', color: '#4dabf7', description: 'x100 gold every 3 streaks!', type: 'mythic' }
+            ],
+            
+            themes: [
+                { id: 'default', name: 'Classic Theme', price: 0, icon: 'fas fa-moon', color: '#4dabf7' },
+                { id: 'golden', name: 'Golden Theme', price: 500, icon: 'fas fa-sun', color: '#FFD700' },
+                { id: 'ocean', name: 'Ocean Theme', price: 750, icon: 'fas fa-water', color: '#339af0' },
+                { id: 'forest', name: 'Forest Theme', price: 1000, icon: 'fas fa-tree', color: '#51cf66' },
+                { id: 'nebula', name: 'Nebula Theme', price: 2000, icon: 'fas fa-star', color: '#cc5de8' }
+            ],
+            
+            icons: [
+                { id: 'default', name: 'Classic Icon', price: 0, icon: 'fas fa-gem', color: '#FFD700' },
+                { id: 'coin', name: 'Coin Icon', price: 300, icon: 'fas fa-coins', color: '#FFD700' },
+                { id: 'crown', name: 'Crown Icon', price: 600, icon: 'fas fa-crown', color: '#FFD700' },
+                { id: 'diamond', name: 'Diamond Icon', price: 1000, icon: 'fas fa-gem', color: '#4dabf7' },
+                { id: 'treasure', name: 'Treasure Icon', price: 1500, icon: 'fas fa-chess-queen', color: '#FFD700' }
+            ],
+            
+            effects: [
+                { id: 'default', name: 'Basic Effects', price: 0, icon: 'fas fa-magic', color: '#fff' },
+                { id: 'sparkle', name: 'Sparkle Effects', price: 400, icon: 'fas fa-sparkles', color: '#FFD700' },
+                { id: 'fire', name: 'Fire Effects', price: 800, icon: 'fas fa-fire', color: '#f76707' },
+                { id: 'ice', name: 'Ice Effects', price: 1200, icon: 'fas fa-snowflake', color: '#4dabf7' },
+                { id: 'galaxy', name: 'Galaxy Effects', price: 2000, icon: 'fas fa-globe', color: '#cc5de8' }
+            ],
+            
+            animations: [
+                { id: 'default', name: 'Basic Animation', price: 0, icon: 'fas fa-fireworks', color: '#fff' },
+                { id: 'confetti', name: 'Confetti Rain', price: 600, icon: 'fas fa-birthday-cake', color: '#FFD700' },
+                { id: 'fireworks', name: 'Fireworks Show', price: 1200, icon: 'fas fa-fire', color: '#f76707' },
+                { id: 'rainbow', name: 'Rainbow Burst', price: 1800, icon: 'fas fa-rainbow', color: '#cc5de8' },
+                { id: 'cosmic', name: 'Cosmic Explosion', price: 3000, icon: 'fas fa-rocket', color: '#4dabf7' }
+            ]
         };
 
         // ====== STATS & PROFILE SYSTEM ======
@@ -2601,76 +2888,242 @@
             }
         }
 
-        // ====== ADD STATS TO GAME FUNCTIONS ======
-        // Add to initGame function:
-        // Add this line to the initGame function:
-        // updateStatsDisplay(); // Initialize stats display
-
-        // Add to startGame function:
-        // Increment total games when starting a new game
-        gameState.totalGames++;
-        localStorage.setItem('gtgTotalGames', gameState.totalGames);
-
-        // ====== EVENT LISTENERS FOR STATS ======
-        document.getElementById('stats-btn').addEventListener('click', showStatsModal);
-        document.getElementById('close-stats-btn').addEventListener('click', closeStatsModal);
-        
-        // Close stats modal when clicking outside
-        document.getElementById('stats-modal').addEventListener('click', (e) => {
-            if (e.target === document.getElementById('stats-modal')) {
-                closeStatsModal();
-            }
-        });
-
-        // ====== REST OF THE GAME CODE REMAINS THE SAME ======
-        // ... (All the previous game code continues from here)
-        // The rest of the JavaScript code (game logic, shop, mystery boxes, etc.) remains unchanged
-        // Only add the new stats functionality on top of existing code
-        
-        // ====== DYNAMIC LEVEL SYSTEM ======
-        const levelTypes = [
-            'normal',
-            'timeAttack',
-            'chainReaction', 
-            'minefield',
-            'memoryMode',
-            'puzzleMode'
-        ];
-        
-        const levelTypeNames = {
-            normal: 'Normal',
-            timeAttack: 'Time Attack',
-            chainReaction: 'Chain Reaction',
-            minefield: 'Minefield',
-            memoryMode: 'Memory Mode',
-            puzzleMode: 'Puzzle Mode'
-        };
-        
-        const levelTypeColors = {
-            normal: '#4dabf7',
-            timeAttack: '#ff6b6b',
-            chainReaction: '#51cf66',
-            minefield: '#cc5de8',
-            memoryMode: '#f76707',
-            puzzleMode: '#ffd700'
-        };
-
-        // ====== ENHANCED SHOP ITEMS DATABASE ======
-        // ... (Shop items database remains the same)
-
         // ====== MYSTERY BOX SYSTEM ======
-        // ... (Mystery box system remains the same)
+        function buyMysteryBox(type) {
+            const boxPrices = {
+                common: 20,
+                rare: 50,
+                epic: 150,
+                legendary: 500
+            };
+            
+            const price = boxPrices[type];
+            
+            if (gameState.gold >= price) {
+                gameState.gold -= price;
+                gameState.boxesOpened[type]++;
+                updateDisplays();
+                
+                let rewardGold = 0;
+                let rewardMessage = "";
+                
+                switch(type) {
+                    case 'common':
+                        rewardGold = Math.floor(Math.random() * 26) + 5; // 5-30
+                        rewardMessage = "You found some gold coins!";
+                        break;
+                    case 'rare':
+                        rewardGold = Math.floor(Math.random() * 81) + 20; // 20-100
+                        rewardMessage = "A rare treasure!";
+                        break;
+                    case 'epic':
+                        rewardGold = Math.floor(Math.random() * 226) + 75; // 75-300
+                        rewardMessage = "Epic loot discovered!";
+                        break;
+                    case 'legendary':
+                        rewardGold = Math.floor(Math.random() * 751) + 250; // 250-1000
+                        if (Math.random() < 0.1) { // 10% jackpot chance
+                            rewardGold *= 5;
+                            rewardMessage = "JACKPOT! Legendary treasure!";
+                        } else {
+                            rewardMessage = "Legendary riches!";
+                        }
+                        break;
+                }
+                
+                // Add bonus items chance
+                const itemChance = Math.random();
+                if (itemChance < 0.3) { // 30% chance for bonus
+                    rewardGold *= 2;
+                    rewardMessage += " Bonus item included!";
+                }
+                
+                gameState.gold += rewardGold;
+                gameState.totalBoxGold += rewardGold;
+                gameState.totalGoldEarned += rewardGold;
+                
+                // Update displays
+                updateDisplays();
+                updateMysteryBoxStats();
+                
+                // Show reward modal
+                showRewardModal(rewardGold, rewardMessage);
+                
+                // Save game state
+                saveGameState();
+                
+                // Close the mystery box modal after reward is shown
+                setTimeout(() => {
+                    document.getElementById('close-reward-btn').click();
+                }, 2000);
+                
+            } else {
+                alert(`Not enough gold! You need ${price} gold.`);
+            }
+        }
 
-        // ====== POWER-UP SYSTEM ======
-        // ... (Power-up system remains the same)
+        function showRewardModal(gold, message) {
+            document.getElementById('reward-amount').textContent = `+${gold} Gold`;
+            document.getElementById('reward-message').textContent = message;
+            document.getElementById('reward-modal').style.display = 'flex';
+        }
 
-        // ====== SOUND SYSTEM ======
-        // ... (Sound system remains the same)
+        function updateMysteryBoxStats() {
+            const totalBoxes = Object.values(gameState.boxesOpened).reduce((a, b) => a + b, 0);
+            document.getElementById('boxes-opened-count').textContent = totalBoxes;
+            document.getElementById('total-box-gold').textContent = gameState.totalBoxGold;
+        }
 
-        // ====== DOM ELEMENTS ======
-        // ... (DOM elements remain the same, plus new stats elements)
+        // ====== SHOP SYSTEM ======
+        function loadCustomizationItems() {
+            loadShopItems('avatars', shopItems.avatars, 'avatar-items');
+            loadShopItems('frames', shopItems.frames, 'frame-items');
+            loadShopItems('pets', shopItems.pets, 'pet-items');
+            loadShopItems('animations', shopItems.animations, 'animation-items');
+        }
 
-        // ====== GAME INITIALIZATION ======
+        function loadShopItems(category, items, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            
+            items.forEach(item => {
+                const isPurchased = gameState.purchasedItems.includes(item.id);
+                const isEquipped = 
+                    (category === 'avatars' && gameState.equippedAvatar === item.id) ||
+                    (category === 'frames' && gameState.equippedFrame === item.id) ||
+                    (category === 'pets' && gameState.equippedPet === item.id) ||
+                    (category === 'animations' && gameState.equippedAnimation === item.id);
+                
+                const itemElement = document.createElement('div');
+                itemElement.className = `shop-item ${isPurchased ? 'purchased' : ''} ${isEquipped ? 'equipped' : ''}`;
+                itemElement.innerHTML = `
+                    <div class="shop-item-icon" style="color:${item.color || '#FFD700'}">
+                        <i class="${item.icon || 'fas fa-question'}"></i>
+                    </div>
+                    <div class="shop-item-title">${item.name}</div>
+                    <div class="shop-item-price">
+                        <i class="fas fa-coins"></i> ${item.price} Gold
+                    </div>
+                    <div class="shop-item-description" style="font-size:0.7rem; color:#aaa; margin-bottom:10px; text-align:center;">
+                        ${item.description || ''}
+                    </div>
+                    ${!isPurchased ? 
+                        `<button class="shop-item-action" onclick="buyItem('${item.id}', '${category}', ${item.price})" ${gameState.gold < item.price ? 'disabled' : ''}>
+                            Buy
+                        </button>` :
+                        (isEquipped ?
+                            `<button class="shop-item-action equipped" disabled>
+                                Equipped
+                            </button>` :
+                            `<button class="shop-item-action equip" onclick="equipItem('${item.id}', '${category}')">
+                                Equip
+                            </button>`
+                        )
+                    }
+                `;
+                container.appendChild(itemElement);
+            });
+        }
+
+        function buyItem(itemId, category, price) {
+            if (gameState.gold >= price) {
+                gameState.gold -= price;
+                gameState.purchasedItems.push(itemId);
+                gameState.totalGoldEarned += price;
+                
+                equipItem(itemId, category);
+                updateDisplays();
+                loadCustomizationItems();
+                saveGameState();
+                
+                // Show purchase effect
+                showGoldEffect(-price, "Purchased!");
+            } else {
+                alert(`Not enough gold! You need ${price} gold.`);
+            }
+        }
+
+        function equipItem(itemId, category) {
+            switch(category) {
+                case 'avatars':
+                    gameState.equippedAvatar = itemId;
+                    localStorage.setItem('gtgEquippedAvatar', itemId);
+                    break;
+                case 'frames':
+                    gameState.equippedFrame = itemId;
+                    localStorage.setItem('gtgEquippedFrame', itemId);
+                    break;
+                case 'pets':
+                    gameState.equippedPet = itemId;
+                    gameState.activePet = itemId;
+                    localStorage.setItem('gtgEquippedPet', itemId);
+                    
+                    // Stop music if changing from music pet
+                    if (gameState.isMusicPlaying && itemId !== 'music_fairy') {
+                        stopPetMusic();
+                    }
+                    break;
+                case 'animations':
+                    gameState.equippedAnimation = itemId;
+                    localStorage.setItem('gtgEquippedAnimation', itemId);
+                    break;
+                case 'themes':
+                    gameState.equippedTheme = itemId;
+                    localStorage.setItem('gtgEquippedTheme', itemId);
+                    applyTheme(itemId);
+                    break;
+                case 'icons':
+                    gameState.equippedIcon = itemId;
+                    localStorage.setItem('gtgEquippedIcon', itemId);
+                    break;
+                case 'effects':
+                    gameState.equippedEffect = itemId;
+                    localStorage.setItem('gtgEquippedEffect', itemId);
+                    break;
+            }
+            
+            updateAvatarDisplay();
+            loadCustomizationItems();
+        }
+
+        function applyTheme(themeId) {
+            const themes = {
+                default: { bg: 'linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%)' },
+                golden: { bg: 'linear-gradient(135deg, #2c2416 0%, #4a3c24 100%)' },
+                ocean: { bg: 'linear-gradient(135deg, #0a2a3d 0%, #1a4a6e 100%)' },
+                forest: { bg: 'linear-gradient(135deg, #0a2a1a 0%, #1a4a3c 100%)' },
+                nebula: { bg: 'linear-gradient(135deg, #1a0a2a 0%, #3c1a6e 100%)' }
+            };
+            
+            const theme = themes[themeId] || themes.default;
+            document.body.style.background = theme.bg;
+        }
+
+        function updateAvatarDisplay() {
+            const avatar = shopItems.avatars.find(a => a.id === gameState.equippedAvatar) || shopItems.avatars[0];
+            const frame = shopItems.frames.find(f => f.id === gameState.equippedFrame) || shopItems.frames[0];
+            const pet = shopItems.pets.find(p => p.id === gameState.equippedPet) || shopItems.pets[0];
+            
+            document.getElementById('avatar-icon-display').className = avatar.icon;
+            document.getElementById('avatar-icon-display').style.color = avatar.color;
+            
+            const frameDisplay = document.getElementById('avatar-frame-display');
+            frameDisplay.style.border = frame.border;
+            frameDisplay.style.background = frame.background || 'rgba(0, 0, 0, 0.3)';
+            
+            const petDisplay = document.getElementById('avatar-pet-display');
+            if (pet.icon) {
+                petDisplay.innerHTML = `<i class="${pet.icon}" style="color:${pet.color}"></i>`;
+                petDisplay.style.display = 'block';
+            } else {
+                petDisplay.innerHTML = '';
+                petDisplay.style.display = 'none';
+            }
+            
+            document.getElementById('player-name-display').textContent = gameState.playerName;
+        }
+
+        // ====== GAME FUNCTIONS ======
         function initGame() {
             // Reset game state
             gameState.level = 0;
@@ -2704,28 +3157,23 @@
             updateLivesDisplay();
             updatePowerUpButtons();
             updateMysteryBoxStats();
-            updateStatsDisplay(); // Initialize stats display
+            updateStatsDisplay();
             
             // Reset UI
-            instruction.textContent = "Click 'Start Game' to begin your intense treasure hunt!";
-            instruction.style.color = '#fff';
-            difficultyInfo.textContent = "Difficulty: Easy (2 options)";
-            optionsContainer.innerHTML = '';
-            nextBtn.style.display = 'none';
-            timerDisplay.style.display = 'none';
-            goldCountDisplay.style.display = 'none';
-            gameModeIndicator.innerHTML = '';
-            levelEffect.className = 'level-effect';
-            gameOverScreen.style.display = 'none';
-            levelProgressBar.style.width = '0%';
-            startBtn.disabled = false;
+            document.getElementById('instruction').textContent = "Click 'Start Game' to begin your intense treasure hunt!";
+            document.getElementById('difficulty-info').textContent = "Difficulty: Easy (2 options)";
+            document.getElementById('options-container').innerHTML = '';
+            document.getElementById('next-btn').style.display = 'none';
+            document.getElementById('timer-display').style.display = 'none';
+            document.getElementById('gold-count-display').style.display = 'none';
+            document.getElementById('game-mode-indicator').innerHTML = '';
+            document.getElementById('level-effect').className = 'level-effect';
+            document.getElementById('game-over').style.display = 'none';
+            document.getElementById('level-progress-bar').style.width = '0%';
+            document.getElementById('start-btn').disabled = false;
             
             // Load shop items
             loadCustomizationItems();
-            loadThemeItems();
-            loadIconItems();
-            loadEffectItems();
-            updateDailyDeals();
             updateAvatarDisplay();
             
             // Apply current theme
@@ -2737,11 +3185,9 @@
             generateOptions();
         }
 
-        // ====== GAME FUNCTIONS ======
         function startGame() {
             gameState.gameActive = true;
-            startBtn.disabled = true;
-            soundSystem.playSound('click');
+            document.getElementById('start-btn').disabled = true;
             
             // Increment total games
             gameState.totalGames++;
@@ -2750,11 +3196,480 @@
             nextLevel();
         }
 
-        // ... (All other game functions remain the same)
-        // Continue with the rest of your existing game code...
+        function nextLevel() {
+            gameState.level++;
+            gameState.revealedOptions = [];
+            
+            // Calculate difficulty
+            let difficultyMultiplier = Math.min(1 + Math.floor(gameState.level / 10) * 0.5, 5);
+            gameState.optionsCount = Math.min(2 + Math.floor(gameState.level / 5), 10);
+            
+            // Determine level type
+            if (gameState.level % 10 === 0) {
+                // Boss level every 10 levels
+                gameState.currentLevelType = 'boss';
+            } else if (gameState.level % 3 === 0 && gameState.level > 5) {
+                // Special levels every 3 levels after level 5
+                const specialTypes = ['timeAttack', 'chainReaction', 'minefield', 'memoryMode', 'puzzleMode'];
+                gameState.currentLevelType = specialTypes[Math.floor(Math.random() * specialTypes.length)];
+            } else {
+                gameState.currentLevelType = 'normal';
+            }
+            
+            // Generate gold position
+            gameState.goldPosition = Math.floor(Math.random() * gameState.optionsCount);
+            
+            // Apply pet luck bonus
+            if (gameState.activePet === 'music_fairy') {
+                // 50% better luck
+                if (Math.random() < 0.5) {
+                    // Make easier - reduce number of options or guarantee gold in easier position
+                    gameState.goldPosition = Math.min(gameState.goldPosition, Math.floor(gameState.optionsCount / 2));
+                }
+            }
+            
+            // Update UI
+            updateLevelUI();
+            generateOptions();
+            
+            // Start special level mechanics
+            startSpecialLevel();
+        }
 
-        // Note: Since this is a large codebase, I've shown you how to integrate the stats system.
-        // The stats functionality is now fully integrated and will work with your existing game.
+        function generateOptions() {
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+            
+            for (let i = 0; i < gameState.optionsCount; i++) {
+                const option = document.createElement('div');
+                option.className = 'option';
+                option.dataset.index = i;
+                
+                if (gameState.revealedOptions.includes(i)) {
+                    if (i === gameState.goldPosition) {
+                        option.className = 'option gold';
+                        option.innerHTML = '<i class="fas fa-gem"></i>';
+                    } else {
+                        option.className = 'option empty';
+                        option.innerHTML = '<i class="fas fa-times"></i>';
+                    }
+                    option.style.pointerEvents = 'none';
+                } else {
+                    option.innerHTML = '<i class="fas fa-question"></i>';
+                    option.addEventListener('click', () => handleOptionClick(i));
+                }
+                
+                container.appendChild(option);
+            }
+        }
+
+        function handleOptionClick(index) {
+            if (!gameState.gameActive) return;
+            
+            const isCorrect = index === gameState.goldPosition;
+            
+            if (isCorrect) {
+                // Correct guess
+                gameState.revealedOptions.push(index);
+                gameState.streak++;
+                gameState.totalCorrect++;
+                
+                // Calculate base gold earned
+                let goldEarned = 10 + Math.floor(gameState.level / 2) + (gameState.streak * 2);
+                
+                // Apply power-up multipliers
+                if (gameState.activePowerUps.goldrush) {
+                    goldEarned *= 2;
+                }
+                if (gameState.activePowerUps.luckycharm) {
+                    goldEarned += Math.floor(goldEarned * 0.5);
+                }
+                
+                gameState.gold += goldEarned;
+                gameState.score += 100 * gameState.streak;
+                gameState.totalGoldEarned += goldEarned;
+                
+                // Apply pet bonus
+                applyPetBonus(true);
+                
+                // Show success
+                document.getElementById('instruction').innerHTML = `<span style="color:#51cf66">✓ Correct! Gold found! +${goldEarned} Gold</span>`;
+                document.getElementById('instruction').style.borderLeftColor = '#51cf66';
+                
+                // Reveal all options
+                gameState.revealedOptions = Array.from({length: gameState.optionsCount}, (_, i) => i);
+                generateOptions();
+                
+                // Show next level button
+                document.getElementById('next-btn').style.display = 'flex';
+                
+                // Play victory animation
+                playVictoryAnimation();
+                
+            } else {
+                // Wrong guess
+                gameState.revealedOptions.push(index);
+                gameState.streak = 0;
+                gameState.lives--;
+                gameState.totalWrong++;
+                
+                // Stop pet music if playing
+                stopPetMusic();
+                
+                // Show failure
+                document.getElementById('instruction').innerHTML = `<span style="color:#ff6b6b">✗ Wrong! That was empty!</span>`;
+                document.getElementById('instruction').style.borderLeftColor = '#ff6b6b';
+                
+                updateLivesDisplay();
+                generateOptions();
+                
+                if (gameState.lives <= 0) {
+                    gameOver();
+                }
+            }
+            
+            updateDisplays();
+            saveGameState();
+        }
+
+        function gameOver() {
+            gameState.gameActive = false;
+            
+            if (gameState.score > gameState.highScore) {
+                gameState.highScore = gameState.score;
+                localStorage.setItem('gtgHighScore', gameState.highScore);
+            }
+            
+            // Stop pet music
+            stopPetMusic();
+            
+            // Update final stats
+            document.getElementById('final-level').textContent = gameState.level;
+            document.getElementById('final-gold').textContent = gameState.gold;
+            document.getElementById('final-score').textContent = gameState.score;
+            document.getElementById('final-high-score').textContent = gameState.highScore;
+            
+            // Show game over modal
+            document.getElementById('game-over').style.display = 'flex';
+        }
+
+        function updateDisplays() {
+            document.getElementById('level-display').textContent = `${gameState.level}/${gameState.maxLevels}`;
+            document.getElementById('score-display').textContent = gameState.score;
+            document.getElementById('gold-display').textContent = gameState.gold;
+            document.getElementById('shop-gold-display').textContent = gameState.gold;
+            document.getElementById('streak-display').textContent = gameState.streak;
+            document.getElementById('lives-display').textContent = gameState.lives;
+            document.getElementById('high-score-display').textContent = gameState.highScore;
+            
+            // Update progress bar
+            const progress = (gameState.level / gameState.maxLevels) * 100;
+            document.getElementById('level-progress-bar').style.width = `${progress}%`;
+        }
+
+        function updateLivesDisplay() {
+            const livesContainer = document.getElementById('lives-icons');
+            livesContainer.innerHTML = '';
+            
+            for (let i = 0; i < gameState.maxLives; i++) {
+                const heart = document.createElement('i');
+                heart.className = 'fas fa-heart life';
+                heart.style.color = i < gameState.lives ? '#ff6b6b' : '#555';
+                heart.style.margin = '0 2px';
+                livesContainer.appendChild(heart);
+            }
+        }
+
+        function saveGameState() {
+            localStorage.setItem('gtgTotalCorrect', gameState.totalCorrect);
+            localStorage.setItem('gtgTotalWrong', gameState.totalWrong);
+            localStorage.setItem('gtgTotalGoldEarned', gameState.totalGoldEarned);
+            localStorage.setItem('gtgBoxesOpened', JSON.stringify(gameState.boxesOpened));
+            localStorage.setItem('gtgTotalBoxGold', gameState.totalBoxGold);
+            localStorage.setItem('gtgPurchasedItems', JSON.stringify(gameState.purchasedItems));
+        }
+
+        // ====== EVENT LISTENERS SETUP ======
+        function setupEventListeners() {
+            // Welcome system
+            setupWelcomeSystem();
+            
+            // Game buttons
+            document.getElementById('start-btn').addEventListener('click', startGame);
+            document.getElementById('next-btn').addEventListener('click', nextLevel);
+            document.getElementById('restart-btn').addEventListener('click', initGame);
+            document.getElementById('shop-btn').addEventListener('click', () => {
+                document.getElementById('shop-gold-display').textContent = gameState.gold;
+            });
+            document.getElementById('stats-btn').addEventListener('click', showStatsModal);
+            document.getElementById('close-stats-btn').addEventListener('click', closeStatsModal);
+            
+            // Shop tabs
+            document.querySelectorAll('.shop-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabName = this.dataset.tab;
+                    
+                    // Update active tab
+                    document.querySelectorAll('.shop-tab').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show corresponding content
+                    document.querySelectorAll('.shop-tab-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    document.getElementById(`${tabName}-tab`).classList.add('active');
+                });
+            });
+            
+            // Modal close buttons
+            document.getElementById('close-reward-btn').addEventListener('click', function() {
+                document.getElementById('reward-modal').style.display = 'none';
+            });
+            
+            document.getElementById('cancel-hint-btn').addEventListener('click', function() {
+                document.getElementById('hint-modal').style.display = 'none';
+            });
+            
+            // Sound toggle
+            document.getElementById('sound-toggle').addEventListener('click', function() {
+                gameState.soundEnabled = !gameState.soundEnabled;
+                localStorage.setItem('gtgSoundEnabled', gameState.soundEnabled);
+                updateSoundButton();
+                
+                if (!gameState.soundEnabled && gameState.isMusicPlaying) {
+                    stopPetMusic();
+                }
+            });
+            
+            // Close modals when clicking outside
+            document.getElementById('stats-modal').addEventListener('click', (e) => {
+                if (e.target === document.getElementById('stats-modal')) {
+                    closeStatsModal();
+                }
+            });
+            
+            document.getElementById('reward-modal').addEventListener('click', (e) => {
+                if (e.target === document.getElementById('reward-modal')) {
+                    document.getElementById('reward-modal').style.display = 'none';
+                }
+            });
+        }
+
+        function updateSoundButton() {
+            const icon = document.querySelector('#sound-toggle i');
+            if (gameState.soundEnabled) {
+                icon.className = 'fas fa-volume-up';
+            } else {
+                icon.className = 'fas fa-volume-mute';
+            }
+        }
+
+        // ====== HELPER FUNCTIONS ======
+        function showGoldEffect(amount, message) {
+            const effect = document.createElement('div');
+            effect.className = 'gold-collect';
+            effect.textContent = `${amount > 0 ? '+' : ''}${amount} ${message}`;
+            effect.style.left = `${Math.random() * 80 + 10}%`;
+            effect.style.top = `${Math.random() * 50 + 25}%`;
+            
+            document.body.appendChild(effect);
+            
+            setTimeout(() => {
+                effect.remove();
+            }, 1500);
+        }
+
+        function playVictoryAnimation() {
+            // Add confetti effect
+            const confettiContainer = document.getElementById('confetti-container');
+            confettiContainer.innerHTML = '';
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = `${Math.random() * 100}%`;
+                confetti.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                confetti.style.animationDelay = `${Math.random() * 2}s`;
+                confettiContainer.appendChild(confetti);
+                
+                setTimeout(() => {
+                    confetti.remove();
+                }, 3000);
+            }
+        }
+
+        function updatePowerUpButtons() {
+            // Update power-up button states based on gold
+            const powerUps = [
+                { id: 'hint-btn', cost: 2 },
+                { id: 'tagna-btn', cost: 15 },
+                { id: 'timefreeze-btn', cost: 25 },
+                { id: 'life-btn', cost: 50 },
+                { id: 'goldrush-btn', cost: 100 },
+                { id: 'xray-btn', cost: 30 },
+                { id: 'magnet-btn', cost: 40 },
+                { id: 'luckycharm-btn', cost: 20 }
+            ];
+            
+            powerUps.forEach(powerUp => {
+                const btn = document.getElementById(powerUp.id);
+                if (btn) {
+                    btn.disabled = gameState.gold < powerUp.cost;
+                }
+            });
+        }
+
+        function usePowerUp(type) {
+            const costs = {
+                hint: 2,
+                tagna: 15,
+                timefreeze: 25,
+                extralife: 50,
+                goldrush: 100,
+                xray: 30,
+                magnet: 40,
+                luckycharm: 20
+            };
+            
+            const cost = costs[type];
+            
+            if (gameState.gold >= cost) {
+                gameState.gold -= cost;
+                gameState.activePowerUps[type] = true;
+                
+                switch(type) {
+                    case 'hint':
+                        // Reveal one wrong option
+                        const wrongOptions = Array.from({length: gameState.optionsCount}, (_, i) => i)
+                            .filter(i => i !== gameState.goldPosition && !gameState.revealedOptions.includes(i));
+                        
+                        if (wrongOptions.length > 0) {
+                            const randomWrong = wrongOptions[Math.floor(Math.random() * wrongOptions.length)];
+                            gameState.revealedOptions.push(randomWrong);
+                            generateOptions();
+                        }
+                        break;
+                        
+                    case 'extralife':
+                        if (gameState.lives < gameState.maxLives) {
+                            gameState.lives++;
+                            updateLivesDisplay();
+                        }
+                        break;
+                        
+                    case 'goldrush':
+                        setTimeout(() => {
+                            gameState.activePowerUps.goldrush = false;
+                        }, 30000); // 30 seconds
+                        break;
+                }
+                
+                updateDisplays();
+                updatePowerUpButtons();
+                showGoldEffect(-cost, `${type} activated!`);
+            }
+        }
+
+        function buyExtension(extension) {
+            const costs = {
+                levelExtension: 10000,
+                unlimitedHints: 5000,
+                streakShield: 3000,
+                autoSkip: 7500
+            };
+            
+            const cost = costs[extension];
+            
+            if (gameState.gold >= cost) {
+                gameState.gold -= cost;
+                gameState[extension] = true;
+                localStorage.setItem(`gtg${extension.charAt(0).toUpperCase() + extension.slice(1)}`, 'true');
+                
+                updateDisplays();
+                updateStatsDisplay();
+                showGoldEffect(-cost, `${extension} unlocked!`);
+                
+                alert(`${extension.replace(/([A-Z])/g, ' $1')} has been unlocked!`);
+            } else {
+                alert(`You need ${cost} gold to unlock this extension!`);
+            }
+        }
+
+        function startSpecialLevel() {
+            const levelEffect = document.getElementById('level-effect');
+            const gameModeIndicator = document.getElementById('game-mode-indicator');
+            const timerDisplay = document.getElementById('timer-display');
+            const goldCountDisplay = document.getElementById('gold-count-display');
+            
+            // Reset all displays
+            timerDisplay.style.display = 'none';
+            goldCountDisplay.style.display = 'none';
+            levelEffect.className = 'level-effect';
+            gameModeIndicator.innerHTML = '';
+            
+            switch(gameState.currentLevelType) {
+                case 'boss':
+                    gameModeIndicator.innerHTML = '<div class="game-mode-indicator boss-level"><i class="fas fa-skull-crossbones"></i> BOSS LEVEL</div>';
+                    levelEffect.className = 'level-effect boss-level';
+                    break;
+                    
+                case 'timeAttack':
+                    gameModeIndicator.innerHTML = '<div class="game-mode-indicator"><i class="fas fa-clock"></i> TIME ATTACK</div>';
+                    levelEffect.className = 'level-effect time-attack';
+                    timerDisplay.style.display = 'block';
+                    gameState.levelData.timeAttack.timeLeft = 30;
+                    gameState.levelData.timeAttack.timer = setInterval(() => {
+                        gameState.levelData.timeAttack.timeLeft--;
+                        timerDisplay.textContent = `Time: ${gameState.levelData.timeAttack.timeLeft}s`;
+                        
+                        if (gameState.levelData.timeAttack.timeLeft <= 0) {
+                            clearInterval(gameState.levelData.timeAttack.timer);
+                            gameState.lives--;
+                            updateLivesDisplay();
+                            document.getElementById('instruction').innerHTML = '<span style="color:#ff6b6b">Time\'s up! Lost a life!</span>';
+                            
+                            if (gameState.lives <= 0) {
+                                gameOver();
+                            } else {
+                                setTimeout(nextLevel, 2000);
+                            }
+                        }
+                    }, 1000);
+                    break;
+                    
+                case 'chainReaction':
+                    gameModeIndicator.innerHTML = '<div class="game-mode-indicator"><i class="fas fa-bolt"></i> CHAIN REACTION</div>';
+                    levelEffect.className = 'level-effect chain-reaction';
+                    goldCountDisplay.style.display = 'block';
+                    gameState.levelData.chainReaction.goldFound = 0;
+                    goldCountDisplay.textContent = 'Chain: 0x';
+                    break;
+                    
+                case 'minefield':
+                    gameModeIndicator.innerHTML = '<div class="game-mode-indicator"><i class="fas fa-bomb"></i> MINEFIELD</div>';
+                    // Generate mines (25% of options)
+                    gameState.levelData.minefield.mines = [];
+                    const mineCount = Math.floor(gameState.optionsCount * 0.25);
+                    for (let i = 0; i < mineCount; i++) {
+                        let minePos;
+                        do {
+                            minePos = Math.floor(Math.random() * gameState.optionsCount);
+                        } while (minePos === gameState.goldPosition || gameState.levelData.minefield.mines.includes(minePos));
+                        gameState.levelData.minefield.mines.push(minePos);
+                    }
+                    break;
+            }
+        }
+
+        function clearAutoProgress() {
+            if (gameState.autoProgressTimer) {
+                clearInterval(gameState.autoProgressTimer);
+                gameState.autoProgressTimer = null;
+            }
+        }
+
+        // Initialize the game
+        setupEventListeners();
     </script>
 </body>
 </html>
