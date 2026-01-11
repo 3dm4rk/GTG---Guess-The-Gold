@@ -120,6 +120,17 @@
             --theme-card-bg: rgba(0, 20, 20, 0.7);
         }
         
+        /* Cosmic Theme */
+        .theme-cosmic {
+            --theme-primary: #8a2be2;
+            --theme-secondary: #9370db;
+            --theme-accent: #4b0082;
+            --theme-bg-primary: #000;
+            --theme-bg-secondary: linear-gradient(135deg, #000428 0%, #004e92 100%);
+            --theme-card-bg: rgba(0, 0, 0, 0.5);
+            --text-light: #fff;
+        }
+        
         body {
             background: var(--theme-bg-secondary);
             color: var(--text-light);
@@ -138,6 +149,58 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+        }
+        
+        /* ====== COSMIC PET EFFECTS ====== */
+        .cosmic-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                rgba(138, 43, 226, 0.1),
+                rgba(75, 0, 130, 0.1),
+                rgba(0, 0, 139, 0.1),
+                rgba(0, 191, 255, 0.1)
+            );
+            z-index: 9997;
+            pointer-events: none;
+            animation: cosmicFloat 20s infinite linear;
+        }
+        
+        @keyframes cosmicFloat {
+            0% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(180deg); }
+            100% { transform: scale(1) rotate(360deg); }
+        }
+        
+        .cosmic-particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #8a2be2;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9996;
+            animation: cosmicParticle 5s infinite linear;
+        }
+        
+        @keyframes cosmicParticle {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
         }
         
         /* ====== DIAMONDS CURRENCY STYLES ====== */
@@ -180,6 +243,18 @@
             to { box-shadow: 0 0 20px #00ff00, 0 0 30px #00ff88; }
         }
         
+        /* ====== COSMIC BADGE ====== */
+        .rarity-cosmic {
+            background: linear-gradient(45deg, #8a2be2, #9370db, #4b0082);
+            color: #fff;
+            animation: cosmicGlow 2s infinite alternate;
+        }
+        
+        @keyframes cosmicGlow {
+            from { box-shadow: 0 0 10px #8a2be2; }
+            to { box-shadow: 0 0 20px #8a2be2, 0 0 30px #9370db; }
+        }
+        
         /* ====== NEW PET STYLES ====== */
         .shop-item.godtier {
             border-color: #00ff00;
@@ -205,6 +280,18 @@
             33% { box-shadow: 0 0 25px rgba(255, 165, 0, 0.5); }
             66% { box-shadow: 0 0 25px rgba(255, 255, 0, 0.5); }
             100% { box-shadow: 0 0 25px rgba(255, 0, 0, 0.5); }
+        }
+        
+        .shop-item.cosmic {
+            border-color: #8a2be2;
+            box-shadow: 0 0 25px rgba(138, 43, 226, 0.5);
+            background: linear-gradient(145deg, #2a0a4a, #1a0033);
+            animation: cosmicPulse 3s infinite alternate;
+        }
+        
+        @keyframes cosmicPulse {
+            0%, 100% { box-shadow: 0 0 25px rgba(138, 43, 226, 0.5); }
+            50% { box-shadow: 0 0 35px rgba(138, 43, 226, 0.8); }
         }
         
         /* ====== TIME REWIND EFFECT ====== */
@@ -287,6 +374,33 @@
             100% {
                 opacity: 0;
                 transform: translate(-50%, -50%) scale(1);
+            }
+        }
+        
+        /* ====== COSMIC DRAW EFFECT ====== */
+        .cosmic-draw-effect {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            z-index: 9999;
+            animation: cosmicDraw 2s ease-out;
+            pointer-events: none;
+        }
+        
+        @keyframes cosmicDraw {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.5) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.5) rotate(180deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(1) rotate(360deg);
             }
         }
         
@@ -494,6 +608,25 @@
             font-weight: bold;
             color: var(--theme-primary);
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* ====== TIMER DISPLAY ====== */
+        .timer-display {
+            background: rgba(255, 0, 0, 0.1);
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: 2px solid #ff0000;
+            margin: 10px 0;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff0000;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            animation: timerPulse 1s infinite alternate;
+        }
+        
+        @keyframes timerPulse {
+            from { box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); }
+            to { box-shadow: 0 0 20px rgba(255, 0, 0, 0.8); }
         }
         
         /* ====== MAIN CONTENT LAYOUT ====== */
@@ -840,6 +973,11 @@
             color: white;
         }
         
+        .btn-gallery {
+            background: linear-gradient(to right, #8a2be2, #9370db);
+            color: white;
+        }
+        
         .btn:disabled {
             background: #555;
             color: #999;
@@ -1040,6 +1178,12 @@
             background: linear-gradient(145deg, #4a1d3c, #2a0a1f);
         }
         
+        .shop-item.cosmic {
+            border-color: #8a2be2;
+            box-shadow: 0 0 25px rgba(138, 43, 226, 0.5);
+            background: linear-gradient(145deg, #2a0a4a, #1a0033);
+        }
+        
         .shop-item-icon {
             font-size: 2.5rem;
             margin-bottom: 10px;
@@ -1150,7 +1294,10 @@
         .reward-modal,
         .game-over,
         .mystery-modal,
-        .redeem-modal {
+        .redeem-modal,
+        .cosmic-draw-modal,
+        .pets-gallery-modal,
+        .timer-modal {
             display: none;
             position: fixed;
             top: 0;
@@ -1174,7 +1321,10 @@
         .reward-content,
         .game-over-content,
         .mystery-content,
-        .redeem-content {
+        .redeem-content,
+        .cosmic-draw-content,
+        .pets-gallery-content,
+        .timer-content {
             background: linear-gradient(145deg, var(--darker-bg), #16213e);
             padding: 40px;
             border-radius: 15px;
@@ -1197,9 +1347,113 @@
             box-shadow: 0 0 50px rgba(255, 107, 157, 0.5);
         }
         
+        .cosmic-draw-content {
+            border-color: #8a2be2;
+            box-shadow: 0 0 50px rgba(138, 43, 226, 0.5);
+        }
+        
+        .timer-content {
+            border-color: #ff0000;
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.5);
+        }
+        
         @keyframes modalSlideIn {
             from { transform: translateY(-50px) scale(0.9); opacity: 0; }
             to { transform: translateY(0) scale(1); opacity: 1; }
+        }
+        
+        /* ====== PETS GALLERY STYLES ====== */
+        .pets-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        
+        .pet-gallery-item {
+            background: linear-gradient(145deg, #2d3746, #1e2633);
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .pet-gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .pet-gallery-item.owned {
+            border-color: var(--success);
+        }
+        
+        .pet-gallery-item.not-owned {
+            opacity: 0.7;
+            filter: grayscale(0.5);
+        }
+        
+        .pet-gallery-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .pet-gallery-name {
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .pet-gallery-rarity {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-bottom: 5px;
+        }
+        
+        /* ====== COSMIC DRAW STYLES ====== */
+        .cosmic-wheel {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            margin: 20px auto;
+            position: relative;
+            overflow: hidden;
+            border: 5px solid #8a2be2;
+            box-shadow: 0 0 30px rgba(138, 43, 226, 0.5);
+        }
+        
+        .cosmic-wheel-section {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            clip-path: polygon(50% 50%, 100% 0, 100% 100%);
+            transform-origin: 50% 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .cosmic-wheel-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background: #8a2be2;
+            border-radius: 50%;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
         }
         
         /* ====== ANIMATIONS ====== */
@@ -1454,6 +1708,17 @@
             animation: rarityPulse 2s infinite;
         }
         
+        .rarity-cosmic {
+            background: linear-gradient(45deg, #8a2be2, #9370db, #4b0082);
+            color: #fff;
+            animation: cosmicPulseBadge 2s infinite;
+        }
+        
+        @keyframes cosmicPulseBadge {
+            0%, 100% { box-shadow: 0 0 10px #8a2be2; }
+            50% { box-shadow: 0 0 20px #9370db; }
+        }
+        
         @keyframes rarityPulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.7; }
@@ -1614,6 +1879,18 @@
             animation: turtleTime 20s infinite linear;
         }
         
+        .cosmic-effect-bg {
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(138, 43, 226, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(75, 0, 130, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(0, 0, 139, 0.1) 0%, transparent 50%);
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            animation: cosmicFloat 30s infinite linear;
+        }
+        
         @keyframes rotateSlow {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
@@ -1745,6 +2022,23 @@
             75% { transform: scale(0.9) rotate(270deg); }
         }
         
+        /* ====== COSMIC PET EFFECTS ====== */
+        .cosmic-effect-display {
+            position: fixed;
+            top: 10px;
+            left: 170px;
+            z-index: 99;
+            font-size: 1.5rem;
+            color: #8a2be2;
+            animation: cosmicPulseDisplay 3s infinite;
+        }
+        
+        @keyframes cosmicPulseDisplay {
+            0%, 100% { transform: scale(1); color: #8a2be2; }
+            33% { transform: scale(1.1); color: #9370db; }
+            66% { transform: scale(1); color: #4b0082; }
+        }
+        
         /* Redeem input styles */
         .redeem-input {
             width: 100%;
@@ -1796,6 +2090,26 @@
             color: var(--diamond-color);
             text-shadow: 0 0 10px var(--diamond-color);
         }
+        
+        /* Timer display */
+        #timer-display {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ff0000;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            margin: 10px 0;
+            padding: 10px 20px;
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 10px;
+            border: 2px solid #ff0000;
+            display: none;
+        }
+        
+        /* Gallery button */
+        .btn-gallery {
+            background: linear-gradient(to right, #8a2be2, #9370db);
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -1817,6 +2131,10 @@
     
     <div class="turtle-effect-display" id="turtle-effect-display" style="display: none;">
         <i class="fa-solid fa-clock"></i>
+    </div>
+    
+    <div class="cosmic-effect-display" id="cosmic-effect-display" style="display: none;">
+        <i class="fas fa-star"></i>
     </div>
     
     <!-- Welcome Modal -->
@@ -1847,6 +2165,33 @@
         </div>
     </div>
     
+    <!-- Cosmic Draw Modal -->
+    <div class="cosmic-draw-modal" id="cosmic-draw-modal">
+        <div class="cosmic-draw-content">
+            <h2 style="color: #8a2be2;">🎉 CONGRATULATIONS! 🎉</h2>
+            <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 1.2rem;">
+                You've unlocked the secret cosmic pet draw!
+            </p>
+            
+            <div class="cosmic-wheel" id="cosmic-wheel">
+                <!-- Wheel sections will be generated by JavaScript -->
+            </div>
+            
+            <div id="cosmic-result" style="margin: 20px 0; display: none;">
+                <h3 id="cosmic-pet-name" style="color: #8a2be2;"></h3>
+                <p id="cosmic-pet-description" style="color: var(--text-muted);"></p>
+            </div>
+            
+            <button class="welcome-btn" id="draw-cosmic-pet-btn" style="background: linear-gradient(to right, #8a2be2, #9370db); color: white;">
+                <i class="fas fa-dice"></i> Draw Cosmic Pet!
+            </button>
+            
+            <button class="welcome-btn" id="close-cosmic-draw-btn" style="margin-top: 10px; background: #555;">
+                <i class="fas fa-times"></i> Close
+            </button>
+        </div>
+    </div>
+    
     <!-- God Tier Unlock Modal -->
     <div class="reward-modal" id="god-tier-modal" style="display: none;">
         <div class="reward-content" style="border-color: #00ff00; box-shadow: 0 0 50px #00ff00;">
@@ -1862,6 +2207,45 @@
             </p>
             <button class="welcome-btn" id="close-god-tier-btn" style="background: linear-gradient(to right, #00ff00, #00ff88); color: #000;">
                 <i class="fas fa-check"></i> Awesome!
+            </button>
+        </div>
+    </div>
+    
+    <!-- Pets Gallery Modal -->
+    <div class="pets-gallery-modal" id="pets-gallery-modal">
+        <div class="pets-gallery-content">
+            <h2 style="color: var(--theme-primary);">
+                <i class="fas fa-paw"></i> Pets Gallery
+            </h2>
+            <p style="color: var(--text-muted); margin-bottom: 20px;">
+                Browse all pets and their abilities. <span style="color: #51cf66;">Green</span> = Owned, <span style="color: #ff6b6b;">Red</span> = Not Owned
+            </p>
+            
+            <div class="pets-gallery" id="pets-gallery-container">
+                <!-- Pets will be loaded here -->
+            </div>
+            
+            <button class="welcome-btn" id="close-gallery-btn" style="margin-top: 20px; background: #555;">
+                <i class="fas fa-times"></i> Close Gallery
+            </button>
+        </div>
+    </div>
+    
+    <!-- Timer Modal -->
+    <div class="timer-modal" id="timer-modal">
+        <div class="timer-content">
+            <h2 style="color: #ff0000;">⏰ TIME'S UP! ⏰</h2>
+            <div style="font-size: 5rem; color: #ff0000; margin: 20px 0;">
+                <i class="fas fa-clock"></i>
+            </div>
+            <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 1.2rem;">
+                The 10-minute timer has expired!
+            </p>
+            <p style="color: #ff6b6b; margin-bottom: 20px;">
+                Game over! Your progress has been saved.
+            </p>
+            <button class="welcome-btn" id="close-timer-btn" style="background: linear-gradient(to right, #ff0000, #ff6b6b); color: white;">
+                <i class="fas fa-redo"></i> Play Again
             </button>
         </div>
     </div>
@@ -1903,10 +2287,15 @@
             <p class="subtitle">Find The Gold - Find the hidden gold to earn rewards!</p>
         </header>
         
+        <!-- Timer Display -->
+        <div class="timer-display" id="timer-display">
+            <i class="fas fa-clock"></i> Time: <span id="timer-value">10:00</span>
+        </div>
+        
         <div class="game-info">
             <div class="info-item">
                 <div class="info-label">LEVEL</div>
-                <div class="info-value" id="level-display">0/100</div>
+                <div class="info-value" id="level-display">0/999</div>
             </div>
             <div class="info-item">
                 <div class="info-label">SCORE</div>
@@ -2039,6 +2428,9 @@
                         <button class="btn btn-stats" id="stats-btn">
                             <i class="fas fa-chart-line"></i> My Stats
                         </button>
+                        <button class="btn btn-gallery" id="gallery-btn">
+                            <i class="fas fa-paw"></i> Pets Gallery
+                        </button>
                     </div>
                 </div>
             </div>
@@ -2091,6 +2483,14 @@
                                 <div class="category-title">Companion Pets</div>
                                 <div class="shop-items" id="pet-items">
                                     <!-- Pet items will be generated by JavaScript -->
+                                </div>
+                            </div>
+                            
+                            <!-- New Shop Pets -->
+                            <div class="shop-category">
+                                <div class="category-title">Premium Pets</div>
+                                <div class="shop-items" id="premium-pet-items">
+                                    <!-- Premium pets will be loaded by JavaScript -->
                                 </div>
                             </div>
                         </div>
@@ -2178,6 +2578,23 @@
                                             Open Chest
                                         </button>
                                     </div>
+                                    
+                                    <!-- Cosmic Mystery Box -->
+                                    <div class="shop-item cosmic">
+                                        <div class="shop-item-icon">
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <div class="shop-item-title">Cosmic Mystery Box</div>
+                                        <div class="shop-item-price">
+                                            <i class="fas fa-coins"></i> 50000 Gold
+                                        </div>
+                                        <div class="shop-item-description" style="font-size:0.7rem; color:#aaa; margin-bottom:10px; text-align:center;">
+                                            0.3% chance for Cosmic Dragon pet!
+                                        </div>
+                                        <button class="shop-item-action" onclick="buyMysteryBox('cosmic')" id="cosmic-mystery-box-btn">
+                                            Open Cosmic Box
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -2200,6 +2617,22 @@
                                         </div>
                                         <button class="shop-item-action" onclick="buyExtension('levelExtension')" id="extension-btn">
                                             Unlock
+                                        </button>
+                                    </div>
+                                    
+                                    <div class="shop-item legendary">
+                                        <div class="shop-item-icon">
+                                            <i class="fas fa-infinity"></i>
+                                        </div>
+                                        <div class="shop-item-title">Levels 101-999</div>
+                                        <div class="shop-item-price">
+                                            <i class="fas fa-coins"></i> 50000 Gold
+                                        </div>
+                                        <div class="shop-item-description" style="font-size:0.7rem; color:#aaa; margin-bottom:10px; text-align:center;">
+                                            Unlock unlimited levels! (101-999)
+                                        </div>
+                                        <button class="shop-item-action" onclick="buyExtension('megaLevelExtension')" id="mega-extension-btn">
+                                            Unlock Mega Levels
                                         </button>
                                     </div>
                                 </div>
@@ -2274,6 +2707,22 @@
                                             Purchase
                                         </button>
                                     </div>
+                                    
+                                    <div class="shop-item cosmic">
+                                        <div class="shop-item-icon">
+                                            <i class="fas fa-meteor"></i>
+                                        </div>
+                                        <div class="shop-item-title">Cosmic Theme</div>
+                                        <div class="shop-item-price">
+                                            <i class="fas fa-gem diamond-currency"></i> 50 Diamonds
+                                        </div>
+                                        <div class="shop-item-description" style="font-size:0.7rem; color:#aaa; margin-bottom:10px; text-align:center;">
+                                            Ultimate cosmic theme +30% gold bonus
+                                        </div>
+                                        <button class="shop-item-action" onclick="buyTheme('cosmic')" id="cosmic-theme-btn">
+                                            Purchase
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -2301,7 +2750,7 @@
             <div class="game-over-content">
                 <h2 style="color: var(--theme-primary);">Game Over!</h2>
                 <p>You've run out of lives. Try again to beat your high score!</p>
-                <p>Level Reached: <span id="final-level" style="color: var(--theme-primary);">0</span>/100</p>
+                <p>Level Reached: <span id="final-level" style="color: var(--theme-primary);">0</span>/999</p>
                 <p>Gold Collected: <span id="final-gold" style="color: var(--theme-primary);">0</span></p>
                 <p>Final Score: <span id="final-score" style="color: var(--theme-primary);">0</span></p>
                 <p>High Score: <span id="final-high-score" style="color: var(--theme-primary);">0</span></p>
@@ -2361,6 +2810,12 @@
     <!-- Meowl Special Music -->
     <audio id="meowl-music" loop preload="auto">
         <source src="https://assets.mixkit.co/music/preview/mixkit-game-show-suspense-waiting-667.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    
+    <!-- Cosmic Music -->
+    <audio id="cosmic-music" loop preload="auto">
+        <source src="https://assets.mixkit.co/music/preview/mixkit-space-game-668.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
@@ -2509,6 +2964,22 @@
                 createSound(2093.00, 0.1, 'sine'); // C7
                 setTimeout(() => createSound(2637.02, 0.1, 'sine'), 50); // E7
                 setTimeout(() => createSound(3135.96, 0.2, 'sine'), 100); // G7
+            },
+            
+            cosmic: () => {
+                // Cosmic sound
+                createSound(2093.00, 0.1, 'sine'); // C7
+                setTimeout(() => createSound(2637.02, 0.1, 'sine'), 50); // E7
+                setTimeout(() => createSound(3135.96, 0.1, 'sine'), 100); // G7
+                setTimeout(() => createSound(4186.01, 0.2, 'sine'), 150); // C8
+            },
+            
+            draw: () => {
+                // Draw/spin sound
+                createSound(523.25, 0.5, 'sawtooth'); // C5
+                setTimeout(() => createSound(659.25, 0.5, 'sawtooth'), 100); // E5
+                setTimeout(() => createSound(783.99, 0.5, 'sawtooth'), 200); // G5
+                setTimeout(() => createSound(1046.50, 0.5, 'sawtooth'), 300); // C6
             }
         };
 
@@ -2546,6 +3017,11 @@
             revealedOptions: [],
             selectedOption: null,
             
+            // Timer State
+            gameTimer: 600, // 10 minutes in seconds
+            timerInterval: null,
+            timerActive: false,
+            
             // Player Name
             playerName: '',
             
@@ -2565,6 +3041,7 @@
             
             // Extensions
             levelExtension: false,
+            megaLevelExtension: false,
             
             // Purchased Items
             purchasedItems: [],
@@ -2582,7 +3059,8 @@
                 sea: 1.10,
                 sky: 1.15,
                 space: 1.20,
-                luckycat: 1.25
+                luckycat: 1.25,
+                cosmic: 1.30
             },
             
             // Redeem Codes
@@ -2598,6 +3076,11 @@
                     name: 'Meowl Pet',
                     description: 'Unlocks the GOD TIER Meowl pet',
                     godTier: true
+                },
+                'IAMWINNER': {
+                    reward: 'cosmic_draw',
+                    name: 'Cosmic Pet Draw',
+                    description: 'Unlocks the cosmic pet draw!'
                 }
             },
             
@@ -2615,6 +3098,61 @@
                 time_travel_turtle: {
                     rewindUsed: false,
                     rewindAvailable: true
+                },
+                // Cosmic Pets
+                cosming_dragon: {
+                    lastConversion: 0,
+                    lastDiamondTime: 0,
+                    lastGoldTime: 0,
+                    lastStreakTime: 0,
+                    levelSkipChance: 0.5,
+                    upgraded: false
+                },
+                elder_god_butterfly: {
+                    lastGoldTime: 0,
+                    streakShield: true
+                },
+                diamond_centipede: {
+                    lastMultiplier: 0
+                },
+                humanoid_gold_seeker: {
+                    goldMultiplier: 1
+                },
+                carlito_cocofanto: {
+                    optionReducer: true,
+                    revealChance: 0.4,
+                    lastGoldTime: 0
+                },
+                tungtung_sahur: {
+                    reviveChance: 0.5,
+                    lastDiamondTime: 0
+                },
+                crazy_dog: {
+                    lastCheckTime: 0,
+                    perfectStreak: 5
+                },
+                croco_boy: {
+                    meditationActive: false,
+                    meditationEndTime: 0,
+                    perfectStreak: 20
+                },
+                // New Shop Pets
+                jester_magician: {
+                    lastGoldTime: 0,
+                    goldInterval: 15000 // 15 seconds
+                },
+                '3dm4rk': {
+                    lastDiamondTime: 0,
+                    infiniteOptions: 2,
+                    timeRewindChance: 0.5
+                },
+                entity: {
+                    shapeshiftTo: null,
+                    lastScoreTime: 0,
+                    lastDiamondTime: 0,
+                    lastGoldTime: 0,
+                    lastStreakTime: 0,
+                    autoPilotChance: 0.5
                 }
             },
             
@@ -2647,7 +3185,10 @@
             
             // Diamond generation tracking
             lastDiamondCheckGold: 50,
-            diamondCheckInterval: null
+            diamondCheckInterval: null,
+            
+            // Cosmic pet tracking
+            cosmicDrawUsed: false
         };
 
         // Update the global soundEnabled flag when game state changes
@@ -2805,6 +3346,160 @@
                     bonusCondition: 0,
                     priceInDiamonds: true,
                     godTier: true
+                },
+                // NEW: Cosmic Pets (via redeem code draw)
+                { 
+                    id: 'cosming_dragon', 
+                    name: 'Cosming Dragon', 
+                    price: 0, 
+                    icon: 'fas fa-dragon', 
+                    color: '#8a2be2', 
+                    effect: 'Convert gold to diamonds + 50% time rewind + cosmic effects', 
+                    rarity: 'cosmic',
+                    bonusType: 'cosmic',
+                    bonusAmount: 0,
+                    bonusCondition: 0,
+                    isCosmic: true,
+                    drawChance: 0.01 // 1%
+                },
+                { 
+                    id: 'elder_god_butterfly', 
+                    name: 'Elder God Butterfly', 
+                    price: 0, 
+                    icon: 'fas fa-butterfly', 
+                    color: '#9370db', 
+                    effect: '1k gold/5s + Never-fail streak shield', 
+                    rarity: 'cosmic',
+                    bonusType: 'ultra_rare',
+                    bonusAmount: 1000,
+                    bonusCondition: 5,
+                    isCosmic: true,
+                    drawChance: 0.02 // 2%
+                },
+                { 
+                    id: 'diamond_centipede', 
+                    name: 'Diamond Centipede', 
+                    price: 0, 
+                    icon: 'fas fa-bug', 
+                    color: '#1E90FF', 
+                    effect: 'Multiply diamonds by 10 when winning', 
+                    rarity: 'cosmic',
+                    bonusType: 'ultra_rare',
+                    bonusAmount: 10,
+                    bonusCondition: 0,
+                    isCosmic: true,
+                    drawChance: 0.02 // 2%
+                },
+                { 
+                    id: 'humanoid_gold_seeker', 
+                    name: 'Humanoid Gold Seeker', 
+                    price: 0, 
+                    icon: 'fas fa-user-astronaut', 
+                    color: '#FFD700', 
+                    effect: 'Gold × streak multiplier on win', 
+                    rarity: 'cosmic',
+                    bonusType: 'godly',
+                    bonusAmount: 1,
+                    bonusCondition: 0,
+                    isCosmic: true,
+                    drawChance: 0.50 // 50%
+                },
+                { 
+                    id: 'carlito_cocofanto', 
+                    name: 'Carlito Cocofanto', 
+                    price: 0, 
+                    icon: 'fas fa-crown', 
+                    color: '#ff6b9d', 
+                    effect: '50% 2 options + 40% reveal gold + streak×diamond gold/10s', 
+                    rarity: 'cosmic',
+                    bonusType: 'legendary',
+                    bonusAmount: 0.5,
+                    bonusCondition: 0,
+                    isCosmic: true,
+                    drawChance: 0.50 // 50%
+                },
+                { 
+                    id: 'tungtung_sahur', 
+                    name: 'Tungtung Sahur', 
+                    price: 0, 
+                    icon: 'fas fa-brain', 
+                    color: '#00ffcc', 
+                    effect: '50% revive + 0.1 diamond/30s', 
+                    rarity: 'cosmic',
+                    bonusType: 'brainrot',
+                    bonusAmount: 0.1,
+                    bonusCondition: 30,
+                    isCosmic: true,
+                    drawChance: 0.50 // 50%
+                },
+                { 
+                    id: 'crazy_dog', 
+                    name: 'Crazy Dog', 
+                    price: 0, 
+                    icon: 'fas fa-dog', 
+                    color: '#ff4500', 
+                    effect: 'Score × gold = 0.3% pet chance every 5 streak', 
+                    rarity: 'cosmic',
+                    bonusType: 'godly',
+                    bonusAmount: 0.003,
+                    bonusCondition: 5,
+                    isCosmic: true,
+                    drawChance: 0.50 // 50%
+                },
+                { 
+                    id: 'croco_boy', 
+                    name: 'Croco Boy', 
+                    price: 0, 
+                    icon: 'fas fa-alligator', 
+                    color: '#32cd32', 
+                    effect: 'Perfect 20 streak = streak×diamond×100 diamonds', 
+                    rarity: 'cosmic',
+                    bonusType: 'godly',
+                    bonusAmount: 100,
+                    bonusCondition: 20,
+                    isCosmic: true,
+                    drawChance: 0.50 // 50%
+                },
+                // NEW: Shop Pets
+                { 
+                    id: 'jester_magician', 
+                    name: 'Jester Magician', 
+                    price: 100000, 
+                    icon: 'fas fa-hat-wizard', 
+                    color: '#9c88ff', 
+                    effect: '10 streak: life×diamond = gold/15s', 
+                    rarity: 'legendary',
+                    bonusType: 'magic',
+                    bonusAmount: 1,
+                    bonusCondition: 10,
+                    disableAutoConvert: true
+                },
+                { 
+                    id: '3dm4rk', 
+                    name: '3DM4RK', 
+                    price: 300000, 
+                    icon: 'fas fa-robot', 
+                    color: '#00ff00', 
+                    effect: 'Infinite 2 options + x100 gold + 50% rewind + random diamonds', 
+                    rarity: 'cosmic',
+                    bonusType: 'cosmic_shop',
+                    bonusAmount: 100,
+                    bonusCondition: 0,
+                    isCosmic: true
+                },
+                { 
+                    id: 'entity', 
+                    name: 'Entity', 
+                    price: 1000000, 
+                    icon: 'fas fa-ghost', 
+                    color: '#8a2be2', 
+                    effect: 'Shapeshift + OP bonuses + 50% auto-play', 
+                    rarity: 'cosmic',
+                    bonusType: 'entity',
+                    bonusAmount: 9999,
+                    bonusCondition: 0,
+                    isCosmic: true,
+                    priceInDiamonds: false
                 }
             ],
             
@@ -2844,9 +3539,31 @@
                     color: '#9c88ff',
                     effect: '+20% Gold bonus',
                     rarity: 'legendary'
+                },
+                {
+                    id: 'cosmic',
+                    name: 'Cosmic Theme',
+                    price: 50,
+                    icon: 'fas fa-meteor',
+                    color: '#8a2be2',
+                    effect: '+30% Gold bonus',
+                    rarity: 'cosmic',
+                    priceInDiamonds: true
                 }
             ]
         };
+
+        // Cosmic Pets for draw
+        const cosmicPets = [
+            'cosming_dragon',
+            'elder_god_butterfly',
+            'diamond_centipede',
+            'humanoid_gold_seeker',
+            'carlito_cocofanto',
+            'tungtung_sahur',
+            'crazy_dog',
+            'croco_boy'
+        ];
 
         // Mystery Box rewards
         const mysteryBoxRewards = {
@@ -2863,6 +3580,16 @@
                 { type: 'life', amount: 3, name: '3 Extra Lives', icon: 'fas fa-heart', color: '#ff6b6b' },
                 { type: 'permanent', item: 'streakShield', name: 'Streak Shield', icon: 'fas fa-shield-alt', color: '#4dabf7' },
                 { type: 'pet', petId: 'golden_hamster', name: 'Golden Hamster Pet', icon: 'fas fa-paw', color: '#FFD700' }
+            ],
+            cosmic: [
+                { type: 'pet', petId: 'cosming_dragon', name: 'Cosming Dragon', icon: 'fas fa-dragon', color: '#8a2be2', chance: 0.003 },
+                { type: 'gold', amount: 0.1, name: '0.1 Gold', icon: 'fas fa-coins', color: '#FFD700', chance: 0.2 },
+                { type: 'gold', amount: 5000, name: '5000 Gold', icon: 'fas fa-coins', color: '#FFD700', chance: 0.2 },
+                { type: 'deduction', amount: 'all', name: 'Cosmic Holly Stone', icon: 'fas fa-gem', color: '#ff0000', description: 'Deduction of all gold!', chance: 0.1 },
+                { type: 'diamonds', amount: 5, name: '5 Diamonds', icon: 'fas fa-gem', color: '#1E90FF', chance: 0.2 },
+                { type: 'pet', petId: 'elder_god_butterfly', name: 'Elder God Butterfly', icon: 'fas fa-butterfly', color: '#9370db', chance: 0.001 },
+                { type: 'gold', amount: 10000, name: '10000 Gold', icon: 'fas fa-coins', color: '#FFD700', chance: 0.1 },
+                { type: 'theme', themeId: 'cosmic', name: 'Cosmic Theme', icon: 'fas fa-meteor', color: '#8a2be2', chance: 0.005 }
             ]
         };
 
@@ -2897,6 +3624,9 @@
             
             // Start diamond generation check
             startDiamondGenerationCheck();
+            
+            // Update max levels display
+            updateMaxLevels();
         });
 
         function initializeAudio() {
@@ -2986,6 +3716,12 @@
             const savedRedeemedCodes = localStorage.getItem('gtgRedeemedCodes');
             if (savedRedeemedCodes) gameState.redeemedCodes = JSON.parse(savedRedeemedCodes);
             
+            const savedCosmicDrawUsed = localStorage.getItem('gtgCosmicDrawUsed');
+            if (savedCosmicDrawUsed) gameState.cosmicDrawUsed = savedCosmicDrawUsed === 'true';
+            
+            const savedMegaExtension = localStorage.getItem('gtgMegaLevelExtension');
+            if (savedMegaExtension) gameState.megaLevelExtension = savedMegaExtension === 'true';
+            
             // Calculate total pets
             gameState.totalPets = gameState.purchasedItems.filter(item => 
                 shopItems.pets.some(pet => pet.id === item && pet.id !== 'none')
@@ -3007,6 +3743,9 @@
             
             // Update last diamond check gold
             gameState.lastDiamondCheckGold = gameState.gold;
+            
+            // Update max levels
+            updateMaxLevels();
         }
 
         function saveGameState() {
@@ -3031,6 +3770,78 @@
             localStorage.setItem('gtgActiveTheme', gameState.activeTheme);
             localStorage.setItem('gtgRedeemedCodes', JSON.stringify(gameState.redeemedCodes));
             localStorage.setItem('gtgPetAbilities', JSON.stringify(gameState.petAbilities));
+            localStorage.setItem('gtgCosmicDrawUsed', gameState.cosmicDrawUsed);
+            localStorage.setItem('gtgMegaLevelExtension', gameState.megaLevelExtension);
+        }
+
+        // ====== TIMER SYSTEM ======
+        function startGameTimer() {
+            // Clear existing timer
+            if (gameState.timerInterval) {
+                clearInterval(gameState.timerInterval);
+            }
+            
+            // Reset timer to 10 minutes
+            gameState.gameTimer = 600; // 600 seconds = 10 minutes
+            gameState.timerActive = true;
+            
+            // Show timer display
+            document.getElementById('timer-display').style.display = 'block';
+            updateTimerDisplay();
+            
+            // Start countdown
+            gameState.timerInterval = setInterval(() => {
+                if (gameState.gameActive && gameState.timerActive) {
+                    gameState.gameTimer--;
+                    updateTimerDisplay();
+                    
+                    // Check if timer reached 0
+                    if (gameState.gameTimer <= 0) {
+                        clearInterval(gameState.timerInterval);
+                        gameState.timerActive = false;
+                        showTimerModal();
+                    }
+                    
+                    // Flash timer when under 1 minute
+                    if (gameState.gameTimer <= 60) {
+                        document.getElementById('timer-display').style.animation = 'timerPulse 0.5s infinite alternate';
+                    }
+                }
+            }, 1000);
+        }
+        
+        function stopGameTimer() {
+            if (gameState.timerInterval) {
+                clearInterval(gameState.timerInterval);
+                gameState.timerActive = false;
+            }
+            document.getElementById('timer-display').style.display = 'none';
+        }
+        
+        function updateTimerDisplay() {
+            const minutes = Math.floor(gameState.gameTimer / 60);
+            const seconds = gameState.gameTimer % 60;
+            document.getElementById('timer-value').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        function showTimerModal() {
+            // Stop the game
+            gameState.gameActive = false;
+            gameState.isSelecting = false;
+            
+            // Stop all effects
+            stopBackgroundMusic();
+            stopLuckyCatInterval();
+            
+            // Show timer modal
+            document.getElementById('timer-modal').style.display = 'flex';
+            
+            // Play game over sound
+            playSound('gameover');
+            
+            // Save game state
+            saveGameState();
         }
 
         // ====== DIAMONDS CURRENCY SYSTEM ======
@@ -3043,6 +3854,7 @@
             // Check for diamond generation every 5 seconds
             gameState.diamondCheckInterval = setInterval(() => {
                 generateDiamondsFromGold();
+                applyPetPassiveEffects();
             }, 5000);
         }
 
@@ -3141,6 +3953,9 @@
             const redeemModal = document.getElementById('redeem-modal');
             const closeGodTierBtn = document.getElementById('close-god-tier-btn');
             const godTierModal = document.getElementById('god-tier-modal');
+            const closeCosmicDrawBtn = document.getElementById('close-cosmic-draw-btn');
+            const cosmicDrawModal = document.getElementById('cosmic-draw-modal');
+            const drawCosmicPetBtn = document.getElementById('draw-cosmic-pet-btn');
             
             if (!redeemBtn) return;
             
@@ -3182,6 +3997,21 @@
                 });
             }
             
+            // Close cosmic draw modal
+            if (closeCosmicDrawBtn) {
+                closeCosmicDrawBtn.addEventListener('click', function() {
+                    cosmicDrawModal.style.display = 'none';
+                    loadShopItems(); // Refresh shop
+                });
+            }
+            
+            // Draw cosmic pet
+            if (drawCosmicPetBtn) {
+                drawCosmicPetBtn.addEventListener('click', function() {
+                    drawCosmicPet();
+                });
+            }
+            
             // Close on background click
             redeemModal.addEventListener('click', function(e) {
                 if (e.target === this) {
@@ -3194,6 +4024,15 @@
                 godTierModal.addEventListener('click', function(e) {
                     if (e.target === this) {
                         godTierModal.style.display = 'none';
+                        loadShopItems(); // Refresh shop
+                    }
+                });
+            }
+            
+            if (cosmicDrawModal) {
+                cosmicDrawModal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        cosmicDrawModal.style.display = 'none';
                         loadShopItems(); // Refresh shop
                     }
                 });
@@ -3246,6 +4085,17 @@
                         showNotification('You already have the Meowl pet!', 'info');
                     }
                     break;
+                    
+                case 'cosmic_draw':
+                    if (!gameState.cosmicDrawUsed) {
+                        // Show cosmic draw modal
+                        document.getElementById('cosmic-draw-modal').style.display = 'flex';
+                        showNotification('Cosmic pet draw unlocked!', 'success');
+                        createCosmicWheel();
+                    } else {
+                        showNotification('You have already used your cosmic draw!', 'info');
+                    }
+                    break;
             }
             
             // Close modal and update shop
@@ -3260,6 +4110,114 @@
             
             // Show special notification
             showGoldEffect(0, `${redeemInfo.name} Unlocked!`);
+        }
+
+        function createCosmicWheel() {
+            const wheel = document.getElementById('cosmic-wheel');
+            wheel.innerHTML = '';
+            
+            // Create wheel sections for each cosmic pet
+            const petCount = cosmicPets.length;
+            const angle = 360 / petCount;
+            
+            cosmicPets.forEach((petId, index) => {
+                const pet = shopItems.pets.find(p => p.id === petId);
+                if (!pet) return;
+                
+                const section = document.createElement('div');
+                section.className = 'cosmic-wheel-section';
+                section.style.transform = `rotate(${index * angle}deg)`;
+                section.style.background = `linear-gradient(45deg, ${pet.color}22, ${pet.color}44)`;
+                section.style.color = pet.color;
+                section.innerHTML = `<i class="${pet.icon}"></i>`;
+                section.title = pet.name;
+                
+                wheel.appendChild(section);
+            });
+            
+            // Add center
+            const center = document.createElement('div');
+            center.className = 'cosmic-wheel-center';
+            center.innerHTML = '<i class="fas fa-dice"></i>';
+            wheel.appendChild(center);
+        }
+
+        function drawCosmicPet() {
+            if (gameState.cosmicDrawUsed) {
+                showNotification('You have already used your cosmic draw!', 'error');
+                return;
+            }
+            
+            // Play draw sound
+            playSound('draw');
+            
+            // Determine which pet is won based on chances
+            let random = Math.random();
+            let selectedPet = null;
+            let cumulativeChance = 0;
+            
+            // Calculate cumulative chances
+            for (const petId of cosmicPets) {
+                const pet = shopItems.pets.find(p => p.id === petId);
+                if (pet && pet.drawChance) {
+                    cumulativeChance += pet.drawChance;
+                    if (random <= cumulativeChance) {
+                        selectedPet = pet;
+                        break;
+                    }
+                }
+            }
+            
+            // Fallback to random pet if no selection
+            if (!selectedPet) {
+                const randomIndex = Math.floor(Math.random() * cosmicPets.length);
+                selectedPet = shopItems.pets.find(p => p.id === cosmicPets[randomIndex]);
+            }
+            
+            // Mark draw as used
+            gameState.cosmicDrawUsed = true;
+            
+            // Show cosmic effect
+            const effect = document.createElement('div');
+            effect.className = 'cosmic-draw-effect';
+            effect.innerHTML = `<i class="${selectedPet.icon}"></i>`;
+            effect.style.color = selectedPet.color;
+            document.body.appendChild(effect);
+            
+            setTimeout(() => {
+                effect.remove();
+            }, 2000);
+            
+            // Show result
+            document.getElementById('cosmic-result').style.display = 'block';
+            document.getElementById('cosmic-pet-name').textContent = selectedPet.name;
+            document.getElementById('cosmic-pet-description').textContent = selectedPet.effect;
+            
+            // Add pet to inventory
+            if (!gameState.purchasedItems.includes(selectedPet.id)) {
+                gameState.purchasedItems.push(selectedPet.id);
+                gameState.totalPets++;
+                
+                // Auto-equip the pet
+                setTimeout(() => {
+                    equipItem(selectedPet.id, 'pets');
+                    showNotification(`You won the ${selectedPet.name}! Equipped automatically!`, 'success');
+                }, 1000);
+            } else {
+                // If already owned, give bonus diamonds
+                gameState.diamonds += 10;
+                showNotification(`You already have ${selectedPet.name}! +10 diamonds instead!`, 'info');
+            }
+            
+            // Update displays
+            updateDisplays();
+            loadShopItems();
+            
+            // Save game state
+            saveGameState();
+            
+            // Play cosmic sound
+            playSound('cosmic');
         }
 
         function checkLuckyCatDisplay() {
@@ -3326,17 +4284,183 @@
             }
         }
 
+        // ====== PET PASSIVE EFFECTS ======
+        function applyPetPassiveEffects() {
+            const currentTime = Date.now();
+            
+            // Apply effects based on equipped pet
+            switch(gameState.equippedPet) {
+                case 'elder_god_butterfly':
+                    // 1k gold every 5 seconds
+                    if (currentTime - (gameState.petAbilities.elder_god_butterfly.lastGoldTime || 0) >= 5000) {
+                        gameState.gold += 1000;
+                        gameState.totalGoldEarned += 1000;
+                        gameState.petAbilities.elder_god_butterfly.lastGoldTime = currentTime;
+                        
+                        showGoldEffect(1000, "Butterfly Gold!");
+                        showNotification('Elder God Butterfly: +1000 Gold!', 'success');
+                        updateDisplays();
+                        saveGameState();
+                    }
+                    break;
+                    
+                case 'carlito_cocofanto':
+                    // streak × diamond gold every 10 seconds
+                    if (currentTime - (gameState.petAbilities.carlito_cocofanto.lastGoldTime || 0) >= 10000) {
+                        const goldAmount = Math.floor(gameState.streak * gameState.diamonds);
+                        if (goldAmount > 0) {
+                            gameState.gold += goldAmount;
+                            gameState.totalGoldEarned += goldAmount;
+                            gameState.petAbilities.carlito_cocofanto.lastGoldTime = currentTime;
+                            
+                            showGoldEffect(goldAmount, "Cocofanto Gold!");
+                            showNotification(`Carlito Cocofanto: +${goldAmount} Gold!`, 'success');
+                            updateDisplays();
+                            saveGameState();
+                        }
+                    }
+                    break;
+                    
+                case 'tungtung_sahur':
+                    // 0.1 diamond every 30 seconds
+                    if (currentTime - (gameState.petAbilities.tungtung_sahur.lastDiamondTime || 0) >= 30000) {
+                        gameState.diamonds += 0.1;
+                        gameState.petAbilities.tungtung_sahur.lastDiamondTime = currentTime;
+                        
+                        showDiamondEffect(0.1);
+                        showNotification('Tungtung Sahur: +0.1 Diamonds!', 'success');
+                        updateDisplays();
+                        saveGameState();
+                    }
+                    break;
+                    
+                case 'jester_magician':
+                    // Apply if 10 streak condition met
+                    if (gameState.streak >= 10) {
+                        if (currentTime - (gameState.petAbilities.jester_magician.lastGoldTime || 0) >= 15000) {
+                            const goldAmount = Math.floor(gameState.lives * gameState.diamonds);
+                            if (goldAmount > 0) {
+                                gameState.gold += goldAmount;
+                                gameState.totalGoldEarned += goldAmount;
+                                gameState.petAbilities.jester_magician.lastGoldTime = currentTime;
+                                
+                                showGoldEffect(goldAmount, "Jester Magic!");
+                                showNotification(`Jester Magician: +${goldAmount} Gold!`, 'success');
+                                updateDisplays();
+                                saveGameState();
+                            }
+                        }
+                    }
+                    break;
+                    
+                case '3dm4rk':
+                    // Random 1-100 diamonds every minute
+                    if (currentTime - (gameState.petAbilities['3dm4rk'].lastDiamondTime || 0) >= 60000) {
+                        const diamondAmount = Math.floor(Math.random() * 100) + 1;
+                        gameState.diamonds += diamondAmount;
+                        gameState.petAbilities['3dm4rk'].lastDiamondTime = currentTime;
+                        
+                        showDiamondEffect(diamondAmount);
+                        showNotification(`3DM4RK: +${diamondAmount} Diamonds!`, 'success');
+                        updateDisplays();
+                        saveGameState();
+                    }
+                    break;
+                    
+                case 'entity':
+                    // 9999 score every 30s
+                    if (currentTime - (gameState.petAbilities.entity.lastScoreTime || 0) >= 30000) {
+                        gameState.score += 9999;
+                        gameState.petAbilities.entity.lastScoreTime = currentTime;
+                        showNotification('Entity: +9999 Score!', 'success');
+                    }
+                    
+                    // 9999 diamond every 5m
+                    if (currentTime - (gameState.petAbilities.entity.lastDiamondTime || 0) >= 300000) {
+                        gameState.diamonds += 9999;
+                        gameState.petAbilities.entity.lastDiamondTime = currentTime;
+                        showDiamondEffect(9999);
+                        showNotification('Entity: +9999 Diamonds!', 'success');
+                    }
+                    
+                    // 9999 gold every 2m
+                    if (currentTime - (gameState.petAbilities.entity.lastGoldTime || 0) >= 120000) {
+                        gameState.gold += 9999;
+                        gameState.totalGoldEarned += 9999;
+                        gameState.petAbilities.entity.lastGoldTime = currentTime;
+                        showGoldEffect(9999, "Entity Gold!");
+                        showNotification('Entity: +9999 Gold!', 'success');
+                    }
+                    
+                    // 9999 streak every 5m
+                    if (currentTime - (gameState.petAbilities.entity.lastStreakTime || 0) >= 300000) {
+                        gameState.streak += 9999;
+                        gameState.petAbilities.entity.lastStreakTime = currentTime;
+                        showNotification('Entity: +9999 Streak!', 'success');
+                    }
+                    
+                    updateDisplays();
+                    saveGameState();
+                    break;
+                    
+                case 'cosming_dragon':
+                    // Convert 200k gold to 0.5 diamond
+                    if (gameState.gold >= 200000 && 
+                        currentTime - (gameState.petAbilities.cosming_dragon.lastConversion || 0) >= 30000) {
+                        gameState.gold -= 200000;
+                        gameState.diamonds += 0.5;
+                        gameState.petAbilities.cosming_dragon.lastConversion = currentTime;
+                        
+                        showDiamondEffect(0.5);
+                        showGoldEffect(-200000, "Dragon Conversion");
+                        showNotification('Cosming Dragon: Converted 200k gold to 0.5 diamonds!', 'success');
+                    }
+                    
+                    // 0.5 diamond every 30 seconds
+                    if (currentTime - (gameState.petAbilities.cosming_dragon.lastDiamondTime || 0) >= 30000) {
+                        gameState.diamonds += 0.5;
+                        gameState.petAbilities.cosming_dragon.lastDiamondTime = currentTime;
+                        
+                        showDiamondEffect(0.5);
+                        showNotification('Cosming Dragon: +0.5 Diamonds!', 'success');
+                    }
+                    
+                    // 100k gold every 30 seconds
+                    if (currentTime - (gameState.petAbilities.cosming_dragon.lastGoldTime || 0) >= 30000) {
+                        gameState.gold += 100000;
+                        gameState.totalGoldEarned += 100000;
+                        gameState.petAbilities.cosming_dragon.lastGoldTime = currentTime;
+                        
+                        showGoldEffect(100000, "Dragon Gold!");
+                        showNotification('Cosming Dragon: +100,000 Gold!', 'success');
+                    }
+                    
+                    // 100 streak every 30 seconds
+                    if (currentTime - (gameState.petAbilities.cosming_dragon.lastStreakTime || 0) >= 30000) {
+                        gameState.streak += 100;
+                        gameState.petAbilities.cosming_dragon.lastStreakTime = currentTime;
+                        showNotification('Cosming Dragon: +100 Streak!', 'success');
+                    }
+                    
+                    updateDisplays();
+                    saveGameState();
+                    break;
+            }
+        }
+
         function updatePetEffectDisplays() {
             const luckyCatEffect = document.getElementById('lucky-cat-effect');
             const meowlEffect = document.getElementById('meowl-effect-display');
             const phoenixEffect = document.getElementById('phoenix-effect-display');
             const turtleEffect = document.getElementById('turtle-effect-display');
+            const cosmicEffect = document.getElementById('cosmic-effect-display');
             
             // Reset all
             luckyCatEffect.style.display = 'none';
             meowlEffect.style.display = 'none';
             phoenixEffect.style.display = 'none';
             turtleEffect.style.display = 'none';
+            cosmicEffect.style.display = 'none';
             
             // Show based on equipped pet
             switch(gameState.equippedPet) {
@@ -3352,6 +4476,23 @@
                 case 'time_travel_turtle':
                     turtleEffect.style.display = 'block';
                     break;
+                case 'cosming_dragon':
+                case 'elder_god_butterfly':
+                case 'diamond_centipede':
+                case 'humanoid_gold_seeker':
+                case 'carlito_cocofanto':
+                case 'tungtung_sahur':
+                case 'crazy_dog':
+                case 'croco_boy':
+                case '3dm4rk':
+                case 'entity':
+                    cosmicEffect.style.display = 'block';
+                    const pet = shopItems.pets.find(p => p.id === gameState.equippedPet);
+                    if (pet) {
+                        cosmicEffect.innerHTML = `<i class="${pet.icon}"></i>`;
+                        cosmicEffect.style.color = pet.color;
+                    }
+                    break;
             }
         }
 
@@ -3360,7 +4501,7 @@
             effectsContainer.innerHTML = '';
             
             // Remove all theme classes first
-            document.body.classList.remove('theme-meowl', 'theme-phoenix', 'theme-turtle');
+            document.body.classList.remove('theme-meowl', 'theme-phoenix', 'theme-turtle', 'theme-cosmic');
             
             // Add theme based on equipped pet
             switch(gameState.equippedPet) {
@@ -3375,6 +4516,19 @@
                 case 'time_travel_turtle':
                     document.body.classList.add('theme-turtle');
                     createTimeTravelTurtleEffects();
+                    break;
+                case 'cosming_dragon':
+                case 'elder_god_butterfly':
+                case 'diamond_centipede':
+                case 'humanoid_gold_seeker':
+                case 'carlito_cocofanto':
+                case 'tungtung_sahur':
+                case 'crazy_dog':
+                case 'croco_boy':
+                case '3dm4rk':
+                case 'entity':
+                    document.body.classList.add('theme-cosmic');
+                    createCosmicEffects();
                     break;
             }
         }
@@ -3449,6 +4603,49 @@
                 particle.style.animationDelay = `${Math.random() * 4}s`;
                 
                 effectsContainer.appendChild(particle);
+            }
+        }
+
+        function createCosmicEffects() {
+            const effectsContainer = document.getElementById('theme-effects');
+            
+            // Create main effect
+            const effect = document.createElement('div');
+            effect.className = 'theme-effect cosmic-effect-bg';
+            effectsContainer.appendChild(effect);
+            
+            // Create cosmic particles
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'cosmic-particle';
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100 + 100}%`;
+                particle.style.background = `hsl(${Math.random() * 60 + 270}, 100%, 70%)`; // Purple-blue spectrum
+                particle.style.boxShadow = `0 0 ${Math.random() * 10 + 5}px currentColor`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                
+                effectsContainer.appendChild(particle);
+            }
+            
+            // Start cosmic music if equipped
+            if (gameState.equippedPet === 'cosming_dragon' || gameState.equippedPet === '3dm4rk' || gameState.equippedPet === 'entity') {
+                startCosmicMusic();
+            }
+        }
+
+        function startCosmicMusic() {
+            const cosmicMusic = document.getElementById('cosmic-music');
+            if (cosmicMusic && gameState.musicEnabled) {
+                cosmicMusic.volume = gameState.musicVolume * 0.7;
+                cosmicMusic.play().catch(e => console.log("Cosmic music play failed:", e));
+            }
+        }
+
+        function stopCosmicMusic() {
+            const cosmicMusic = document.getElementById('cosmic-music');
+            if (cosmicMusic) {
+                cosmicMusic.pause();
+                cosmicMusic.currentTime = 0;
             }
         }
 
@@ -3606,6 +4803,81 @@
             return false;
         }
 
+        // ====== COSMIC PET ABILITIES ======
+        function applyCosmicPetAbilities() {
+            if (gameState.equippedPet === 'cosming_dragon') {
+                // 50% time rewind chance on wrong guess
+                if (Math.random() < 0.5) {
+                    // Show cosmic rewind effect
+                    const effect = document.createElement('div');
+                    effect.className = 'time-rewind-effect';
+                    effect.style.background = 'linear-gradient(45deg, rgba(138, 43, 226, 0.1), rgba(75, 0, 130, 0.1))';
+                    document.body.appendChild(effect);
+                    
+                    setTimeout(() => effect.remove(), 1000);
+                    
+                    // Play cosmic sound
+                    playSound('cosmic');
+                    
+                    return true;
+                }
+            }
+            
+            // Elder God Butterfly - never fail streak shield
+            if (gameState.equippedPet === 'elder_god_butterfly' && gameState.petAbilities.elder_god_butterfly.streakShield) {
+                return true;
+            }
+            
+            // Carlito Cocofanto - 50% chance for only 2 options
+            if (gameState.equippedPet === 'carlito_cocofanto' && Math.random() < 0.5) {
+                gameState.optionsCount = 2;
+                return true;
+            }
+            
+            // Carlito Cocofanto - 40% chance to reveal gold
+            if (gameState.equippedPet === 'carlito_cocofanto' && Math.random() < 0.4) {
+                gameState.revealedOptions.push(gameState.goldPosition);
+                generateOptions();
+                showNotification('Carlito Cocofanto revealed the gold!', 'success');
+                return true;
+            }
+            
+            // Tungtung Sahur - 50% chance to revive
+            if (gameState.equippedPet === 'tungtung_sahur' && 
+                gameState.lives === 0 && 
+                Math.random() < gameState.petAbilities.tungtung_sahur.reviveChance) {
+                gameState.lives = 1;
+                updateLivesDisplay();
+                showNotification('Tungtung Sahur revived you!', 'success');
+                return true;
+            }
+            
+            // 3DM4RK - 50% time rewind
+            if (gameState.equippedPet === '3dm4rk' && 
+                Math.random() < gameState.petAbilities['3dm4rk'].timeRewindChance) {
+                return true;
+            }
+            
+            // Entity - 50% auto-pilot
+            if (gameState.equippedPet === 'entity' && 
+                Math.random() < gameState.petAbilities.entity.autoPilotChance &&
+                gameState.gameActive &&
+                !gameState.isSelecting) {
+                // Auto-select the correct option
+                setTimeout(() => {
+                    if (gameState.gameActive) {
+                        gameState.selectedOption = gameState.goldPosition;
+                        gameState.revealedOptions.push(gameState.goldPosition);
+                        handleCorrectGuess();
+                        showNotification('Entity auto-piloted and found the gold!', 'success');
+                    }
+                }, 1000);
+                return true;
+            }
+            
+            return false;
+        }
+
         // ====== GAME FUNCTIONS ======
         function initGame() {
             // Reset game state (but keep gold and stats)
@@ -3634,8 +4906,12 @@
                 gameState.petAbilities.time_travel_turtle.rewindUsed = false;
             }
             
+            // Stop timer
+            stopGameTimer();
+            
             // Stop any playing music
             stopBackgroundMusic();
+            stopCosmicMusic();
             
             // Stop Meowl music
             const meowlMusic = document.getElementById('meowl-music');
@@ -3708,6 +4984,9 @@
             gameState.isSelecting = false;
             document.getElementById('start-btn').disabled = true;
             gameState.totalGames++;
+            
+            // Start game timer
+            startGameTimer();
             
             // Play start sound
             playSound('start');
@@ -3813,6 +5092,9 @@
                 meowlMusic.currentTime = 0;
             }
             
+            // Stop cosmic music
+            stopCosmicMusic();
+            
             updateMusicButton(false);
         }
 
@@ -3848,6 +5130,9 @@
             // Calculate difficulty
             gameState.optionsCount = Math.min(2 + Math.floor(gameState.level / 5), 10);
             
+            // Apply pet effects that reduce options
+            applyPetOptionEffects();
+            
             // Generate gold position (apply pet effects)
             gameState.goldPosition = Math.floor(Math.random() * gameState.optionsCount);
             
@@ -3856,6 +5141,9 @@
             
             // Apply Lucky Cat game effect
             applyLuckyCatGameEffect();
+            
+            // Apply cosmic pet effects
+            applyCosmicPetAbilities();
             
             // Update UI
             updateLevelUI();
@@ -3881,6 +5169,20 @@
             saveGameState();
         }
 
+        function applyPetOptionEffects() {
+            // 3DM4RK - infinite 2 options
+            if (gameState.equippedPet === '3dm4rk') {
+                gameState.optionsCount = 2;
+                return;
+            }
+            
+            // Carlito Cocofanto - 50% chance for 2 options
+            if (gameState.equippedPet === 'carlito_cocofanto' && Math.random() < 0.5) {
+                gameState.optionsCount = 2;
+                return;
+            }
+        }
+
         function applyPetLuckEffects() {
             // Apply luck boost from Music Dragon
             if (gameState.equippedPet === 'music_dragon' && Math.random() < 0.5) {
@@ -3892,6 +5194,14 @@
                     const randomWrong = wrongOptions[Math.floor(Math.random() * wrongOptions.length)];
                     gameState.revealedOptions.push(randomWrong);
                 }
+            }
+            
+            // Cosming Dragon - 50% chance to skip levels
+            if (gameState.equippedPet === 'cosming_dragon' && 
+                Math.random() < gameState.petAbilities.cosming_dragon.levelSkipChance) {
+                const skipAmount = Math.floor(Math.random() * 14) + 2; // 2-15 levels
+                gameState.level += skipAmount;
+                showNotification(`Cosming Dragon skipped ${skipAmount} levels!`, 'success');
             }
         }
 
@@ -3920,6 +5230,9 @@
                 }
                 if (pet.id === 'time_travel_turtle' && gameState.petAbilities.time_travel_turtle.rewindAvailable) {
                     instruction += ` <span style="color:#00ffcc"><i class="fa-solid fa-clock"></i> Time rewind available</span>`;
+                }
+                if (pet.isCosmic) {
+                    instruction += ` <span style="color:#8a2be2"><i class="fas fa-star"></i> COSMIC PET</span>`;
                 }
             }
             document.getElementById('instruction').innerHTML = instruction;
@@ -3986,6 +5299,9 @@
             // Calculate base gold earned
             let goldEarned = 10 + Math.floor(gameState.level / 2) + (gameState.streak * 2);
             
+            // Apply pet-specific multipliers
+            applyPetGoldMultipliers(goldEarned);
+            
             // Apply gold rush multiplier
             if (gameState.activePowerUps.goldrush) {
                 goldEarned *= 2;
@@ -4004,58 +5320,14 @@
             
             if (pet && pet.id !== 'none') {
                 // Apply pet-specific gold bonuses
-                switch(pet.bonusType) {
-                    case 'correct':
-                        // Golden Eagle: +10 gold on every correct guess
-                        petBonus = pet.bonusAmount;
-                        goldEarned += petBonus;
-                        petMessage = ` +${petBonus} from ${pet.name}`;
-                        break;
-                        
-                    case 'streak':
-                        // Check streak condition for pets
-                        if (gameState.petStreakCounter >= pet.bonusCondition) {
-                            if (pet.id === 'phoenix') {
-                                // Phoenix: x100 gold every 3 streaks
-                                petBonus = goldEarned * (pet.bonusAmount - 1);
-                                goldEarned *= pet.bonusAmount;
-                            } else {
-                                // Other streak pets: fixed amount
-                                petBonus = pet.bonusAmount;
-                                goldEarned += petBonus;
-                            }
-                            gameState.petStreakCounter = 0;
-                            petMessage = ` +${petBonus} from ${pet.name} (${pet.bonusCondition} streak)`;
-                        }
-                        break;
-                        
-                    case 'passive':
-                        // Lucky Cat: Already gives passive gold, but add bonus for correct guess
-                        if (pet.id === 'lucky_cat') {
-                            petBonus = 50; // Extra bonus for correct guess
-                            goldEarned += petBonus;
-                            petMessage = ` +${petBonus} from Lucky Cat bonus`;
-                        }
-                        break;
-                        
-                    case 'resurrection':
-                        // Rainbow Phoenix: 25% gold bonus
-                        if (pet.id === 'rainbow_phoenix') {
-                            petBonus = Math.round(goldEarned * pet.bonusAmount);
-                            goldEarned += petBonus;
-                            petMessage = ` +${petBonus} from Rainbow Phoenix bonus`;
-                        }
-                        break;
-                        
-                    case 'rewind':
-                        // Time Travel Turtle: 30% gold bonus
-                        if (pet.id === 'time_travel_turtle') {
-                            petBonus = Math.round(goldEarned * pet.bonusAmount);
-                            goldEarned += petBonus;
-                            petMessage = ` +${petBonus} from Time Travel Turtle bonus`;
-                        }
-                        break;
+                petBonus = applyPetGoldBonus(pet, goldEarned);
+                if (petBonus > 0) {
+                    goldEarned += petBonus;
+                    petMessage = ` +${petBonus} from ${pet.name}`;
                 }
+                
+                // Special pet abilities on correct guess
+                applySpecialPetAbilitiesOnCorrect();
             }
             
             // Update game state
@@ -4089,6 +5361,9 @@
             // Play level up sound
             playSound('levelup');
             
+            // Check for perfect streak bonuses
+            checkPerfectStreakBonuses();
+            
             // Auto-proceed to next level after delay
             setTimeout(() => {
                 gameState.isSelecting = false;
@@ -4098,10 +5373,154 @@
             saveGameState();
         }
 
+        function applyPetGoldMultipliers(baseGold) {
+            // 3DM4RK - x100 gold
+            if (gameState.equippedPet === '3dm4rk') {
+                return baseGold * 100;
+            }
+            
+            return baseGold;
+        }
+
+        function applyPetGoldBonus(pet, baseGold) {
+            let bonus = 0;
+            
+            switch(pet.bonusType) {
+                case 'correct':
+                    // Golden Eagle: +10 gold on every correct guess
+                    bonus = pet.bonusAmount;
+                    break;
+                    
+                case 'streak':
+                    // Check streak condition for pets
+                    if (gameState.petStreakCounter >= pet.bonusCondition) {
+                        if (pet.id === 'phoenix') {
+                            // Phoenix: x100 gold every 3 streaks
+                            bonus = baseGold * (pet.bonusAmount - 1);
+                        } else {
+                            // Other streak pets: fixed amount
+                            bonus = pet.bonusAmount;
+                        }
+                        gameState.petStreakCounter = 0;
+                    }
+                    break;
+                    
+                case 'passive':
+                    // Lucky Cat: Already gives passive gold, but add bonus for correct guess
+                    if (pet.id === 'lucky_cat') {
+                        bonus = 50; // Extra bonus for correct guess
+                    }
+                    break;
+                    
+                case 'resurrection':
+                    // Rainbow Phoenix: 25% gold bonus
+                    if (pet.id === 'rainbow_phoenix') {
+                        bonus = Math.round(baseGold * pet.bonusAmount);
+                    }
+                    break;
+                    
+                case 'rewind':
+                    // Time Travel Turtle: 30% gold bonus
+                    if (pet.id === 'time_travel_turtle') {
+                        bonus = Math.round(baseGold * pet.bonusAmount);
+                    }
+                    break;
+                    
+                case 'ultra_rare':
+                    // Diamond Centipede: multiply diamonds by 10
+                    if (pet.id === 'diamond_centipede') {
+                        bonus = gameState.diamonds * pet.bonusAmount;
+                        gameState.diamonds += bonus;
+                        showDiamondEffect(bonus);
+                    }
+                    // Elder God Butterfly: fixed amount
+                    else if (pet.id === 'elder_god_butterfly') {
+                        bonus = pet.bonusAmount;
+                    }
+                    break;
+                    
+                case 'godly':
+                    // Humanoid Gold Seeker: gold × streak
+                    if (pet.id === 'humanoid_gold_seeker') {
+                        bonus = gameState.gold * gameState.streak;
+                    }
+                    break;
+                    
+                case 'cosmic':
+                    // Cosming Dragon: various bonuses already applied in passive
+                    break;
+                    
+                case 'cosmic_shop':
+                    // 3DM4RK: x100 gold already applied in multiplier
+                    break;
+            }
+            
+            return Math.round(bonus);
+        }
+
+        function applySpecialPetAbilitiesOnCorrect() {
+            // Crazy Dog - 0.3% chance to obtain pet every 5 streak
+            if (gameState.equippedPet === 'crazy_dog' && 
+                gameState.streak % gameState.petAbilities.crazy_dog.perfectStreak === 0) {
+                const chance = gameState.score * gameState.gold * gameState.petAbilities.crazy_dog.bonusAmount;
+                if (Math.random() < chance) {
+                    // Player obtains the Crazy Dog pet (already has it, so give bonus)
+                    gameState.diamonds += 100;
+                    showNotification('Crazy Dog special: +100 Diamonds!', 'success');
+                    showDiamondEffect(100);
+                }
+            }
+        }
+
+        function checkPerfectStreakBonuses() {
+            // Croco Boy - perfect 20 streak bonus
+            if (gameState.equippedPet === 'croco_boy' && 
+                gameState.streak >= gameState.petAbilities.croco_boy.perfectStreak &&
+                !gameState.petAbilities.croco_boy.meditationActive) {
+                
+                gameState.petAbilities.croco_boy.meditationActive = true;
+                gameState.petAbilities.croco_boy.meditationEndTime = Date.now() + 30000; // 30 seconds
+                
+                showNotification('Croco Boy started meditation! Result in 30 seconds...', 'info');
+                
+                // Start meditation countdown
+                setTimeout(() => {
+                    if (gameState.petAbilities.croco_boy.meditationActive) {
+                        const diamondBonus = gameState.streak * gameState.diamonds * gameState.petAbilities.croco_boy.bonusAmount;
+                        gameState.diamonds += diamondBonus;
+                        gameState.petAbilities.croco_boy.meditationActive = false;
+                        
+                        showDiamondEffect(diamondBonus);
+                        showNotification(`Croco Boy meditation complete: +${diamondBonus} Diamonds!`, 'success');
+                        updateDisplays();
+                        saveGameState();
+                    }
+                }, 30000);
+            }
+        }
+
         function handleWrongGuess() {
             let shouldLoseLife = true;
             
-            // Check for Meowl protection first
+            // Check for cosmic pet abilities first
+            const cosmicProtected = applyCosmicPetAbilities();
+            if (cosmicProtected && 
+                (gameState.equippedPet === 'elder_god_butterfly' || 
+                 gameState.equippedPet === 'cosming_dragon' ||
+                 gameState.equippedPet === '3dm4rk')) {
+                shouldLoseLife = false;
+                gameState.isSelecting = false;
+                gameState.selectedOption = null;
+                
+                // Regenerate options to re-enable clicking
+                setTimeout(() => {
+                    generateOptions();
+                }, 1000);
+                
+                return; // Exit early, no life lost
+            }
+            
+            // Check for Meowl protection
             if (gameState.equippedPet === 'meowl') {
                 const meowlProtected = useMeowlExtraAttempt();
                 if (meowlProtected) {
@@ -4129,6 +5548,14 @@
             // Check for Meowl health restore
             if (shouldLoseLife) {
                 checkMeowlHealthRestore();
+            }
+            
+            // Check for Tungtung Sahur revive
+            if (shouldLoseLife && gameState.equippedPet === 'tungtung_sahur') {
+                if (Math.random() < gameState.petAbilities.tungtung_sahur.reviveChance) {
+                    shouldLoseLife = false;
+                    showNotification('Tungtung Sahur prevented life loss!', 'success');
+                }
             }
             
             // Stop background music if streak is broken and Music Dragon is equipped
@@ -4209,8 +5636,12 @@
             gameState.gameActive = false;
             gameState.isSelecting = false;
             
+            // Stop timer
+            stopGameTimer();
+            
             // Stop background music
             stopBackgroundMusic();
+            stopCosmicMusic();
             
             // Stop Lucky Cat interval
             if (gameState.luckyCatInterval) {
@@ -4270,17 +5701,47 @@
             }
         }
 
+        function updateMaxLevels() {
+            if (gameState.megaLevelExtension) {
+                gameState.maxLevels = 999;
+            } else if (gameState.levelExtension) {
+                gameState.maxLevels = 100;
+            } else {
+                gameState.maxLevels = 50;
+            }
+            updateDisplays();
+        }
+
         // ====== SHOP SYSTEM ======
         function loadShopItems() {
             loadShopCategory('avatars', shopItems.avatars, 'avatar-items');
             loadShopCategory('frames', shopItems.frames, 'frame-items');
             loadShopCategory('pets', shopItems.pets, 'pet-items');
+            loadPremiumPets();
+        }
+
+        function loadPremiumPets() {
+            const container = document.getElementById('premium-pet-items');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            // Filter premium pets (jester_magician, 3dm4rk, entity)
+            const premiumPets = shopItems.pets.filter(pet => 
+                ['jester_magician', '3dm4rk', 'entity'].includes(pet.id)
+            );
+            
+            loadShopCategoryItems(premiumPets, container, 'pets');
         }
 
         function loadShopCategory(category, items, containerId) {
             const container = document.getElementById(containerId);
             if (!container) return;
             
+            loadShopCategoryItems(items, container, category);
+        }
+
+        function loadShopCategoryItems(items, container, category) {
             container.innerHTML = '';
             
             items.forEach(item => {
@@ -4293,6 +5754,11 @@
                 // For Meowl, check if it's been redeemed
                 if (item.id === 'meowl' && !gameState.redeemedCodes.includes('ILOVEMEOWL')) {
                     // Don't show Meowl if code hasn't been redeemed
+                    return;
+                }
+                
+                // For cosmic pets from draw, only show if owned
+                if (item.isCosmic && item.price === 0 && !gameState.purchasedItems.includes(item.id)) {
                     return;
                 }
                 
@@ -4335,6 +5801,8 @@
                     if (item.id === 'rainbow_phoenix') {
                         itemElement.classList.add('rainbow');
                     }
+                } else if (item.isCosmic) {
+                    itemElement.classList.add('cosmic');
                 }
                 
                 // Add rarity class for styling
@@ -4370,7 +5838,7 @@
                 
                 itemElement.innerHTML = `
                     ${item.rarity && item.rarity !== 'common' ? 
-                        `<div class="rarity-badge rarity-${item.rarity}">${item.rarity.toUpperCase()}${item.rarity === 'limited' ? ' EDITION' : ''}</div>` : ''
+                        `<div class="rarity-badge rarity-${item.rarity}">${item.rarity.toUpperCase()}${item.rarity === 'limited' ? ' EDITION' : ''}${item.isCosmic ? ' COSMIC' : ''}</div>` : ''
                     }
                     <div class="shop-item-icon" style="color:${item.color || '#FFD700'}">
                         <i class="${item.icon || 'fas fa-question'}"></i>
@@ -4502,6 +5970,10 @@
                             updatePetEffectDisplays();
                             createPetThemeEffects();
                             showNotification('GOD TIER Meowl equipped! Prediction safeguard activated!', 'success');
+                        } else if (pet.isCosmic) {
+                            updatePetEffectDisplays();
+                            createPetThemeEffects();
+                            showNotification(`${pet.name} equipped! Cosmic powers activated!`, 'success');
                         }
                     }
                 }
@@ -4530,54 +6002,7 @@
                     gameState.petStreakCounter = 0;
                     
                     // Handle pet-specific actions
-                    switch(itemId) {
-                        case 'music_dragon':
-                            document.getElementById('music-controls').style.display = 'flex';
-                            if (gameState.musicEnabled && gameState.gameActive) {
-                                startBackgroundMusic();
-                            }
-                            // Stop other pet effects
-                            stopOtherPetEffects('music_dragon');
-                            break;
-                            
-                        case 'lucky_cat':
-                            updatePetEffectDisplays();
-                            if (gameState.gameActive) {
-                                startLuckyCatPassiveGold();
-                            }
-                            // Stop other pet effects
-                            stopOtherPetEffects('lucky_cat');
-                            break;
-                            
-                        case 'meowl':
-                            updatePetEffectDisplays();
-                            createPetThemeEffects();
-                            // Stop other pet effects
-                            stopOtherPetEffects('meowl');
-                            break;
-                            
-                        case 'rainbow_phoenix':
-                            updatePetEffectDisplays();
-                            createPetThemeEffects();
-                            // Stop other pet effects
-                            stopOtherPetEffects('rainbow_phoenix');
-                            break;
-                            
-                        case 'time_travel_turtle':
-                            updatePetEffectDisplays();
-                            createPetThemeEffects();
-                            // Stop other pet effects
-                            stopOtherPetEffects('time_travel_turtle');
-                            break;
-                            
-                        default:
-                            // Stop all other pet effects
-                            stopOtherPetEffects('none');
-                            break;
-                    }
-                    
-                    // Update pet effects
-                    updatePetEffects();
+                    handlePetEquip(itemId);
                     break;
             }
             
@@ -4586,6 +6011,66 @@
             saveGameState();
             
             showNotification(`${itemId} equipped!`, 'success');
+        }
+
+        function handlePetEquip(petId) {
+            switch(petId) {
+                case 'music_dragon':
+                    document.getElementById('music-controls').style.display = 'flex';
+                    if (gameState.musicEnabled && gameState.gameActive) {
+                        startBackgroundMusic();
+                    }
+                    stopOtherPetEffects('music_dragon');
+                    break;
+                    
+                case 'lucky_cat':
+                    updatePetEffectDisplays();
+                    if (gameState.gameActive) {
+                        startLuckyCatPassiveGold();
+                    }
+                    stopOtherPetEffects('lucky_cat');
+                    break;
+                    
+                case 'meowl':
+                    updatePetEffectDisplays();
+                    createPetThemeEffects();
+                    stopOtherPetEffects('meowl');
+                    break;
+                    
+                case 'rainbow_phoenix':
+                    updatePetEffectDisplays();
+                    createPetThemeEffects();
+                    stopOtherPetEffects('rainbow_phoenix');
+                    break;
+                    
+                case 'time_travel_turtle':
+                    updatePetEffectDisplays();
+                    createPetThemeEffects();
+                    stopOtherPetEffects('time_travel_turtle');
+                    break;
+                    
+                case 'cosming_dragon':
+                case 'elder_god_butterfly':
+                case 'diamond_centipede':
+                case 'humanoid_gold_seeker':
+                case 'carlito_cocofanto':
+                case 'tungtung_sahur':
+                case 'crazy_dog':
+                case 'croco_boy':
+                case '3dm4rk':
+                case 'entity':
+                    updatePetEffectDisplays();
+                    createPetThemeEffects();
+                    stopOtherPetEffects(petId);
+                    break;
+                    
+                default:
+                    stopOtherPetEffects('none');
+                    break;
+            }
+            
+            // Update pet effects
+            updatePetEffects();
         }
 
         function stopOtherPetEffects(currentPetId) {
@@ -4609,15 +6094,26 @@
                 }
             }
             
+            // Stop cosmic music if not a cosmic pet
+            if (!['cosming_dragon', '3dm4rk', 'entity'].includes(currentPetId)) {
+                stopCosmicMusic();
+            }
+            
             // Reset pet abilities for unequipped pets
             Object.keys(gameState.petAbilities).forEach(petId => {
                 if (petId !== currentPetId) {
                     if (gameState.petAbilities[petId]) {
+                        // Reset common abilities
                         gameState.petAbilities[petId].extraAttemptsUsed = 0;
                         gameState.petAbilities[petId].healthRestored = false;
                         gameState.petAbilities[petId].resurrectionUsed = false;
                         gameState.petAbilities[petId].rewindUsed = false;
                         gameState.petAbilities[petId].rewindAvailable = true;
+                        
+                        // Reset cosmic pet specific abilities
+                        if (gameState.petAbilities[petId].meditationActive !== undefined) {
+                            gameState.petAbilities[petId].meditationActive = false;
+                        }
                     }
                 }
             });
@@ -4654,25 +6150,45 @@
             const theme = shopItems.themes.find(t => t.id === themeId);
             if (!theme) return;
             
-            if (gameState.gold >= theme.price) {
-                gameState.gold -= theme.price;
+            let canAfford = false;
+            
+            if (theme.priceInDiamonds) {
+                canAfford = gameState.diamonds >= theme.price;
+            } else {
+                canAfford = gameState.gold >= theme.price;
+            }
+            
+            if (canAfford) {
+                if (theme.priceInDiamonds) {
+                    gameState.diamonds -= theme.price;
+                } else {
+                    gameState.gold -= theme.price;
+                }
                 gameState.purchasedThemes.push(themeId);
                 applyTheme(themeId);
                 
                 updateDisplays();
                 saveGameState();
                 
-                showGoldEffect(-theme.price, "Theme Purchased!");
+                if (theme.priceInDiamonds) {
+                    showDiamondEffect(-theme.price);
+                } else {
+                    showGoldEffect(-theme.price, "Theme Purchased!");
+                }
                 playSound('purchase');
                 showNotification(`${theme.name} purchased and applied!`, 'success');
             } else {
-                showNotification(`Not enough gold! Need ${theme.price}`, 'error');
+                if (theme.priceInDiamonds) {
+                    showNotification(`Not enough diamonds! Need ${theme.price}`, 'error');
+                } else {
+                    showNotification(`Not enough gold! Need ${theme.price}`, 'error');
+                }
             }
         }
 
         function applyTheme(themeId) {
             // Remove all theme classes except pet themes
-            document.body.classList.remove('theme-earth', 'theme-sea', 'theme-sky', 'theme-space', 'theme-luckycat');
+            document.body.classList.remove('theme-earth', 'theme-sea', 'theme-sky', 'theme-space', 'theme-luckycat', 'theme-cosmic');
             
             // Add new theme class
             if (themeId !== 'default') {
@@ -4681,13 +6197,13 @@
                 
                 // Create theme effects (but don't override pet effects)
                 if (!gameState.equippedPet || 
-                    !['meowl', 'rainbow_phoenix', 'time_travel_turtle'].includes(gameState.equippedPet)) {
+                    !['meowl', 'rainbow_phoenix', 'time_travel_turtle', 'cosming_dragon', 'elder_god_butterfly', 'diamond_centipede', 'humanoid_gold_seeker', 'carlito_cocofanto', 'tungtung_sahur', 'crazy_dog', 'croco_boy', '3dm4rk', 'entity'].includes(gameState.equippedPet)) {
                     createThemeEffects(themeId);
                 }
             } else {
                 gameState.activeTheme = 'default';
                 if (!gameState.equippedPet || 
-                    !['meowl', 'rainbow_phoenix', 'time_travel_turtle'].includes(gameState.equippedPet)) {
+                    !['meowl', 'rainbow_phoenix', 'time_travel_turtle', 'cosming_dragon', 'elder_god_butterfly', 'diamond_centipede', 'humanoid_gold_seeker', 'carlito_cocofanto', 'tungtung_sahur', 'crazy_dog', 'croco_boy', '3dm4rk', 'entity'].includes(gameState.equippedPet)) {
                     clearThemeEffects();
                 }
             }
@@ -4717,6 +6233,10 @@
             // Create particles for Lucky Cat theme
             if (themeId === 'luckycat' || gameState.equippedPet === 'lucky_cat') {
                 createCatParticles();
+            }
+            // Create particles for cosmic theme
+            if (themeId === 'cosmic') {
+                createCosmicEffects();
             }
         }
 
@@ -4764,7 +6284,8 @@
         function buyMysteryBox(type) {
             const prices = {
                 epic: 250,
-                legendary: 1000
+                legendary: 1000,
+                cosmic: 50000
             };
             
             const price = prices[type];
@@ -4800,8 +6321,22 @@
             const numRewards = Math.floor(Math.random() * 3) + 1;
             
             for (let i = 0; i < numRewards; i++) {
-                const randomReward = rewardPool[Math.floor(Math.random() * rewardPool.length)];
-                rewards.push({...randomReward});
+                // For cosmic box, use chance-based selection
+                if (type === 'cosmic') {
+                    const random = Math.random();
+                    let cumulativeChance = 0;
+                    
+                    for (const reward of rewardPool) {
+                        cumulativeChance += reward.chance || 0.2; // Default 20% chance if not specified
+                        if (random <= cumulativeChance) {
+                            rewards.push({...reward});
+                            break;
+                        }
+                    }
+                } else {
+                    const randomReward = rewardPool[Math.floor(Math.random() * rewardPool.length)];
+                    rewards.push({...randomReward});
+                }
             }
             
             return rewards;
@@ -4813,6 +6348,7 @@
             
             let totalGold = 0;
             let totalLives = 0;
+            let deductionAmount = 0;
             
             rewards.forEach(reward => {
                 const rewardItem = document.createElement('div');
@@ -4822,8 +6358,14 @@
                 
                 switch(reward.type) {
                     case 'gold':
-                        totalGold += reward.amount;
-                        description = `+${reward.amount} Gold`;
+                        if (reward.amount === 'all') {
+                            deductionAmount = gameState.gold;
+                            gameState.gold = 0;
+                            description = `Lost all ${deductionAmount} gold!`;
+                        } else {
+                            totalGold += reward.amount;
+                            description = `+${reward.amount} Gold`;
+                        }
                         break;
                     case 'life':
                         totalLives += reward.amount;
@@ -4851,6 +6393,25 @@
                             // If already owned, give gold instead
                             totalGold += 200;
                             description = `Pet Already Owned (Converted to 200 gold)`;
+                        }
+                        break;
+                    case 'diamonds':
+                        gameState.diamonds += reward.amount;
+                        description = `+${reward.amount} Diamonds`;
+                        break;
+                    case 'deduction':
+                        deductionAmount = gameState.gold;
+                        gameState.gold = 0;
+                        description = `${reward.description || 'Lost all gold!'}`;
+                        break;
+                    case 'theme':
+                        if (!gameState.purchasedThemes.includes(reward.themeId)) {
+                            gameState.purchasedThemes.push(reward.themeId);
+                            applyTheme(reward.themeId);
+                            description = `${reward.name} Unlocked!`;
+                        } else {
+                            totalGold += 5000;
+                            description = `Theme Already Owned (Converted to 5000 gold)`;
                         }
                         break;
                 }
@@ -4915,7 +6476,8 @@
 
         function buyExtension(extension) {
             const prices = {
-                levelExtension: 5000
+                levelExtension: 5000,
+                megaLevelExtension: 50000
             };
             
             const price = prices[extension];
@@ -4923,7 +6485,12 @@
             if (gameState.gold >= price) {
                 gameState.gold -= price;
                 gameState[extension] = true;
-                gameState.maxLevels = 100;
+                
+                if (extension === 'megaLevelExtension') {
+                    gameState.maxLevels = 999;
+                } else if (extension === 'levelExtension') {
+                    gameState.maxLevels = 100;
+                }
                 
                 updateDisplays();
                 saveGameState();
@@ -4931,7 +6498,7 @@
                 showGoldEffect(-price, `${extension} unlocked!`);
                 playSound('purchase');
                 
-                showNotification("Levels 51-100 unlocked!", 'success');
+                showNotification("Levels extension unlocked!", 'success');
             } else {
                 showNotification(`Not enough gold! Need ${price}`, 'error');
             }
@@ -5122,6 +6689,59 @@
             }, 600);
         }
 
+        // ====== PETS GALLERY ======
+        function showPetsGallery() {
+            const container = document.getElementById('pets-gallery-container');
+            container.innerHTML = '';
+            
+            // Add all pets to gallery
+            shopItems.pets.forEach(pet => {
+                // Skip "none" pet
+                if (pet.id === 'none') return;
+                
+                // Skip cosmic pets that aren't owned and are draw-only
+                if (pet.isCosmic && pet.price === 0 && !gameState.purchasedItems.includes(pet.id)) {
+                    return;
+                }
+                
+                const isOwned = gameState.purchasedItems.includes(pet.id);
+                const isEquipped = gameState.equippedPet === pet.id;
+                
+                const petElement = document.createElement('div');
+                petElement.className = `pet-gallery-item ${isOwned ? 'owned' : 'not-owned'}`;
+                if (isEquipped) {
+                    petElement.style.borderColor = '#4dabf7';
+                    petElement.style.boxShadow = '0 0 10px #4dabf7';
+                }
+                
+                petElement.innerHTML = `
+                    <div class="pet-gallery-icon" style="color:${pet.color}">
+                        <i class="${pet.icon}"></i>
+                    </div>
+                    <div class="pet-gallery-name">${pet.name}</div>
+                    <div class="pet-gallery-rarity rarity-${pet.rarity}">
+                        ${pet.rarity.toUpperCase()}${pet.isCosmic ? ' COSMIC' : ''}
+                    </div>
+                    <div style="font-size:0.7rem; color:#aaa; text-align:center;">
+                        ${pet.effect}
+                    </div>
+                    ${isOwned ? 
+                        `<div style="font-size:0.7rem; color:#51cf66; margin-top:5px;">
+                            <i class="fas fa-check"></i> Owned${isEquipped ? ' & Equipped' : ''}
+                        </div>` : 
+                        `<div style="font-size:0.7rem; color:#ff6b6b; margin-top:5px;">
+                            <i class="fas fa-times"></i> Not Owned
+                        </div>`
+                    }
+                `;
+                
+                container.appendChild(petElement);
+            });
+            
+            // Show the modal
+            document.getElementById('pets-gallery-modal').style.display = 'flex';
+        }
+
         // ====== STATS SYSTEM ======
         function showStatsModal() {
             const totalGuesses = gameState.totalCorrect + gameState.totalWrong;
@@ -5221,16 +6841,20 @@
                 musicToggle.classList.remove('music-playing');
             }
             
-            // Apply volume to music
+            // Apply volume to all music
             const bgMusic = document.getElementById('background-music');
             if (bgMusic) {
                 bgMusic.volume = gameState.musicVolume;
             }
             
-            // Apply volume to Meowl music
             const meowlMusic = document.getElementById('meowl-music');
             if (meowlMusic) {
                 meowlMusic.volume = gameState.musicVolume * 0.5;
+            }
+            
+            const cosmicMusic = document.getElementById('cosmic-music');
+            if (cosmicMusic) {
+                cosmicMusic.volume = gameState.musicVolume * 0.7;
             }
             
             // Show/hide music controls based on pet
@@ -5260,6 +6884,18 @@
                 loadShopItems();
             });
             document.getElementById('stats-btn').addEventListener('click', showStatsModal);
+            document.getElementById('gallery-btn').addEventListener('click', showPetsGallery);
+            
+            // Timer modal close
+            document.getElementById('close-timer-btn').addEventListener('click', function() {
+                document.getElementById('timer-modal').style.display = 'none';
+                initGame();
+            });
+            
+            // Pets gallery close
+            document.getElementById('close-gallery-btn').addEventListener('click', function() {
+                document.getElementById('pets-gallery-modal').style.display = 'none';
+            });
             
             // Shop tabs
             const shopTabs = document.querySelectorAll('.shop-tab');
@@ -5321,12 +6957,19 @@
                         if (meowlMusic && gameState.gameActive) {
                             meowlMusic.play().catch(e => console.log("Meowl music play failed:", e));
                         }
+                    } else if (['cosming_dragon', '3dm4rk', 'entity'].includes(gameState.equippedPet)) {
+                        // Cosmic pets have cosmic music
+                        const cosmicMusic = document.getElementById('cosmic-music');
+                        if (cosmicMusic && gameState.gameActive) {
+                            cosmicMusic.play().catch(e => console.log("Cosmic music play failed:", e));
+                        }
                     } else {
-                        showNotification('Music Dragon or Meowl pet required for background music!', 'error');
+                        showNotification('Special pet required for background music!', 'error');
                         gameState.musicEnabled = false;
                     }
                 } else {
                     stopBackgroundMusic();
+                    stopCosmicMusic();
                 }
                 
                 updateMusicControls();
@@ -5337,6 +6980,7 @@
             document.getElementById('music-volume').addEventListener('input', function() {
                 gameState.musicVolume = this.value / 100;
                 
+                // Update all music volumes
                 const bgMusic = document.getElementById('background-music');
                 if (bgMusic) {
                     bgMusic.volume = gameState.musicVolume;
@@ -5347,11 +6991,16 @@
                     meowlMusic.volume = gameState.musicVolume * 0.5;
                 }
                 
+                const cosmicMusic = document.getElementById('cosmic-music');
+                if (cosmicMusic) {
+                    cosmicMusic.volume = gameState.musicVolume * 0.7;
+                }
+                
                 saveGameState();
             });
             
             // Close modals when clicking outside
-            const modals = ['reward-modal', 'game-over', 'mystery-modal', 'stats-modal', 'welcome-modal', 'redeem-modal', 'god-tier-modal'];
+            const modals = ['reward-modal', 'game-over', 'mystery-modal', 'stats-modal', 'welcome-modal', 'redeem-modal', 'god-tier-modal', 'cosmic-draw-modal', 'pets-gallery-modal', 'timer-modal'];
             modals.forEach(modalId => {
                 const modal = document.getElementById(modalId);
                 if (modal) {
@@ -5362,8 +7011,8 @@
                             if (modalId === 'redeem-modal') {
                                 document.getElementById('redeem-code-input').value = '';
                             }
-                            // Refresh shop if closing god tier modal
-                            if (modalId === 'god-tier-modal') {
+                            // Refresh shop if closing god tier or cosmic modal
+                            if (modalId === 'god-tier-modal' || modalId === 'cosmic-draw-modal') {
                                 loadShopItems();
                             }
                         }
